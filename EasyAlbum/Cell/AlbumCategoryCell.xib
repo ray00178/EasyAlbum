@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AlbumCategoryCell" customModule="EasyAlbum" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G5v-B0-rWj">
+                        <rect key="frame" x="22.5" y="10" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="5QL-Ae-oWj"/>
+                            <constraint firstAttribute="height" constant="50" id="pBD-6c-zYL"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VL-Id-FOi">
+                        <rect key="frame" x="10" y="65" width="75" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="x7U-ZA-ykR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                        <color key="textColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOm-Pr-JjT" customClass="AlbumSelectedButton" customModule="EasyAlbum" customModuleProvider="target">
+                        <rect key="frame" x="22.5" y="10" width="50" height="50"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="strokeWidth">
+                                <real key="value" value="2.5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="EOm-Pr-JjT" firstAttribute="top" secondItem="G5v-B0-rWj" secondAttribute="top" id="7s7-uh-7mC"/>
+                <constraint firstItem="2VL-Id-FOi" firstAttribute="top" secondItem="G5v-B0-rWj" secondAttribute="bottom" constant="5" id="CBB-v2-3rv"/>
+                <constraint firstItem="G5v-B0-rWj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="PwE-Kp-RuM"/>
+                <constraint firstItem="EOm-Pr-JjT" firstAttribute="leading" secondItem="G5v-B0-rWj" secondAttribute="leading" id="cqr-dC-8xK"/>
+                <constraint firstItem="2VL-Id-FOi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="dnS-e5-JPz"/>
+                <constraint firstItem="G5v-B0-rWj" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="k9K-6L-647"/>
+                <constraint firstItem="EOm-Pr-JjT" firstAttribute="trailing" secondItem="G5v-B0-rWj" secondAttribute="trailing" id="kTD-tq-EBn"/>
+                <constraint firstItem="EOm-Pr-JjT" firstAttribute="bottom" secondItem="G5v-B0-rWj" secondAttribute="bottom" id="lls-7R-TnP"/>
+                <constraint firstAttribute="trailing" secondItem="2VL-Id-FOi" secondAttribute="trailing" constant="10" id="nZI-lr-qUa"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="mCategoryLab" destination="2VL-Id-FOi" id="Bn2-PM-c1s"/>
+                <outlet property="mImgView" destination="G5v-B0-rWj" id="rOq-Oi-Zka"/>
+                <outlet property="mSelectedBtn" destination="EOm-Pr-JjT" id="i2W-zg-Jdc"/>
+            </connections>
+            <point key="canvasLocation" x="136.80000000000001" y="152.47376311844079"/>
+        </collectionViewCell>
+    </objects>
+</document>

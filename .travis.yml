@@ -1,0 +1,21 @@
+language:
+  - swift
+osx_image: xcode10.2
+env:
+  matrix:
+    - TEST_SDK=iphonesimulator12.2 OS=12.2 NAME='iPhone Xs'
+    - TEST_SDK=iphonesimulator12.2 OS=12.2 NAME='iPhone 8 Plus'
+branches:
+  only:
+  - master
+script:
+  - xcodebuild -project EasyAlbum.xcodeproj -scheme EasyAlbum -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
+after_success:
+  #- bash <(curl -s https://codecov.io/bash)
+notifications:
+  email:
+    recipients:
+      - ray00178@gmail.com
+      - brave2risks@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
