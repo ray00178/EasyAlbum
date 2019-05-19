@@ -47,6 +47,7 @@ For more information about how to use CocoaPods, I suggest this [tutorial](https
 
 ## Usage
 ##### 1.Open ur Info.plist and add the following permissions. 
+![](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-permission.png)
 ```xml
 <key>NSCameraUsageDescription</key>
 <string>Please allow access to your camera than take picture.</string>
