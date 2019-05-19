@@ -40,10 +40,10 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>請允許存取您的相機，以用來拍攝照片</string>
+	<string>Please allow access to your camera for taking photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>請允許存取您的相簿，以用來選擇照片、上傳附件照片、大頭照</string>
+	<string>Please allow access to your photo album to select photos</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>請允許存取您的相簿，以用來儲存圖片</string>
+	<string>Please allow access to your album to save images</string>
 </dict>
 </plist>

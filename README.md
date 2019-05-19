@@ -2,22 +2,23 @@
   <img src="https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-logo.png" alt="EasyAlbum" width="450" height="450" />
 </p>
 
-[![Build Status](https://travis-ci.org/ray00178/EasyAlbum.svg?branch=master)](https://travis-ci.org/ray00178/EasyAlbum) ![Version](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-version.svg) ![License](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-license.svg)
+[![Build Status](https://travis-ci.org/ray00178/EasyAlbum.svg?branch=master)](https://travis-ci.org/ray00178/EasyAlbum) ![Cocoapods platforms](https://img.shields.io/cocoapods/p/EasyAlbum.svg) ![Cocoapods version](https://img.shields.io/cocoapods/v/EasyAlbum.svg) ![Cocoapods license](https://img.shields.io/cocoapods/l/EasyAlbum.svg) ![Language](https://img.shields.io/badge/language-swift-orange.svg) ![GitHub stars](https://img.shields.io/github/stars/ray00178/EasyAlbum.svg?style=social)
 
 ## Features
-- [X] Support Single choice、Multiple choice、Preview、Folder switch and pick up photo.
-- [X] In preview photo, ur can zoom photo.
-- [X] According to your project color, Setting ur pick color、navigationbar tint color、navigationbar bar tint color.
-- [X] According to your preferences / needs, Show the number of fields and select the number of restrictions.
-- [X] Perfect support for iphone X、Xs、Xs Max
-- [X] Supprot language Chinese Traditional、Chinese Simplified、English
+- Support Single choice、Multiple choice、Preview、Folder switch and pick up photo.
+- In preview photo, ur can zoom photo.
+- According to your project color, Setting ur pick color、navigationbar tint color、navigationbar bar tint color.
+- According to your preferences / needs, Show the number of fields and select the number of restrictions.
+- Perfect support for iphone X、Xs、Xs Max
+- Supprot language Chinese Traditional、Chinese Simplified、English
 
 ## Screenshots
 ![](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-screenshots.png)
 
 ## Requirements and Details
 * iOS 9.0+
-* Built with Swift 4.2
+* XCode 10.0+
+* Build with Swift 4.2
 
 ## Installation
 ### CocoaPods
@@ -32,14 +33,14 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-target 'MyApp' do
+target '<Your Target Name>' do
   # your other pod
   # ...
-  pod 'EasyAlbum', '~> 1.0'
+  pod 'EasyAlbum', '~> 1.0.7'
 end
 ```
 
-You should open the {Project}.xcworkspace instead of the {Project}.xcodeproj after you installed anything from CocoaPods.
+You should open the `{Project}.xcworkspace` instead of the `{Project}.xcodeproj` after you installed anything from CocoaPods.
 
 For more information about how to use CocoaPods, I suggest this [tutorial](https://www.raywenderlich.com/626-cocoapods-tutorial-for-swift-getting-started).
 
@@ -54,7 +55,7 @@ For more information about how to use CocoaPods, I suggest this [tutorial](https
 <key>NSPhotoLibraryAddUsageDescription</key>
 <string>Please allow access to your album than save photo.</string>
 ```
-##### 2.Use EasyAlbum. There are many ways to call
+##### 2.Use EasyAlbum. You can building what you want.
 ```swift
 import EasyAlbum
 
@@ -78,43 +79,56 @@ import EasyAlbum
 // Easy way
 EasyAlbum.of(appName: "Facebook").start(self, delegate: self)
 
-// Build many way
+// Use many way
 EasyAlbum.of(appName: "Facebook")
          .limit(3)
          .showGIF(false)
          .sizeFactor(.fit(width: 1125.0, height: 2436.0))
          .start(self, delegate: self) 
 ```
-##### 3.Extension EasyAlbumDelegate
+
+##### 3.EasyAlbum parameters 
+![](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-description.png)
+
+##### 4.Extension EasyAlbumDelegate
 ```swift
 func easyAlbumDidSelected(_ photos: [AlbumData]) {
+    // U can do something by selected.
     photos.forEach({ print("AlbumData 👉🏻 \($0)") })
 }
     
 func easyAlbumDidCanceled() {
-  // U can do something by cancel. 
+  // U can do something by canceled. 
 }
-
---- You can get many photo information from AlbumData. like this: ---
-    image (UIImage)           --> <UIImage: 0x600003377c60>, {1125, 752}
-    mediaType (String)        --> "image"
-    width (CGFloat)           --> 4555.0 (original width)
-    height (CGFloat)          --> 3041.0 (original height)
-    creationDate (Date?)      --> Optional(2013-11-05 11:08:39 +0000)
-    modificationDate (Date?)  --> Optional(2019-04-13 14:34:57 +0000)
-    isFavorite (Bool)         --> true
-    isHidden (Bool)           --> false
-    location (CLLocation?)    --> Optional(<+63.53140000,-19.51120000> +/- 0.00m (speed 2.05 mps / course 0.00) @ 2001/1/1 台北標準時間 上午8:00:00)
-    fileName (String?)        --> Optional("DSC_5084.jpg")
-    fileData (Data?)          --> Optional(8063276 bytes)
-    fileSize (Int)            --> 8063276 bytes
-    fileUTI (String?)         --> Optional("public.jpeg")
 ```
+##### 5.AlbumData 👉🏻You can get many photo information.
+| Attribute        | Type        | Value                                  |
+| :--------------: | :---------: | :------------------------------------: |
+| image            | UIImage     | <UIImage: 0x600003377c60>, {1125, 752} |
+| mediaType        | String      | "image"                                |
+| width            | CGFloat     | 4555.0                                 |
+| height           | CGFloat     | 3041.0                                 |
+| creationDate     | Date?       | Optional(2013-11-05 11:08:39 +0000)    |
+| modificationDate | Date?       | Optional(2019-04-13 14:34:57 +0000)    |
+| isFavorite       | Bool        | true                                   |
+| isHidden         | Bool        | false                                  |
+| location         | CLLocation? | Optional(<+63.53140000,-19.51120000>)  |
+| fileName         | String?     | Optional("DSC_5084.jpg")               |
+| fileData         | Data?       | Optional(8063276 bytes)                |
+| fileSize         | Int         | 8063276 bytes                          |
+| fileUTI          | String?     | Optional("public.jpeg")                |
 
-## TODO List
-- [ ] Supprot device rotation 
+## Communication
+- If you found a `bug`, open an issue.
+- If you have a `feature request`, open an issue.
+- If you want to `contribute`, submit a pull request.
+
+## Todo List
+- [ ] Support device rotation
+- [ ] Write in Swift 5
 
 ## License
+EasyAlbum is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
 
     MIT License
 

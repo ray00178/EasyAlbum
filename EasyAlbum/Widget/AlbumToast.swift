@@ -14,33 +14,33 @@ class AlbumToast: UIWindow {
     private var rootView: UIView!
     private var mMessageLab: UILabel!
     
-    /// 訊息字體大小，default = UIFont.systemFont(ofSize: 16.0, weight: .medium)
+    /// message font size，default = UIFont.systemFont(ofSize: 16.0, weight: .medium)
     var font: UIFont = UIFont.systemFont(ofSize: 16.0, weight: .medium) {
         didSet { mMessageLab.font = font }
     }
     
-    /// 訊息文字，default：nil
+    /// message，default：nil
     var message: String? = nil {
         didSet { mMessageLab.text = message }
     }
     
-    /// 訊息顏色，default = .white
+    /// mesage color，default = .white
     var textColor: UIColor = .white {
         didSet { mMessageLab.textColor = textColor }
     }
     
-    /// 訊息背景色，default：.black
+    /// message background color，default：.black
     var toastBackgroundColor: UIColor = .black {
         didSet { rootView.backgroundColor = toastBackgroundColor }
     }
     
-    /// 是否自動消失訊息，default：true
+    /// message auto dismiss，default：true
     var autoCancel: Bool = true
     
-    /// 動畫時間，default：0.25
+    /// animate duration，default：0.25
     private var duration: TimeInterval = 0.25
     
-    /// 訊息顯示時間，default = 2s
+    /// message show duration，default = 2s
     private var stayDuration: TimeInterval = 2
     
     private override init(frame: CGRect) {

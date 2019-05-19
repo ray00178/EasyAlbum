@@ -72,10 +72,7 @@
 		7119737C226A2F85007D97A9 /* AlbumPreviewGIFCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumPreviewGIFCell.swift; sourceTree = "<group>"; };
 		713F38122270BB0F0041431D /* AlbumToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumToast.swift; sourceTree = "<group>"; };
 		7155E6B1227992EF005355DC /* EasyAlbum-github-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EasyAlbum-github-logo.png"; sourceTree = "<group>"; };
-		7155E6B2227992EF005355DC /* EasyAlbum-license.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "EasyAlbum-license.svg"; sourceTree = "<group>"; };
 		7155E6B3227992F0005355DC /* EasyAlbum-github-screenshots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EasyAlbum-github-screenshots.png"; sourceTree = "<group>"; };
-		7155E6B4227992F0005355DC /* EasyAlbum-platform.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "EasyAlbum-platform.svg"; sourceTree = "<group>"; };
-		7155E6B5227992F0005355DC /* EasyAlbum-version.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "EasyAlbum-version.svg"; sourceTree = "<group>"; };
 		7155E6BC227998B9005355DC /* EasyAlbum.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EasyAlbum.bundle; sourceTree = "<group>"; };
 		715D37C82262324100F050CC /* AlbumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollection.swift; sourceTree = "<group>"; };
 		717C5544223FEF5600777B6A /* AlbumPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPreviewCell.swift; sourceTree = "<group>"; };
@@ -110,6 +107,8 @@
 		718A1A72226B63B900CECB7F /* ExCGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExCGSize.swift; sourceTree = "<group>"; };
 		71DC1F0C225CF5D20077F4B1 /* ExView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExView.swift; sourceTree = "<group>"; };
 		71EA9ABE226F67DF00314978 /* AlbumSelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSelectedButton.swift; sourceTree = "<group>"; };
+		71ECB2172290F6DD00C4F786 /* EasyAlbum-github-description.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EasyAlbum-github-description.png"; sourceTree = "<group>"; };
+		71ECB2182290F7B700C4F786 /* EasyAlbum-github-permission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EasyAlbum-github-permission.png"; path = "../../../../Desktop/EasyAlbum-Resource/EasyAlbum-github-permission.png"; sourceTree = "<group>"; };
 		71F762652234BA7500D54A14 /* ExString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExString.swift; sourceTree = "<group>"; };
 		71F762672234E05B00D54A14 /* AlbumDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDoneView.swift; sourceTree = "<group>"; };
 		71F762692234F2E700D54A14 /* AlbumCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCategoryView.swift; sourceTree = "<group>"; };
@@ -279,11 +278,10 @@
 		71F51DB122792EA800775F16 /* Document */ = {
 			isa = PBXGroup;
 			children = (
+				71ECB2182290F7B700C4F786 /* EasyAlbum-github-permission.png */,
+				71ECB2172290F6DD00C4F786 /* EasyAlbum-github-description.png */,
 				7155E6B1227992EF005355DC /* EasyAlbum-github-logo.png */,
 				7155E6B3227992F0005355DC /* EasyAlbum-github-screenshots.png */,
-				7155E6B2227992EF005355DC /* EasyAlbum-license.svg */,
-				7155E6B4227992F0005355DC /* EasyAlbum-platform.svg */,
-				7155E6B5227992F0005355DC /* EasyAlbum-version.svg */,
 			);
 			path = Document;
 			sourceTree = "<group>";
