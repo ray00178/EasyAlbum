@@ -78,7 +78,7 @@ class AlbumDoneView: UIView {
         
         let padding: CGFloat = 3.0
         mDoneBtn = UIButton(type: .system)
-        mDoneBtn?.setImage(UIImage.image(named: "album_done"), for: .normal)
+        mDoneBtn?.setImage(UIImage.bundle(image: "album_done"), for: .normal)
         mDoneBtn?.imageEdgeInsets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         mDoneBtn?.tintColor = textColor
         mDoneBtn?.addTarget(self, action: #selector(done(_:)), for: .touchUpInside)

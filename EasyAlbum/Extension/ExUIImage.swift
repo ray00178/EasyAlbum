@@ -11,6 +11,7 @@ import UIKit
 import ImageIO
 
 extension UIImageView {
+    
     public func loadGif(name: String) {
         DispatchQueue.global().async {
             let image = UIImage.gif(name: name)
@@ -35,23 +36,15 @@ extension UIImageView {
 }
 
 extension UIImage {
-    public class func image(named name: String) -> UIImage? {
-         let frameworkBundle = Bundle(for: EasyAlbumViewController.self)
-         let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("EasyAlbum.bundle")
-         let resourceBundle = Bundle(url: bundleURL!)
-         guard let image = UIImage(named: name, in: resourceBundle, compatibleWith: nil) else {
-            return nil
-         }
-         return image
-     }
     
-    /*public class func image(named name: String) -> UIImage? {
-        guard let image = UIImage(named: name, in: Bundle(for: EasyAlbumViewController.self),
-                                  compatibleWith: nil) else {
-            return nil
-        }
+    public class func bundle(image name: String) -> UIImage? {
+        let frameworkBundle = Bundle(for: EasyAlbumViewController.self)
+        let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("EasyAlbum.bundle")
+        guard let url = bundleURL else { return nil }
+        let resourceBundle = Bundle(url: url)
+        guard let image = UIImage(named: name, in: resourceBundle, compatibleWith: nil) else { return nil }
         return image
-    }*/
+     }
     
     public class func gif(data: Data) -> UIImage? {
         // Create source from data
@@ -81,15 +74,12 @@ extension UIImage {
     
     public class func gif(name: String) -> UIImage? {
         // Check for existance of gif
-        guard let bundleURL = Bundle.main
-            .url(forResource: name, withExtension: "gif") else {
-                //print("SwiftGif: This image named \"\(name)\" does not exist")
+        guard let bundleURL = Bundle.main.url(forResource: name, withExtension: "gif") else {
                 return nil
         }
         
         // Validate data
         guard let imageData = try? Data(contentsOf: bundleURL) else {
-            //print("SwiftGif: Cannot turn image named \"\(name)\" into NSData")
             return nil
         }
         
@@ -99,10 +89,7 @@ extension UIImage {
     @available(iOS 9.0, *)
     public class func gif(asset: String) -> UIImage? {
         // Create source from assets catalog
-        guard let dataAsset = NSDataAsset(name: asset) else {
-            //print("SwiftGif: Cannot turn image named \"\(asset)\" into NSDataAsset")
-            return nil
-        }
+        guard let dataAsset = NSDataAsset(name: asset) else { return nil }
         
         return gif(data: dataAsset.data)
     }
@@ -130,7 +117,8 @@ extension UIImage {
             to: AnyObject.self)
         if delayObject.doubleValue == 0 {
             delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
-                                                             Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
+                                                             Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()),
+                                        to: AnyObject.self)
         }
         
         if let delayObject = delayObject as? Double, delayObject > 0 {
@@ -204,8 +192,7 @@ extension UIImage {
             }
             
             // At it's delay in cs
-            let delaySeconds = UIImage.delayForImageAtIndex(Int(i),
-                                                            source: source)
+            let delaySeconds = UIImage.delayForImageAtIndex(Int(i), source: source)
             delays.append(Int(delaySeconds * 1000.0)) // Seconds to ms
         }
         
@@ -230,14 +217,13 @@ extension UIImage {
             frame = UIImage(cgImage: images[Int(i)])
             frameCount = Int(delays[Int(i)] / gcd)
             
-            for _ in 0..<frameCount {
+            for _ in 0 ..< frameCount {
                 frames.append(frame)
             }
         }
         
         // Heyhey
-        let animation = UIImage.animatedImage(with: frames,
-                                              duration: Double(duration) / 1000.0)
+        let animation = UIImage.animatedImage(with: frames, duration: Double(duration) / 1000.0)
         
         return animation
     }

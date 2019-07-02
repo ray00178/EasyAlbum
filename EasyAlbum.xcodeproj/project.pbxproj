@@ -75,6 +75,7 @@
 		7155E6B3227992F0005355DC /* EasyAlbum-github-screenshots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EasyAlbum-github-screenshots.png"; sourceTree = "<group>"; };
 		7155E6BC227998B9005355DC /* EasyAlbum.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EasyAlbum.bundle; sourceTree = "<group>"; };
 		715D37C82262324100F050CC /* AlbumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollection.swift; sourceTree = "<group>"; };
+		7161614E22CBA256008A4EA1 /* EasyAlbum.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EasyAlbum.framework; path = ../../../Desktop/EasyAlbum.framework; sourceTree = "<group>"; };
 		717C5544223FEF5600777B6A /* AlbumPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPreviewCell.swift; sourceTree = "<group>"; };
 		717FFFA1222B7F9700F2943A /* EasyAlbum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyAlbum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		717FFFA4222B7F9700F2943A /* EasyAlbum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyAlbum.h; sourceTree = "<group>"; };
@@ -152,6 +153,14 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		7161614D22CBA256008A4EA1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7161614E22CBA256008A4EA1 /* EasyAlbum.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		717FFF97222B7F9700F2943A = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +169,7 @@
 				717FFFDE222B989E00F2943A /* EasyAlbumDemo */,
 				71F51DB122792EA800775F16 /* Document */,
 				717FFFA2222B7F9700F2943A /* Products */,
+				7161614D22CBA256008A4EA1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -586,6 +596,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -644,6 +655,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -672,7 +684,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -698,7 +710,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.break2risks.EasyAlbum;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -708,7 +720,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = EasyAlbumTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -719,7 +731,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.break2risks.EasyAlbumTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -729,7 +741,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = EasyAlbumTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -740,7 +752,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.break2risks.EasyAlbumTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -755,6 +767,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/EasyAlbum",
 				);
 				INFOPLIST_FILE = EasyAlbumDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -765,7 +778,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.break2risks.EasyAlbumDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -780,6 +793,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/EasyAlbum",
 				);
 				INFOPLIST_FILE = EasyAlbumDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -790,7 +804,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.break2risks.EasyAlbumDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

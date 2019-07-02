@@ -95,7 +95,7 @@ public enum EasyAlbumSizeFactor {
     case scale(width: CGFloat, height: CGFloat)
 }
 
-/// 是否從EasyAlbum拍照，default：false
+/// Is from `EasyAlbumViewController` take photo，default：false
 var isFromEasyAlbumCamera: Bool = false
 
 /// Language Traditional：zh-Hant
@@ -115,6 +115,7 @@ private let LANG_EN: String = "en"
 
 /// Region：US
 private let REGION_US: String = "US"
+
 /// 對應區域設定語系文字
 /// ```
 /// Region   👉🏻 US：美國、TW：台灣、CN：中國大陸

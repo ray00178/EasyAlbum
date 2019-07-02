@@ -137,7 +137,7 @@ class EasyAlbumPreviewViewController: UIViewController {
         view.addSubview(mBackBtn)
         view.addSubview(mNumberBtn)
         
-        mBackBtn.setImage(UIImage.image(named: "album_back"), for: .normal)
+        mBackBtn.setImage(UIImage.bundle(image: "album_back"), for: .normal)
         mBackBtn.tintColor = .white
         mBackBtn.addTarget(self, action: #selector(back(_:)), for: .touchUpInside)
         mBackBtn.useAutoLayout = false
@@ -167,7 +167,7 @@ class EasyAlbumPreviewViewController: UIViewController {
         btnWH = 50.0
         let padding: CGFloat = 14.0
         mSendBtn = UIButton(type: .custom)
-        mSendBtn.setImage(UIImage.image(named: "album_done"), for: .normal)
+        mSendBtn.setImage(UIImage.bundle(image: "album_done"), for: .normal)
         mSendBtn.imageEdgeInsets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         mSendBtn.backgroundColor = .white
         mSendBtn.layer.cornerRadius = btnWH / 2

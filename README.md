@@ -18,7 +18,7 @@
 ## Requirements and Details
 * iOS 9.0+
 * XCode 10.0+
-* Build with Swift 4.2
+* Build with Swift 5.0
 
 ## Installation
 ### CocoaPods
@@ -34,9 +34,11 @@ platform :ios, '9.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-  # your other pod
-  # ...
+  # Use swift 4.2
   pod 'EasyAlbum', '~> 1.0.7'
+
+  # Use swift 5.0
+  pod 'EasyAlbum', '~> 2.0.0'
 end
 ```
 
@@ -103,21 +105,21 @@ func easyAlbumDidCanceled() {
 }
 ```
 ##### 5.AlbumData 👉🏻You can get many photo information.
-| Attribute        | Type        | Value                                  |
-| :--------------: | :---------: | :------------------------------------: |
-| image            | UIImage     | <UIImage: 0x600003377c60>, {1125, 752} |
-| mediaType        | String      | "image"                                |
-| width            | CGFloat     | 4555.0                                 |
-| height           | CGFloat     | 3041.0                                 |
-| creationDate     | Date?       | Optional(2013-11-05 11:08:39 +0000)    |
-| modificationDate | Date?       | Optional(2019-04-13 14:34:57 +0000)    |
-| isFavorite       | Bool        | true                                   |
-| isHidden         | Bool        | false                                  |
-| location         | CLLocation? | Optional(<+63.53140000,-19.51120000>)  |
-| fileName         | String?     | Optional("DSC_5084.jpg")               |
-| fileData         | Data?       | Optional(8063276 bytes)                |
-| fileSize         | Int         | 8063276 bytes                          |
-| fileUTI          | String?     | Optional("public.jpeg")                |
+| Attribute        | Type        | Value                                  | Note          |   
+| :--------------: | :---------: | :------------------------------------: | :-----------: |
+| image            | UIImage     | <UIImage: 0x600003377c60>, {1125, 752} |               |
+| mediaType        | String      | "image"                                |               |
+| width            | CGFloat     | 4555.0                                 | Origin Width  |
+| height           | CGFloat     | 3041.0                                 | Origin Height |
+| creationDate     | Date?       | Optional(2013-11-05 11:08:39 +0000)    |               |
+| modificationDate | Date?       | Optional(2019-04-13 14:34:57 +0000)    |               |
+| isFavorite       | Bool        | true                                   |               |
+| isHidden         | Bool        | false                                  |               |
+| location         | CLLocation? | Optional(<+63.53140000,-19.51120000>)  |               |
+| fileName         | String?     | Optional("DSC_5084.jpg")               |               |
+| fileData         | Data?       | Optional(8063276 bytes)                |               |
+| fileSize         | Int         | 8063276 bytes                          |               |
+| fileUTI          | String?     | Optional("public.jpeg")                |               |
 
 ## Communication
 - If you found a `bug`, open an issue.
@@ -125,8 +127,8 @@ func easyAlbumDidCanceled() {
 - If you want to `contribute`, submit a pull request.
 
 ## Todo List
+- [X] Write in Swift 5
 - [ ] Support device rotation
-- [ ] Write in Swift 5
 
 ## License
 EasyAlbum is available under the MIT license. See the [LICENSE](LICENSE) file for more info.

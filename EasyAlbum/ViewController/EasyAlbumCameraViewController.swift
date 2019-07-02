@@ -40,8 +40,7 @@ class EasyAlbumCameraViewController: UIImagePickerController {
         picker.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func handleSavePhoto(_ image: UIImage, didFinishSavingWithError error: NSError?,
-                                       contextInfo: UnsafeRawPointer) {
+    @objc private func handleSavePhoto(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
         // donothing
     }
 }

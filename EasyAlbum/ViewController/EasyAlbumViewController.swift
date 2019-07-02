@@ -29,23 +29,21 @@ class EasyAlbumViewController: UIViewController {
     
     weak var delegate: EasyAlbumDelegate?
     
-    /// 圖片管理對象
     private var photoManager: PhotoManager = PhotoManager.share
-    /// 緩存圖片對象
+    /// Cache image object
     private var mImgCache: NSCache<AnyObject, UIImage>?
-    //private var mImgCache: NSCache<NSIndexPath, UIImage>?
     
-    /// 相簿資料夾
+    /// Album folders
     private var mAlbumFolders: [AlbumFolder] = []
-    /// 照片(PHAsset)
+    /// Photo(PHAsset)
     private var mAlbumPhotos: [AlbumPhoto] = []
-    /// 紀錄已點選的照片
+    /// Save selected photo
     private var mMarkPhotos: [AlbumPhoto] = []
     
-    /// 是否第一次載入讀取，default：true
+    /// Is first loading，default：true
     private var isFirstLoad: Bool = true
     
-    /// 相簿分類的index
+    /// Album category type index
     private var categoryIndex: Int = 0
     
     private let font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
@@ -81,7 +79,7 @@ class EasyAlbumViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        photoManager.clear()
+        photoManager.stopAllCachingImages()
         mImgCache?.removeAllObjects()
     }
     
@@ -98,9 +96,9 @@ class EasyAlbumViewController: UIViewController {
         mTitleBtn.titleLabel?.font = font
         navigationItem.titleView = mTitleBtn
 
-        let close = UIBarButtonItem(image: UIImage.image(named: "album_close"),
+        let close = UIBarButtonItem(image: UIImage.bundle(image: "album_close"),
                                     style: .plain, target: self, action: #selector(close(_:)))
-        let camera = UIBarButtonItem(image: UIImage.image(named: "album_camera"),
+        let camera = UIBarButtonItem(image: UIImage.bundle(image: "album_camera"),
                                      style: .plain, target: self, action: #selector(openCamera(_:)))
         navigationItem.leftBarButtonItem = close
         navigationItem.rightBarButtonItem = showCamera ? camera : nil
@@ -165,11 +163,11 @@ class EasyAlbumViewController: UIViewController {
     private func loadAlbums() {
         mImgCache = NSCache()        
         photoManager.fetchPhotos(in: &mAlbumFolders, filterGIF: !showGIF, pickColor: pickColor)
-        // 預設第一個為點選狀態
+        // Setup first is selected
         mAlbumFolders[0].isCheck = true
         mAlbumPhotos = mAlbumFolders[0].photos
         DispatchQueue.main.async {
-            // 顯示第一本相簿的名稱
+            // Show first album name
             self.mCollectionView.reloadData()
             self.mCollectionView.alpha = 1.0
             self.setNavigationTitle(with: self.mAlbumFolders[0].title)
@@ -208,7 +206,7 @@ class EasyAlbumViewController: UIViewController {
             }
             photo.pickNumber = 0
         } else {
-            // 檢查目前挑選數量是否達到紹上限
+            // Check selected count = limit count
             guard mMarkPhotos.count <= (limit - 1) else {
                 AlbumToast.share.show(with: message)
                 return
@@ -243,12 +241,12 @@ class EasyAlbumViewController: UIViewController {
                 self.mDoneView.transform = .identity
             }
         }
-        // 調整collectionView content間距
+        // Setting collectionView content margin
         mCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0,
                                                     bottom: isGreaterZero ? doneViewHeight : 0.0, right: 0.0)
     }
     
-    /// 改變目前點選照片的索引
+    /// Change selected photo pick number
     private func changePhotoNumber() {
         for i in 0 ..< mMarkPhotos.count {
             mMarkPhotos[i].pickNumber = i + 1
@@ -284,7 +282,6 @@ class EasyAlbumViewController: UIViewController {
     @objc private func openCamera(_ btn: UIButton) {
         let hasCamera = UIImagePickerController.isSourceTypeAvailable(.camera)
         if hasCamera {
-            // 檢查相機是否授權
             let authStatus = AVCaptureDevice.authorizationStatus(for: .video)
             switch authStatus {
             case .authorized, .notDetermined:

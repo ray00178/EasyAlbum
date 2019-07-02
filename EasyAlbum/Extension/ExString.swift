@@ -10,11 +10,11 @@ import Foundation
 
 extension String {
     
-    /// 計算文字的高度
+    /// Calculator font height
     ///
     /// - Parameters:
     ///   - width: 限制寬度的大小
-    ///   - font: 字型的樣式
+    ///   - font: font style
     /// - Returns: 計算後的高度
     func height(with width: CGFloat, font: UIFont) -> CGFloat {
         let attrString = NSMutableAttributedString(string: self)
@@ -26,11 +26,11 @@ extension String {
         return ceil(boundingBox.height)
     }
     
-    /// 計算文字的寬度
+    /// Calculator font width
     ///
     /// - Parameters:
     ///   - height: 限制高度的大小
-    ///   - font: 字型的樣式
+    ///   - font: font style
     /// - Returns: 計算後的寬度
     func width(with height: CGFloat, font: UIFont) -> CGFloat {
         let attrString = NSMutableAttributedString(string: self)

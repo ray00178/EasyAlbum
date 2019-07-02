@@ -11,15 +11,15 @@ import Photos
 struct PhotoManager {
     static let share = PhotoManager()
     
-    /// 圖片管理對象
+    /// Photo manager object
     private(set) var mImageManager: PHCachingImageManager?
     private(set) var requestOptions: PHImageRequestOptions!
     private(set) var fetchOptions: PHFetchOptions!
     
-    /// 儲存各相簿列表`PHFetchResult<PHAsset>`
+    /// Save album list `PHFetchResult<PHAsset>`
     private(set) var assetsArray: [PHFetchResult<PHAsset>] = []
     
-    /// 略縮圖大小
+    /// Thumbnail photo size
     private(set) var photoThumbnailSize: CGSize = .zero
     
     private init() {
@@ -28,12 +28,13 @@ struct PhotoManager {
         
         // https://developer.apple.com/documentation/photos/phcachingimagemanager
         mImageManager = PHCachingImageManager()
-        mImageManager?.allowsCachingHighQualityImages = false
+        mImageManager?.allowsCachingHighQualityImages = true
 
         requestOptions = PHImageRequestOptions()
         requestOptions.isSynchronous = false
         requestOptions.deliveryMode = .highQualityFormat
         requestOptions.resizeMode = .exact
+        requestOptions.isNetworkAccessAllowed = false
         
         fetchOptions = PHFetchOptions()
         fetchOptions.includeAssetSourceTypes = .typeUserLibrary
@@ -41,14 +42,13 @@ struct PhotoManager {
         //PHPhotoLibrary.shared().register(self)
     }
     
-    /// 取出所有相簿
+    /// Fetch all photos
     ///
     /// - Parameters:
-    ///   - datas: 放置的資料
-    ///   - filterGIF: 排除.gif
-    ///   - pickColor: 點擊顏色
+    ///   - datas: input datas
+    ///   - filterGIF: filter `.gif`，default：false
+    ///   - pickColor: pick color
     public mutating func fetchPhotos(in datas: inout [AlbumFolder], filterGIF: Bool = false, pickColor: UIColor) {
-        // 取出所有相簿列表
         // PHAssetCollectionType
         // https://developer.apple.com/documentation/photos/phassetcollectiontype
         // PHAssetCollectionSubtype
@@ -57,21 +57,19 @@ struct PhotoManager {
         // PHFetchOptions
         // https://developer.apple.com/documentation/photos/phfetchoptions
         
-        // 智慧相簿
-        let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular,
-                                                                  options: fetchOptions)
+        // Smart album
+        let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: fetchOptions)
         // DropBox、Instagram ... else
-        let albums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular,
-                                                             options: fetchOptions)
+        let albums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: fetchOptions)
         // 取出所有相簿列表
         //let allPhotos = PHAsset.fetchAssets(with: fetchOptions)
         // 取出所有使用者建立的相簿列表(保留)
         //let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil) as! PHFetchResult<PHAssetCollection>
         
         // https://developer.apple.com/documentation/photos/phfetchoptions/1624709-predicate
-        // predicate：篩選要的種類image video audio
-        // sortDescriptors：排序方式
-        // NSPredicate(format: "mediaType = %d || mediaType = %d", PHAssetMediaType.image.rawValue,    PHAssetMediaType.video.rawValue)
+        // predicate：filter type of `image` `video` `audio`
+        // sortDescriptors：sort
+        // NSPredicate(format: "mediaType = %d || mediaType = %d", PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue)
         let options = PHFetchOptions()
         options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -79,13 +77,13 @@ struct PhotoManager {
         var tempCollections: [AlbumCollection] = []
         fetchAlbumsInfo(from: smartAlbums, output: &tempCollections, options: options)
         fetchAlbumsInfo(from: albums, output: &tempCollections, options: options)
-        // 將相簿做排序依照數量大小
+        // Sort album by count
         var sortedCollections = tempCollections.sorted { (now, next) in return now.count > next.count }
 
         var animatedIDs: [String] = []
-        // 取得Animated Collections
+        // Fetch Animated Collections
         let animatedCollections = sortedCollections.filter({ return isAnimated(with: $0.collection.localizedTitle) })
-        // 取得Animated內的photo localIdentifier
+        // Fetch Animated's photo localIdentifier
         for ac in animatedCollections {
             let assets = ac.assets
             for i in 0 ..< assets.count {
@@ -97,12 +95,11 @@ struct PhotoManager {
             sortedCollections.removeAll{ element in isAnimated(with: element.collection.localizedTitle) }
         }
         
-        // 剔除「最近刪除」相簿
         sortedCollections.removeAll{ element in isDeleted(with: element.collection.localizedTitle) }
 
         for ac in sortedCollections {
             let c = ac.collection
-            // 取得該相簿的所有照片
+            // Fetch album of all photo
             let assets = ac.assets
             var title: String = "Unknow"
             if let t = c.localizedTitle { title = t }
@@ -120,11 +117,10 @@ struct PhotoManager {
                     }
                 }
                 
-                // 是否顯示GIF圖
+                // Need show .gif
                 if isGIF && filterGIF { continue }
                                 
-                let albumPhoto = AlbumPhoto(0, asset: asset, pickNumber: 0, pickColor: pickColor,
-                                            isCheck: false, isGIF: isGIF)
+                let albumPhoto = AlbumPhoto(0, asset: asset, pickNumber: 0, pickColor: pickColor, isCheck: false, isGIF: isGIF)
                 
                 if datas.count > 0 {
                      if let index = datas[0].photos.firstIndex(of: albumPhoto) {
@@ -142,15 +138,15 @@ struct PhotoManager {
         }
     }
     
-    /// 取得略縮圖
-    public func fetchThumbnail(form asset: PHAsset, size: CGSize?, isSynchronous: Bool,
-                               completion: @escaping (_ image: UIImage) -> Swift.Void) {
+    /// Fetch thumbnail photo
+    public func fetchThumbnail(form asset: PHAsset, size: CGSize?, isSynchronous: Bool, completion: @escaping (_ image: UIImage) -> Swift.Void) {
         // https://developer.apple.com/documentation/photos/phimagerequestoptions
         // http://stackoverflow.com/questions/30812057/phasset-to-uiimage
         requestOptions.isSynchronous = isSynchronous
         var thumbnailSize = photoThumbnailSize
         if let t = size { thumbnailSize = t }
-        let _ = mImageManager?.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: requestOptions, resultHandler: {(result, info) -> Void in
+        let _ = mImageManager?.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: requestOptions,
+                                            resultHandler: {(result, info) -> Void in
             var thumbnail = UIImage()
             if let image = result { thumbnail = image }
             completion(thumbnail)
@@ -158,9 +154,8 @@ struct PhotoManager {
         })
     }
     
-    /// 取得相片Data
-    public func fetchImageData(from asset: PHAsset, isSynchronous: Bool,
-                               completion: @escaping (_ data: Data?, _ utiKey: String?) -> Swift.Void) {
+    /// Fetch image data
+    public func fetchImageData(from asset: PHAsset, isSynchronous: Bool, completion: @escaping (_ data: Data?, _ utiKey: String?) -> Swift.Void) {
         requestOptions.isSynchronous = isSynchronous
         mImageManager?.requestImageData(for: asset, options: requestOptions, resultHandler: { (data, utiKey,
             orientation, info) in
@@ -188,17 +183,14 @@ struct PhotoManager {
         self.mImageManager?.stopCachingImagesForAllAssets()
     }
     
-    /// 取得相片檔名
     public func fetchImageName(from asset: PHAsset) -> String? {
         return PHAssetResource.assetResources(for: asset).first?.originalFilename
     }
     
-    /// 取得相片UTI
     public func fetchImageUTI(from asset: PHAsset) -> String? {
         return PHAssetResource.assetResources(for: asset).first?.uniformTypeIdentifier
     }
     
-    /// 取得相片URL
     public func fetchImageURL(from asset: PHAsset, completion: @escaping (_ url : URL?) -> Swift.Void) {
         let options = PHContentEditingInputRequestOptions()
         options.isNetworkAccessAllowed = false
@@ -208,8 +200,7 @@ struct PhotoManager {
     }
     
     /// AlbumPhoto convert AlbumData task
-    public func cenvertTask(from photos: [AlbumPhoto], factor: EasyAlbumSizeFactor,
-                            completion: @escaping (_ datas: [AlbumData]) -> Swift.Void) {
+    public func cenvertTask(from photos: [AlbumPhoto], factor: EasyAlbumSizeFactor, completion: @escaping (_ datas: [AlbumData]) -> Swift.Void) {
         var datas: [AlbumData] = []
         let grp = DispatchGroup()
         let queue = DispatchQueue(label: EasyAlbumCore.EASYALBUM_BUNDLE_ID)
@@ -248,8 +239,7 @@ struct PhotoManager {
     }
     
     /// AlbumPhoto convert AlbumData task
-    public func cenvertTask(from assets: [PHAsset], factor: EasyAlbumSizeFactor,
-                            completion: @escaping (_ datas: [AlbumData]) -> Swift.Void) {
+    public func cenvertTask(from assets: [PHAsset], factor: EasyAlbumSizeFactor, completion: @escaping (_ datas: [AlbumData]) -> Swift.Void) {
         var datas: [AlbumData] = []
         let grp = DispatchGroup()
         let queue = DispatchQueue(label: EasyAlbumCore.EASYALBUM_BUNDLE_ID)
@@ -287,7 +277,7 @@ struct PhotoManager {
         grp.notify(queue: .main) { completion(datas) }
     }
     
-    /// 計算照片縮放倍率
+    /// Calculator photo scale factor
     public func calcScaleFactor(from size: CGSize, factor: EasyAlbumSizeFactor = .auto) -> CGSize {
         let oriW = size.width
         let oriH = size.height
@@ -312,25 +302,18 @@ struct PhotoManager {
             return CGSize(width: oriW * factor, height: oriH * factor)
         }
     }
-    
-    /// 清除緩存圖片
-    public func clear() {
-        mImageManager?.stopCachingImagesForAllAssets()
-    }
-    
-    private func fetchAlbumsInfo(from collections: PHFetchResult<PHAssetCollection>,
-                                 output: inout [AlbumCollection], options: PHFetchOptions) {
+        
+    private func fetchAlbumsInfo(from collections: PHFetchResult<PHAssetCollection>, output: inout [AlbumCollection], options: PHFetchOptions) {
         for i in 0 ..< collections.count {
             let c = collections[i]
-            // 取得該相簿的所有照片
             let assets = PHAsset.fetchAssets(in: c , options: options)
-            // 沒有照片的相簿不顯示
+            // if album count = 0, not show
             guard assets.count > 0 else { continue }
             output.append(AlbumCollection(collection: c, assets: assets, count: assets.count))
         }
     }
     
-    /// 檢查是否為`動圖`相簿
+    /// Check album is `Animated`
     private func isAnimated(with title: String?) -> Bool {
         guard let title = title else { return false }
         
@@ -340,7 +323,7 @@ struct PhotoManager {
         }
     }
     
-    /// 檢查是否為`最近刪除`相簿
+    /// Check album is `Recently Deleted`
     private func isDeleted(with title: String?) -> Bool {
         guard let title = title else { return false }
         
@@ -351,22 +334,22 @@ struct PhotoManager {
     }
     
     private func printLog(with asset: PHAsset, title: String, isGif: Bool) {
-        print("title               --> \(title)")
-        print("isGif               --> \(isGif)")
-        print("burstIdentifier     --> \(String(describing: asset.burstIdentifier))")
-        print("burstSelectionTypes --> \(String(describing: asset.burstSelectionTypes))")
-        print("creationDate        --> \(String(describing: asset.creationDate))")
-        print("modificationDate    --> \(String(describing: asset.modificationDate))")
-        print("duration            --> \(String(describing: asset.duration))")
-        print("isFavorite          --> \(String(describing: asset.isFavorite))")
-        print("isHidden            --> \(String(describing: asset.isHidden))")
-        print("location            --> \(String(describing: asset.location))")
-        print("mediaType           --> \(String(describing: asset.mediaType.rawValue))")
-        print("mediaSubtypes       --> \(String(describing: asset.mediaSubtypes.rawValue))")
-        print("pixelWidth          --> \(String(describing: asset.pixelWidth))")
-        print("pixelHeight         --> \(String(describing: asset.pixelHeight))")
-        print("representsBurst     --> \(String(describing: asset.representsBurst))")
-        print("sourceType          --> \(String(describing: asset.sourceType.rawValue))")
+        print("title               👉🏻 \(title)")
+        print("isGif               👉🏻 \(isGif)")
+        print("burstIdentifier     👉🏻 \(String(describing: asset.burstIdentifier))")
+        print("burstSelectionTypes 👉🏻 \(String(describing: asset.burstSelectionTypes))")
+        print("creationDate        👉🏻 \(String(describing: asset.creationDate))")
+        print("modificationDate    👉🏻 \(String(describing: asset.modificationDate))")
+        print("duration            👉🏻 \(String(describing: asset.duration))")
+        print("isFavorite          👉🏻 \(String(describing: asset.isFavorite))")
+        print("isHidden            👉🏻 \(String(describing: asset.isHidden))")
+        print("location            👉🏻 \(String(describing: asset.location))")
+        print("mediaType           👉🏻 \(String(describing: asset.mediaType.rawValue))")
+        print("mediaSubtypes       👉🏻 \(String(describing: asset.mediaSubtypes.rawValue))")
+        print("pixelWidth          👉🏻 \(String(describing: asset.pixelWidth))")
+        print("pixelHeight         👉🏻 \(String(describing: asset.pixelHeight))")
+        print("representsBurst     👉🏻 \(String(describing: asset.representsBurst))")
+        print("sourceType          👉🏻 \(String(describing: asset.sourceType.rawValue))")
         print("------------------------------------------")
     }
 }

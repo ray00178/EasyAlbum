@@ -75,7 +75,7 @@ class AlbumPreviewCell: UICollectionViewCell {
         doubleTap.numberOfTapsRequired = 2
         contentView.addGestureRecognizer(doubleTap)
         
-        // 單擊 ＆ 雙擊 並存
+        // Single tap ＆ Double tap
         singleTap.require(toFail: doubleTap)
     }
     

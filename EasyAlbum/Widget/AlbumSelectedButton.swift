@@ -44,12 +44,12 @@ class AlbumSelectedButton: UIButton {
         super.draw(rect)
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
-        // 繪製半透明背景
+        // draw translucent background
         ctx.setFillColor(UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.35).cgColor)
         ctx.addRect(rect)
         ctx.fillPath()
         
-        // 繪製 ☑️
+        // draw ☑️
         ctx.setLineCap(.round)
         ctx.setLineJoin(.round)
         ctx.setLineWidth(strokeWidth)

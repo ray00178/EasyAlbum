@@ -9,7 +9,8 @@
 import UIKit
 
 extension UIView {
-    /// 是否啟用`translatesAutoresizingMaskIntoConstraints`
+    
+    /// Use `translatesAutoresizingMaskIntoConstraints`
     var useAutoLayout: Bool {
         get { return self.translatesAutoresizingMaskIntoConstraints }
         set { self.translatesAutoresizingMaskIntoConstraints = newValue }
