@@ -15,17 +15,18 @@ Pod::Spec.new do |spec|
   📷 A lightweight, pure-Swift library can help u easy to pick up photo from album.
   DESC
 
-  spec.homepage     = "https://github.com/ray00178/EasyAlbum"
-  spec.license      = { :type => "MIT", :file => "LICENSE" }
-  spec.author             = { "Ray" => "ray00178@gmail.com" }
-  spec.social_media_url   = "https://twitter.com/ray00178"
+  spec.homepage         = "https://github.com/ray00178/EasyAlbum"
+  spec.license          = { :type => "MIT", :file => "LICENSE" }
+  spec.author           = { "Ray" => "ray00178@gmail.com" }
+  spec.social_media_url = "https://twitter.com/ray00178"
+  spec.swift_version    = '5.0'
 
-  spec.platform     = :ios, "9.0+"
+  spec.platform              = :ios, "9.0+"
   spec.ios.deployment_target = "9.0"
 
-  spec.source       = { :git => "https://github.com/ray00178/EasyAlbum.git", :tag => "#{spec.version}" }
-  spec.source_files = "EasyAlbum/**/*.{h,swift,xib}"
+  spec.source           = { :git => "https://github.com/ray00178/EasyAlbum.git", :tag => "#{spec.version}" }
+  spec.source_files     = "EasyAlbum/**/*.{h,swift,xib}"
   spec.resource_bundles = { 'EasyAlbum' => ['EasyAlbum/EasyAlbum.bundle/*.png'] }
-  spec.frameworks = 'UIKit', 'Photos', 'ImageIO'
+  spec.frameworks       = 'UIKit', 'Photos', 'ImageIO'
 
 end
