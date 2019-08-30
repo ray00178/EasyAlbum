@@ -92,7 +92,7 @@ EasyAlbum.of(appName: "EasyAlbum")
 ```
 
 ##### 3. EasyAlbum parameters 
-![EasyAlbum parameters](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-description.png)
+![EasyAlbum parameters](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-description.jpg)
 
 ##### 4. Extension EasyAlbumDelegate
 ```swift
