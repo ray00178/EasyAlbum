@@ -37,12 +37,23 @@ extension UIImageView {
 
 extension UIImage {
     
-    public class func bundle(image name: String) -> UIImage? {
-        let frameworkBundle = Bundle(for: EasyAlbumViewController.self)
+    public enum Name: String {
+        
+        case close = "album_close"
+        
+        case camera = "album_camera"
+        
+        case back = "album_back"
+        
+        case done = "album_done"
+    }
+    
+    public class func bundle(image name: Name) -> UIImage? {
+        let frameworkBundle = Bundle(for: EAViewController.self)
         let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("EasyAlbum.bundle")
         guard let url = bundleURL else { return nil }
         let resourceBundle = Bundle(url: url)
-        guard let image = UIImage(named: name, in: resourceBundle, compatibleWith: nil) else { return nil }
+        guard let image = UIImage(named: name.rawValue, in: resourceBundle, compatibleWith: nil) else { return nil }
         return image
      }
     

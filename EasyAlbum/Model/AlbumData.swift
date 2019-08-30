@@ -9,6 +9,7 @@
 import CoreLocation
 
 public struct AlbumData {
+    
     public var image: UIImage!
     public var mediaType: String = ""
     public var width: CGFloat = 0.0

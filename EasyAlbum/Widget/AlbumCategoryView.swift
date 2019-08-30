@@ -13,6 +13,7 @@ protocol AlbumCategoryViewDelegate: class {
 }
 
 class AlbumCategoryView: UICollectionReusableView {
+    
     let width: CGFloat = 95.0
     public static let height: CGFloat = 95.0
     
@@ -51,7 +52,7 @@ class AlbumCategoryView: UICollectionReusableView {
         mCollectionView?.showsHorizontalScrollIndicator = false
         mCollectionView?.delegate = self
         mCollectionView?.dataSource = self
-        mCollectionView?.useAutoLayout = false
+        mCollectionView?.translatesAutoresizingMaskIntoConstraints = false
         addSubview(mCollectionView!)
         mCollectionView?.topAnchor.constraint(equalTo: topAnchor).isActive = true
         mCollectionView?.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true

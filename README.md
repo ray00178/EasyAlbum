@@ -5,15 +5,16 @@
 [![Build Status](https://travis-ci.org/ray00178/EasyAlbum.svg?branch=master)](https://travis-ci.org/ray00178/EasyAlbum) ![Cocoapods platforms](https://img.shields.io/cocoapods/p/EasyAlbum.svg) ![Cocoapods version](https://img.shields.io/cocoapods/v/EasyAlbum.svg) ![Cocoapods license](https://img.shields.io/cocoapods/l/EasyAlbum.svg) ![Language](https://img.shields.io/badge/language-swift-orange.svg) ![GitHub stars](https://img.shields.io/github/stars/ray00178/EasyAlbum.svg?style=social)
 
 ## Features
-- Support Single choice、Multiple choice、Preview、Folder switch and pick up photo.
-- In preview photo, ur can zoom photo.
-- According to your project color, Setting ur pick color、navigationbar tint color、navigationbar bar tint color.
-- According to your preferences / needs, Show the number of fields and select the number of restrictions.
-- Perfect support for iphone X、Xs、Xs Max
-- Supprot language Chinese Traditional、Chinese Simplified、English
+  - Support Single choice、Multiple choice、Preview、Folder switch and pick up photo.
+  - In preview photo, your can zoom photo.
+  - According to your project color, Setting your pick color、navigationBar tint color、navigationBar bar tint color.
+  - According to your preferences / needs, Show the number of fields and select the number of restrictions.
+  - Perfect support for iPhone X, Xs, Xr and Xs Max.
+  - Support language 🇹🇼Chinese Traditional、🇨🇳Chinese Simplified、🇺🇸English.
 
 ## Screenshots
-![](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-screenshots.png)
+![Screenshots Portrait](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-portrait-screenshots.jpg)
+![Screenshots Landscape](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-landscape-screenshots.jpg)
 
 ## Requirements and Details
 * iOS 9.0+
@@ -26,7 +27,7 @@
 
     $ gem install cocoapods
 
-To integrate EasyAlbum into your Xcode project using CocoaPods, specify it to a target in your `Podfile`:
+To integrate EasyAlbum into your XCode project using CocoaPods, specify it to a target in your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -35,10 +36,10 @@ use_frameworks!
 
 target '<Your Target Name>' do
   # Use swift 4.2
-  pod 'EasyAlbum', '~> 1.0.7'
+  pod 'EasyAlbum', '~> 1.1.0'
 
   # Use swift 5.0
-  pod 'EasyAlbum', '~> 2.0.0'
+  pod 'EasyAlbum', '~> 2.1.0'
 end
 ```
 
@@ -48,52 +49,52 @@ For more information about how to use CocoaPods, I suggest this [tutorial](https
 
 
 ## Usage
-##### 1.Open ur Info.plist and add the following permissions. 
-![](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-permission.png)
+##### 1. Open ur Info.plist and add the following permissions. 
+![Photo Permission](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-permission.png)
 ```xml
 <key>NSCameraUsageDescription</key>
-<string>Please allow access to your camera than take picture.</string>
+<string>Please allow access to your camera then take picture.</string>
 <key>NSPhotoLibraryUsageDescription</key>
-<string>Please allow access to your album than pick up photo.</string>
+<string>Please allow access to your album then pick up photo.</string>
 <key>NSPhotoLibraryAddUsageDescription</key>
-<string>Please allow access to your album than save photo.</string>
+<string>Please allow access to your album then save photo.</string>
 ```
-##### 2.Use EasyAlbum. You can building what you want.
+##### 2. Use EasyAlbum. You can building what you want.
 ```swift
 import EasyAlbum
 
 /**
-  * @param appName            : (required) (default:EasyAlbum)
-  * @param tintColor          : (choose)   (default:#ffffff)     
-  * @param barTintColor       : (choose)   (default:#673ab7) 
-  * @param span               : (choose)   (default:3)
-  * @param limit              : (choose)   (default:30)
-  * @param message            : (choose)   (default:Photo pick up the most limitCount！)
-  * @param titleColor         : (choose)   (default:#ffffff)
-  * @param pickColor          : (choose)   (default:#ffc107)
-  * @param showCamera         : (choose)   (default:true)
-  * @param showGIF            : (choose)   (default:true)
-  * @param crop               : (choose)   (default:false) (Use for camera)
-  * @param isLightStatusStyle : (choose)   (default:true)
-  * @param sizeFactor         : (choose)   (default:.auto)
+  * @param appName            : (required) (default: EasyAlbum)
+  * @param tintColor          : (choose)   (default: #ffffff)     
+  * @param barTintColor       : (choose)   (default: #673ab7) 
+  * @param span               : (choose)   (default: 3)
+  * @param limit              : (choose)   (default: 30)
+  * @param orientation        : (choose)   (default: .all)
+  * @param message            : (choose)   (default: Photo pick up the most limitCount！)
+  * @param pickColor          : (choose)   (default: #ffc107)
+  * @param showCamera         : (choose)   (default: true)
+  * @param crop               : (choose)   (default: false) (Use for camera)
+  * @param isLightStatusStyle : (choose)   (default: true)
+  * @param sizeFactor         : (choose)   (default: .auto)
+  * @param orientation        : (choose)   (default: .all)
   * @param start              : (required)
   */
 
 // Easy way
-EasyAlbum.of(appName: "Facebook").start(self, delegate: self)
+EasyAlbum.of(appName: "EasyAlbum").start(self, delegate: self)
 
 // Use many way
-EasyAlbum.of(appName: "Facebook")
+EasyAlbum.of(appName: "EasyAlbum")
          .limit(3)
-         .showGIF(false)
          .sizeFactor(.fit(width: 1125.0, height: 2436.0))
+         .orientation(.portrait)
          .start(self, delegate: self) 
 ```
 
-##### 3.EasyAlbum parameters 
-![](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-description.png)
+##### 3. EasyAlbum parameters 
+![EasyAlbum parameters](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-description.png)
 
-##### 4.Extension EasyAlbumDelegate
+##### 4. Extension EasyAlbumDelegate
 ```swift
 func easyAlbumDidSelected(_ photos: [AlbumData]) {
     // U can do something by selected.
@@ -104,7 +105,8 @@ func easyAlbumDidCanceled() {
   // U can do something by canceled. 
 }
 ```
-##### 5.AlbumData 👉🏻You can get many photo information.
+
+##### 5. AlbumData 👉🏻 `You can get many photo information.`
 | Attribute        | Type        | Value                                  | Note          |   
 | :--------------: | :---------: | :------------------------------------: | :-----------: |
 | image            | UIImage     | <UIImage: 0x600003377c60>, {1125, 752} |               |
@@ -121,6 +123,13 @@ func easyAlbumDidCanceled() {
 | fileSize         | Int         | 8063276 bytes                          |               |
 | fileUTI          | String?     | Optional("public.jpeg")                |               |
 
+## Update Description
+#### Version：2.1.0
+  - Fix the bottom view can't adapts to `iPhone` device.
+  - Support device rotate.
+  - In preview page, you can to leave by swipe up or swipe down.
+  - Add `orientation` property and remove `showGIF` & `titleColor` property.
+
 ## Communication
 - If you found a `bug`, open an issue.
 - If you have a `feature request`, open an issue.
@@ -128,7 +137,9 @@ func easyAlbumDidCanceled() {
 
 ## Todo List
 - [X] Write in Swift 5
-- [ ] Support device rotation
+- [X] Support device rotation
+- [ ] ViewController `transition animation`
+- [ ] Support `Live Photo`
 
 ## License
 EasyAlbum is available under the MIT license. See the [LICENSE](LICENSE) file for more info.

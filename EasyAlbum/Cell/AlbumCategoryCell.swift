@@ -27,7 +27,7 @@ class AlbumCategoryCell: UICollectionViewCell {
 
     private func setData() {
         let size = CGSize(width: 60.0 * UIScreen.density, height: 60.0 * UIScreen.density)
-        PhotoManager.share.fetchThumbnail(form: data.photos[0].asset, size: size, isSynchronous: true) {
+        PhotoManager.share.fetchThumbnail(form: data.photos[0].asset, size: size, options: .exact(isSync: true)) {
             [weak self] (image) in
             self?.mImgView.image = image
         }

@@ -10,44 +10,82 @@ import Foundation
 
 struct EasyAlbumCore {
     
-    /// com.compuserve.gif
-    static let UTI_IMAGE_GIF = "com.compuserve.gif"
+    /// value = com.compuserve.gif
+    static let UTI_IMAGE_GIF: String = "com.compuserve.gif"
     
-    /// public.jpeg
-    static let UTI_IMAGE_JPEG = "public.jpeg"
+    /// value = public.jpeg
+    static let UTI_IMAGE_JPEG: String = "public.jpeg"
     
-    /// public.png
-    static let UTI_IMAGE_PNG = "public.png"
+    /// value = public.png
+    static let UTI_IMAGE_PNG: String = "public.png"
     
-    /// public.heic
-    static let UTI_IMAGE_HEIC = "public.heic"
+    /// value = public.heic
+    static let UTI_IMAGE_HEIC: String = "public.heic"
     
-    /// jpeg
-    static let IMAGE_JPEG = "jpeg"
+    /// value = jpeg
+    static let IMAGE_JPEG: String = "jpeg"
     
-    /// png
-    static let IMAGE_PNG = "png"
+    /// value = png
+    static let IMAGE_PNG: String = "png"
     
-    /// heic
-    static let IMAGE_HEIC = "heic"
+    /// value = heic
+    static let IMAGE_HEIC: String = "heic"
     
-    /// 媒體類別：未知
-    static let MEDIAT_UNKNOW = "Unknow"
+    /// value = unknow
+    static let MEDIAT_UNKNOW: String = "unknow"
     
-    /// 媒體類別：圖片
-    static let MEDIAT_IMAGE = "image"
+    /// value = image
+    static let MEDIAT_IMAGE: String = "image"
     
-    /// 媒體類別：影片
-    static let MEDIAT_VIDEO = "video"
+    /// value = video
+    static let MEDIAT_VIDEO: String = "video"
     
-    /// 媒體類別：音頻
-    static let MEDIAT_AUDIO = "audio"
+    /// value = audio
+    static let MEDIAT_AUDIO: String = "audio"
     
-    static let EASYALBUM_BUNDLE_ID = "com.brave2risks.EasyAlbum"
+    static let EASYALBUM_BUNDLE_ID: String = "com.brave2risks.EasyAlbum"
+    
+    /// App Name，value = EasyAlbum
+    static let APP_NAME: String = "EasyAlbum"
+    
+    /// Navigation tint color，value = #ffffff
+    static let TINT_COLOR: UIColor = .white
+    
+    /// NavigationBar tint color，value = #673ab7
+    static let BAR_TINT_COLOR: UIColor = UIColor(hex: "673ab7")
+    
+    /// Application statusBar style，value = true
+    static let LIGHT_STATUS_BAR_STYLE: Bool = true
+    
+    /// Selected photo max count，value = 30
+    static let LIMIT: Int = 30
+    
+    /// Gallery span count，value = 3
+    static let SPAN: Int = 3
+    
+    /// Photo selected color，value = #ffc107
+    static let PICK_COLOR: UIColor =  UIColor(hex: "ffc107")
+    
+    /// When use camera want to crop after take picture，value = true
+    static let CROP: Bool = false
+    
+    /// Want to show camera button on navigationBar，value = true
+    static let SHOW_CAMERA: Bool = true
+    
+    /// Device support orientation，value = .all
+    static let ORIENTATION: UIInterfaceOrientationMask = .all
+    
+    /// Toast message，value = ""
+    static let MESSAGE: String = ""
+    
+    /// After selected photo scale，value = .auto
+    static let SIZE_FACTOR: EasyAlbumSizeFactor = .auto
 }
 
-enum EasyAlbumPermission {
+enum EasyAlbumPermission: CustomStringConvertible {
+    
     case camera
+    
     case photo
     
     var description: String {
@@ -59,39 +97,37 @@ enum EasyAlbumPermission {
 }
 
 enum EasyAlbumText {
-    /// 相機
+    
     case camera
     
-    /// 照片
     case photo
     
-    /// 設定
     case setting
     
-    /// 超過挑選張數
     case overLimit(count: Int)
     
-    /// 無相機鏡頭
     case noCamera
     
-    /// 請求存取權標題
     case permissionTitle(witch: String)
     
-    /// 請求存取權內容
     case permissionMsg(appName: String, witch: String)
     
-    /// 照片處理中
     case photoProcess
 }
 
-/// 照片的縮小倍率
+/// Photo scale ratio
 ///
-/// - auto: 自動縮放成目前手機的解析度大小
-/// - fit: 手動設定寬高的最大長度
-/// - scale: 手動設定縮放倍率
+/// - auto : scale to device's width and height. unit:px
+/// - fit  : manual setting width and height. unit:px
+/// - scale: manual setting scale ratio.
 public enum EasyAlbumSizeFactor {
+    /// scale to device's width and height. unit:px
     case auto
+    
+    /// manual setting width and height. unit:px
     case fit(width: CGFloat, height: CGFloat)
+    
+    /// manual setting scale ratio.
     case scale(width: CGFloat, height: CGFloat)
 }
 
@@ -177,6 +213,23 @@ func LString(_ text: EasyAlbumText) -> String {
     }
 }
 
-protocol AlbumCellDelegate: class {
-    func albumCellSingleTap(_ cell: UICollectionViewCell)
+// MARK: - EasyAlbumDelegate
+public protocol EasyAlbumDelegate: NSObjectProtocol {
+    func easyAlbumDidSelected(_ photos: [AlbumData])
+    
+    func easyAlbumDidCanceled()
+}
+
+// MARK: - EAPreviewPageViewControllerDelegate
+protocol EAPreviewPageViewControllerDelegate: NSObjectProtocol {
+    func eaPreviewPageViewController(didSelectedWith markPhotos: [AlbumPhoto], removeItems: [Int], item: Int, send: Bool)
+}
+
+// MARK: - EAPageContentViewControllerDelegate
+protocol EAPageContentViewControllerDelegate: NSObjectProtocol {
+    func singleTap(_ viewController: EAPageContentViewController)
+    
+    func panDidChanged(_ viewController: EAPageContentViewController, in targetView: UIView, alpha: CGFloat)
+    
+    func panDidEnded(_ viewController: EAPageContentViewController, in targetView: UIView)
 }

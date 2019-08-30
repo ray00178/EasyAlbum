@@ -13,7 +13,11 @@ protocol AlbumDoneViewDelegate: class {
 }
 
 class AlbumDoneView: UIView {
+    
+    /// width，value = 34.0
     static let width: CGFloat = 34.0
+    
+    /// height，value = 34.0
     static let height: CGFloat = 34.0
     
     private var mDoneBtn: UIButton?
@@ -22,17 +26,17 @@ class AlbumDoneView: UIView {
     
     private let textColor: UIColor = UIColor(hex: "1a1a1a")
     
-    /// 背景色，default：#ffffff
+    /// Background color，default = #ffffff
     var bgColor: UIColor = .white {
         didSet { backgroundColor = bgColor}
     }
     
-    /// 第一張選取的照片，default：nil
+    /// Selected photo of first，default = nil
     var image: UIImage? {
         didSet { mImgView?.image = image }
     }
     
-    /// 已選取照片數量，default：0
+    /// Selected count，default = 0
     var number: Int = 0 {
         didSet { mNumberLab?.text = "( \(number) )"}
     }
@@ -61,7 +65,7 @@ class AlbumDoneView: UIView {
         mImgView?.contentMode = .scaleAspectFit
         mImgView?.layer.cornerRadius = 5.0
         mImgView?.layer.masksToBounds = true
-        mImgView?.useAutoLayout = false
+        mImgView?.translatesAutoresizingMaskIntoConstraints = false
         addSubview(mImgView!)
         mImgView?.widthAnchor.constraint(equalToConstant: AlbumDoneView.width).isActive = true
         mImgView?.heightAnchor.constraint(equalToConstant: AlbumDoneView.height).isActive = true
@@ -71,18 +75,18 @@ class AlbumDoneView: UIView {
         mNumberLab = UILabel(frame: .zero)
         mNumberLab?.textColor = textColor
         mNumberLab?.font = UIFont.systemFont(ofSize: 15.0, weight: .medium)
-        mNumberLab?.useAutoLayout = false
+        mNumberLab?.translatesAutoresizingMaskIntoConstraints = false
         addSubview(mNumberLab!)
         mNumberLab?.centerYAnchor.constraint(equalTo: mImgView!.centerYAnchor).isActive = true
         mNumberLab?.leadingAnchor.constraint(equalTo: mImgView!.trailingAnchor, constant: 10.0).isActive = true
         
         let padding: CGFloat = 3.0
         mDoneBtn = UIButton(type: .system)
-        mDoneBtn?.setImage(UIImage.bundle(image: "album_done"), for: .normal)
+        mDoneBtn?.setImage(UIImage.bundle(image: .done), for: .normal)
         mDoneBtn?.imageEdgeInsets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         mDoneBtn?.tintColor = textColor
         mDoneBtn?.addTarget(self, action: #selector(done(_:)), for: .touchUpInside)
-        mDoneBtn?.useAutoLayout = false
+        mDoneBtn?.translatesAutoresizingMaskIntoConstraints = false
         addSubview(mDoneBtn!)
         mDoneBtn?.centerYAnchor.constraint(equalTo: mImgView!.centerYAnchor).isActive = true
         mDoneBtn?.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin).isActive = true

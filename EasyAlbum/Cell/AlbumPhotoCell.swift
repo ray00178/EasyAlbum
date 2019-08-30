@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 protocol AlbumPhotoCellDelegate: class {
     func albumPhotoCell(didNumberClickAt item: Int)
@@ -18,8 +19,10 @@ class AlbumPhotoCell: UICollectionViewCell {
     @IBOutlet weak var mBorderView: AlbumBorderView!
     @IBOutlet weak var mGIFLab: UILabel!
     @IBOutlet weak var mNumberBtn: UIButton!
+        
+    var representedAssetIdentifier: String?
     
-    var representedAssetIdentifier: String!
+    var blurImage: UIImage?
     
     weak var delegate: AlbumPhotoCellDelegate?
     
@@ -39,8 +42,18 @@ class AlbumPhotoCell: UICollectionViewCell {
         mNumberBtn.setTitleColor(UIColor.white, for: .normal)
         mNumberBtn.addTarget(self, action: #selector(didNumberClicked(_:)), for: .touchUpInside)
         mNumberBtn.isHidden = true
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
         
-        mImgView.alpha = 0.0
+        representedAssetIdentifier = nil
+        mImgView.image = blurImage
+        mGIFLab.isHidden = true
+        mBorderView.isHidden = true
+        mNumberBtn.layer.borderColor = UIColor(white: 1.0, alpha: 0.78).cgColor
+        mNumberBtn.backgroundColor = UIColor(hex: "000000", alpha: 0.1)
+        mNumberBtn.setTitle("", for: .normal)
     }
 
     func setData(from photo: AlbumPhoto, image: UIImage, item: Int) {
@@ -53,18 +66,13 @@ class AlbumPhotoCell: UICollectionViewCell {
         
         mGIFLab.isHidden = !photo.isGIF
         
-        mNumberBtn.layer.borderColor = mBorderView.isHidden ?
-                                       UIColor(white: 1.0, alpha: 0.78).cgColor : photo.pickColor.cgColor
-        mNumberBtn.backgroundColor = mBorderView.isHidden ?
-                                     UIColor(hex: "000000", alpha: 0.1) : photo.pickColor
+        mNumberBtn.layer.borderColor = mBorderView.isHidden ? UIColor(white: 1.0, alpha: 0.78).cgColor : photo.pickColor.cgColor
+        mNumberBtn.backgroundColor = mBorderView.isHidden ? UIColor(hex: "000000", alpha: 0.1) : photo.pickColor
         mNumberBtn.setTitle(pickNumber > 0 ? "\(pickNumber)" : "", for: .normal)
         mNumberBtn.tag = item
         mNumberBtn.isHidden = false
         
         mImgView.image = image
-        if mImgView.alpha == 0.0 {
-            UIView.animate(withDuration: 0.3) { self.mImgView.alpha = 1.0 }
-        }
     }
     
     @objc private func didNumberClicked(_ btn: UIButton) {

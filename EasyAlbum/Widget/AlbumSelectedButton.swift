@@ -55,7 +55,6 @@ class AlbumSelectedButton: UIButton {
         ctx.setLineWidth(strokeWidth)
         ctx.setStrokeColor(borderColor.cgColor)
         
-        // 將寬度、高度分成n等份
         let perW = rect.width / 10
         let perH = rect.height / 10
         

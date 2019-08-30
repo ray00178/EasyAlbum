@@ -9,16 +9,16 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "EasyAlbum"
-  spec.version      = "2.0.0"
+  spec.version      = "2.1.0"
   spec.summary      = "📷 A lightweight, pure-Swift library for pick up photo from ur album."
   spec.description  = <<-DESC
   📷 A lightweight, pure-Swift library can help u easy to pick up photo from album.
-                      DESC
+  DESC
 
   spec.homepage     = "https://github.com/ray00178/EasyAlbum"
   spec.license      = { :type => "MIT", :file => "LICENSE" }
   spec.author             = { "Ray" => "ray00178@gmail.com" }
-  # spec.social_media_url   = "https://twitter.com/Ray"
+  spec.social_media_url   = "https://twitter.com/ray00178"
 
   spec.platform     = :ios, "9.0+"
   spec.ios.deployment_target = "9.0"

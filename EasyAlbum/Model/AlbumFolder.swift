@@ -9,16 +9,10 @@
 import Photos
 
 struct AlbumFolder {
-    /// 相簿資料夾名稱
+    
     var title: String = ""
-    
-    /// 相簿內的照片
     var photos: [AlbumPhoto]!
-    
-    /// 選到時顏色
-    var pickColor: UIColor = UIColor(hex: "ffc107")
-    
-    /// 是否點選到
+    var pickColor: UIColor = EasyAlbumCore.PICK_COLOR
     var isCheck: Bool = false
     
     init() {}
