@@ -9,6 +9,7 @@
 import Photos
 
 struct AlbumCollection {
+    
     var collection: PHAssetCollection
     var assets: PHFetchResult<PHAsset>
     var count: Int

@@ -14,22 +14,11 @@ class AlbumPhoto: Equatable, Hashable, CustomStringConvertible {
         hasher.combine(asset.hashValue)
     }
     
-    /// 照片索引
     var index: Int = 0
-    
-    /// 照片資訊
     var asset: PHAsset!
-    
-    /// 選取時的索引
     var pickNumber: Int = 0
-    
-    /// 選取時的顏色
-    var pickColor: UIColor = UIColor(hex: "ffc107")
-    
-    /// 是否點選到
+    var pickColor: UIColor = EasyAlbumCore.PICK_COLOR
     var isCheck: Bool = false
-    
-    /// 是否為Gif圖檔
     var isGIF: Bool = false
     
     var description: String {

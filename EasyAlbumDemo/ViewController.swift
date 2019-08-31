@@ -37,8 +37,8 @@ class ViewController: UIViewController {
     @objc private func click(_ btn: UIButton) {
         EasyAlbum.of(appName: "EasyAlbum")
                  .limit(3)
-                 .showGIF(true)
                  .sizeFactor(.fit(width: 1125.0, height: 2436.0))
+                 .orientation(.all)
                  .start(self, delegate: self)
     }
 }

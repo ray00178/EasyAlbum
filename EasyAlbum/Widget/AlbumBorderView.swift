@@ -15,7 +15,7 @@ class AlbumBorderView: UIView {
         didSet { setNeedsDisplay() }
     }
     
-    @IBInspectable var strokeWidth: CGFloat = 8.0 {
+    @IBInspectable var strokeWidth: CGFloat = 6.5 {
         didSet { setNeedsDisplay() }
     }
     
@@ -40,12 +40,12 @@ class AlbumBorderView: UIView {
         super.draw(rect)
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
-        // 繪製半透明背景
+        // draw translucent background
         ctx.setFillColor(UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.35).cgColor)
         ctx.addRect(rect)
         ctx.fillPath()
         
-        // 繪製邊框
+        // draw border
         ctx.setLineCap(.square)
         ctx.setLineJoin(.miter)
         ctx.setLineWidth(strokeWidth)
