@@ -10,19 +10,17 @@ import Foundation
 
 public struct EasyAlbum {
     
-    private var albumNVC: EANavigationController!
+    public static let share = EasyAlbum()
     
-    private init(with appName: String) {
-        albumNVC = EANavigationController()
-        albumNVC.appName = appName
+    private var albumNVC: EasyAlbumNAC?
+    
+    private init() {
+        albumNVC = EasyAlbumNAC()
     }
     
-    /// Initialization
-    ///
-    /// - Parameter appName: Your app project name，default = EasyAlbum
-    /// - Returns: EasyAlbum
-    public static func of(appName: String) -> EasyAlbum {
-        return EasyAlbum(with: appName)
+    public func of(appName: String) -> EasyAlbum {
+        albumNVC?.appName = appName
+        return self
     }
     
     /// NavigationBar tint color
@@ -30,7 +28,7 @@ public struct EasyAlbum {
     /// - Parameter color: default = #ffffff
     /// - Returns: EasyAlbum
     public func tintColor(_ color: UIColor) -> EasyAlbum {
-        albumNVC.tintColor = color
+        albumNVC?.tintColor = color
         return self
     }
 
@@ -39,7 +37,7 @@ public struct EasyAlbum {
     /// - Parameter color: default = #673ab7
     /// - Returns: EasyAlbum
     public func barTintColor(_ color: UIColor) -> EasyAlbum {
-        albumNVC.barTintColor = color
+        albumNVC?.barTintColor = color
         return self
     }
     
@@ -48,7 +46,7 @@ public struct EasyAlbum {
     /// - Parameter isLight: default = true
     /// - Returns: EasyAlbum
     public func lightStatusBarStyle(_ isLight: Bool) -> EasyAlbum {
-        albumNVC.lightStatusBarStyle = isLight
+        albumNVC?.lightStatusBarStyle = isLight
         return self
     }
     
@@ -57,7 +55,7 @@ public struct EasyAlbum {
     /// - Parameter count: default = 30
     /// - Returns: EasyAlbum
     public func limit(_ count: Int) -> EasyAlbum {
-        albumNVC.limit = count
+        albumNVC?.limit = count
         return self
     }
 
@@ -66,7 +64,7 @@ public struct EasyAlbum {
     /// - Parameter count: default = 3
     /// - Returns: EasyAlbum
     public func span(_ count: Int) -> EasyAlbum {
-        albumNVC.span = count
+        albumNVC?.span = count
         return self
     }
     
@@ -75,7 +73,7 @@ public struct EasyAlbum {
     /// - Parameter color: default = #ffc107
     /// - Returns: EasyAlbum
     public func pickColor(_ color: UIColor) -> EasyAlbum {
-        albumNVC.pickColor = color
+        albumNVC?.pickColor = color
         return self
     }
     
@@ -84,7 +82,7 @@ public struct EasyAlbum {
     /// - Parameter crop: default = false
     /// - Returns: EasyAlbum
     public func crop(_ crop: Bool) -> EasyAlbum {
-        albumNVC.crop = crop
+        albumNVC?.crop = crop
         return self
     }
 
@@ -93,7 +91,7 @@ public struct EasyAlbum {
     /// - Parameter show: default = true
     /// - Returns: EasyAlbum
     public func showCamera(_ show: Bool) -> EasyAlbum {
-        albumNVC.showCamera = show
+        albumNVC?.showCamera = show
         return self
     }
 
@@ -102,7 +100,7 @@ public struct EasyAlbum {
     /// - Parameter orientation: default = .all，See more UIInterfaceOrientationMask
     /// - Returns: EasyAlbum
     public func orientation(_ orientation: UIInterfaceOrientationMask) -> EasyAlbum {
-        albumNVC.orientation = orientation
+        albumNVC?.orientation = orientation
         return self
     }
 
@@ -111,7 +109,7 @@ public struct EasyAlbum {
     /// - Parameter message: default = ""
     /// - Returns: EasyAlbum
     public func message(_ message: String) -> EasyAlbum {
-        albumNVC.message = message
+        albumNVC?.message = message
         return self
     }
 
@@ -124,7 +122,7 @@ public struct EasyAlbum {
     /// - Parameter factor: default = .auto
     /// - Returns: EasyAlbum
     public func sizeFactor(_ factor: EasyAlbumSizeFactor) -> EasyAlbum {
-        albumNVC.sizeFactor = factor
+        albumNVC?.sizeFactor = factor
         return self
     }
     
@@ -134,8 +132,13 @@ public struct EasyAlbum {
     ///   - viewController: viewController
     ///   - delegate: See more EasyAlbumDelegate
     public func start(_ viewController: UIViewController, delegate: EasyAlbumDelegate) {
-        albumNVC.albumDelegate = delegate
-        viewController.present(albumNVC, animated: true, completion: nil)
+        albumNVC?.albumDelegate = delegate
+        
+        if #available(iOS 13.0, *) {
+            albumNVC?.modalPresentationStyle = .fullScreen
+        }
+        
+        viewController.present(albumNVC!, animated: true, completion: nil)
     }
     
     /// Show photo picker
@@ -144,8 +147,13 @@ public struct EasyAlbum {
     ///   - viewController: navigationController
     ///   - delegate: See more EasyAlbumDelegate
     public func start(_ navigationController: UINavigationController, delegate: EasyAlbumDelegate) {
-        albumNVC.albumDelegate = delegate
-        navigationController.present(albumNVC, animated: true, completion: nil)
+        albumNVC?.albumDelegate = delegate
+        
+        if #available(iOS 13.0, *) {
+            albumNVC?.modalPresentationStyle = .fullScreen
+        }
+        
+        navigationController.present(albumNVC!, animated: true, completion: nil)
     }
     
     /*

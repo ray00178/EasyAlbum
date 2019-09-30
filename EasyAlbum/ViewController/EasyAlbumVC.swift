@@ -1,5 +1,5 @@
 //
-//  EAViewController.swift
+//  EasyAlbumVC.swift
 //  EasyAlbum
 //
 //  Created by Ray on 2019/3/3.
@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class EAViewController: UIViewController {
+class EasyAlbumVC: UIViewController {
         
     var appName: String = EasyAlbumCore.APP_NAME
     var barTintColor: UIColor = EasyAlbumCore.BAR_TINT_COLOR
@@ -23,13 +23,13 @@ class EAViewController: UIViewController {
     var sizeFactor: EasyAlbumSizeFactor = EasyAlbumCore.SIZE_FACTOR
     var orientation: UIInterfaceOrientationMask = EasyAlbumCore.ORIENTATION
     
+    weak var albumDelegate: EasyAlbumDelegate?
+    
     private var mTitleBtn: UIButton!
     private var mRefreshCtrl: UIRefreshControl!
     private var mCollectionView: UICollectionView!
     private var mDoneView: AlbumDoneView?
     private var mToast: AlbumToast?
-    
-    weak var delegate: EasyAlbumDelegate?
     
     private var photoManager: PhotoManager = PhotoManager.share
     
@@ -56,6 +56,9 @@ class EAViewController: UIViewController {
     
     private var isPortrait: Bool = UIScreen.isPortrait
     
+    /// Is processing photo，default = false
+    private var isProcessing: Bool = false
+    
     private let font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
     private let doneViewHeight: CGFloat = 54.0
     private var safeAreaBottom: CGFloat = 0.0
@@ -78,14 +81,16 @@ class EAViewController: UIViewController {
         checkAlbumPermission()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
         if PHPhotoLibrary.authorizationStatus() == .authorized {
             photoManager.stopAllCachingImages()
         }
         
         mImgCache?.removeAllObjects()
+        
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -94,10 +99,14 @@ class EAViewController: UIViewController {
     }
     
     deinit {
-        PHPhotoLibrary.shared().unregisterChangeObserver(self)
+        //print("EasyAlbumVC deinit")
     }
     
     private func setup() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        
         view.backgroundColor = .white
         
         if message.isEmpty { message = LString(.overLimit(count: limit)) }
@@ -133,6 +142,7 @@ class EAViewController: UIViewController {
         view.addSubview(mCollectionView)
     
         if #available(iOS 10.0, *) {
+            mCollectionView.prefetchDataSource = self
             mCollectionView.refreshControl = mRefreshCtrl
         } else {
             mCollectionView.addSubview(mRefreshCtrl)
@@ -147,7 +157,7 @@ class EAViewController: UIViewController {
         }
         mCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         mCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-
+        
         mRefreshCtrl.beginRefreshing()
         PHPhotoLibrary.shared().register(self)
     }
@@ -230,13 +240,16 @@ class EAViewController: UIViewController {
                 })
             }
         }
+        
         ac.addAction(setting)
         present(ac, animated: true, completion: nil)
     }
     
     private func clickedPhoto(on item: Int) {
+        guard !isProcessing else { return }
+        
         let photo = mAlbumPhotos[item]
-        let asset = photo.asset!
+        let asset = photo.asset
         let isCheck = photo.isCheck
         
         if isCheck {
@@ -307,11 +320,15 @@ class EAViewController: UIViewController {
     }
     
     private func convertTask() {
+        guard !isProcessing else { return }
+        
+        isProcessing = true
+        
         mToast?.show(with: LString(.photoProcess), autoCancel: false)
         photoManager.cenvertTask(from: mSelectedPhotos, factor: sizeFactor) { (datas) in
-            self.delegate?.easyAlbumDidSelected(datas)
-            self.dismiss(animated: true, completion: nil)
             self.mToast?.hide()
+            self.albumDelegate?.easyAlbumDidSelected(datas)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -331,7 +348,8 @@ class EAViewController: UIViewController {
     }
     
     @objc private func close(_ btn: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        albumDelegate?.easyAlbumDidCanceled()
+        dismiss(animated: true, completion: nil)
     }
     
     @objc private func openCamera(_ btn: UIButton) {
@@ -340,7 +358,7 @@ class EAViewController: UIViewController {
             let authStatus = AVCaptureDevice.authorizationStatus(for: .video)
             switch authStatus {
             case .authorized, .notDetermined:
-                let camera = EACameraViewController()
+                let camera = EasyAlbumCameraVC()
                 camera.isEdit = crop
                 present(camera, animated: true, completion: nil)
             case .denied, .restricted:
@@ -354,7 +372,7 @@ class EAViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDataSource & UICollectionViewDelegate
-extension EAViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension EasyAlbumVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -368,7 +386,7 @@ extension EAViewController: UICollectionViewDataSource, UICollectionViewDelegate
         
         let item = indexPath.item
         let photo = mAlbumPhotos[item]
-        let asset = photo.asset!
+        let asset = photo.asset
         cell.representedAssetIdentifier = asset.localIdentifier
         
         if let img = mImgCache?.object(forKey: asset) {
@@ -376,7 +394,10 @@ extension EAViewController: UICollectionViewDataSource, UICollectionViewDelegate
                 cell.setData(from: photo, image: img, item: item)
             }
         } else {
-            photoManager.fetchThumbnail(form: asset, options: .exact(isSync: false)) { [weak self] (image) in
+            let isPortrait = UIScreen.height >= UIScreen.width
+            let size = mDynamicItemSize[isPortrait]?.scale(to: 1.2)
+            
+            photoManager.fetchThumbnail(form: asset, size: size, options: .exact(isSync: false)) { [weak self] (image) in
                 self?.mImgCache?.setObject(image, forKey: asset)
                 if cell.representedAssetIdentifier == asset.localIdentifier {
                     cell.setData(from: photo, image: image, item: item)
@@ -388,23 +409,33 @@ extension EAViewController: UICollectionViewDataSource, UICollectionViewDelegate
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {}
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let section = indexPath.section
+        
         if section == 0 {
             let headerView = collectionView.dequeueHeader(AlbumCategoryView.self, indexPath: indexPath)
             headerView.datas = mAlbumFolders
             headerView.delegate = self
             return headerView
         }
+        
         return UICollectionReusableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !isProcessing else { return }
+        
+        // Get cell position relative `collectionView.contentOffset = .zero`
+        var cellFrame: CGRect = .zero
+        if let cell = collectionView.cellForItem(at: indexPath) as? AlbumPhotoCell {
+            let originX = cell.frame.minX
+            let relativeY = cell.center.y - collectionView.contentOffset.y
+            cellFrame = CGRect(origin: CGPoint(x: originX, y: relativeY), size: cell.frame.size)
+        }
+        
         let item = indexPath.item
         
-        let previewVC = EAPreviewPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        let previewVC = EasyAlbumPreviewPageVC(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         previewVC.limit = limit
         previewVC.pickColor = pickColor
         previewVC.message = message
@@ -412,22 +443,32 @@ extension EAViewController: UICollectionViewDataSource, UICollectionViewDelegate
         previewVC.selectedItem = item
         previewVC.mAlbumPhotos = mAlbumPhotos
         previewVC.mSelectedPhotos = mSelectedPhotos
+        previewVC.cellFrame = cellFrame
         previewVC.pageDelegate = self
         previewVC.modalPresentationStyle = .overCurrentContext
+        
         present(previewVC, animated: false, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        photoManager.startCacheImage(prefetchItemsAt: indexPaths, photos: mAlbumPhotos)
+        let assets = indexPaths.map({ mAlbumPhotos[$0.row].asset })
+        DispatchQueue.main.async {
+            self.photoManager.startCacheImage(prefetchItemsAt: assets, options: .fast)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        photoManager.stopCacheImage(cancelPrefetchingForItemsAt: indexPaths, photos: mAlbumPhotos)
+        guard mAlbumPhotos.count >= indexPaths.count else { return }
+        
+        let assets = indexPaths.map({ mAlbumPhotos[$0.row].asset })
+        DispatchQueue.main.async {
+            self.photoManager.stopCacheImage(cancelPrefetchingForItemsAt: assets, options: .fast)
+        }
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension EAViewController: UICollectionViewDelegateFlowLayout {
+extension EasyAlbumVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return section == 0 ? CGSize(width: UIScreen.width, height: AlbumCategoryView.height) : .zero
     }
@@ -443,6 +484,7 @@ extension EAViewController: UICollectionViewDelegateFlowLayout {
         // Get margin of left and right
         var left = view.layoutMargins.left
         var right = view.layoutMargins.right
+        
         if #available(iOS 11.0, *) {
             left = view.safeAreaInsets.left
             right = view.safeAreaInsets.right
@@ -462,21 +504,21 @@ extension EAViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - AlbumPhotoCellDelegate
-extension EAViewController: AlbumPhotoCellDelegate {
+extension EasyAlbumVC: AlbumPhotoCellDelegate {
     func albumPhotoCell(didNumberClickAt item: Int) {
         clickedPhoto(on: item)
     }
 }
 
 // MARK: - AlbumDoneViewDelegate
-extension EAViewController: AlbumDoneViewDelegate {
+extension EasyAlbumVC: AlbumDoneViewDelegate {
     func albumDoneViewDidClicked(_ albumDoneView: AlbumDoneView) {
         convertTask()
     }
 }
 
 // MARK: - AlbumCategoryViewDelegate
-extension EAViewController: AlbumCategoryViewDelegate {
+extension EasyAlbumVC: AlbumCategoryViewDelegate {
     func albumCategoryView(_ albumCategoryView: AlbumCategoryView, didSelectedAt index: Int) {
         for i in 0 ..< mAlbumFolders.count { mAlbumFolders[i].isCheck = false }
         categoryIndex = index
@@ -487,10 +529,9 @@ extension EAViewController: AlbumCategoryViewDelegate {
     }
 }
 
-// MARK: - EAPreviewPageViewControllerDelegate
-extension EAViewController: EAPreviewPageViewControllerDelegate {
-    func eaPreviewPageViewController(didSelectedWith markPhotos: [AlbumPhoto], removeItems: [Int],
-                                            item: Int, send: Bool) {
+// MARK: - EasyAlbumPreviewPageVCDelegate
+extension EasyAlbumVC: EasyAlbumPreviewPageVCDelegate {
+    func easyAlbumPreviewPageVC(didSelectedWith markPhotos: [AlbumPhoto], removeItems: [Int], item: Int, send: Bool) {
         mSelectedPhotos = markPhotos
         for i in 0 ..< markPhotos.count {
             if let index = mAlbumPhotos.firstIndex(of: markPhotos[i]) {
@@ -513,7 +554,7 @@ extension EAViewController: EAPreviewPageViewControllerDelegate {
 }
 
 // MARK: - PHPhotoLibraryChangeObserver
-extension EAViewController: PHPhotoLibraryChangeObserver {
+extension EasyAlbumVC: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         guard photoManager.assetsArray.count > 0 else { return }
         guard let changes = changeInstance.changeDetails(for: photoManager.assetsArray[categoryIndex]) else { return }
@@ -522,7 +563,7 @@ extension EAViewController: PHPhotoLibraryChangeObserver {
         if assets.count > 0 && isFromEasyAlbumCamera {
             isFromEasyAlbumCamera = false
             photoManager.cenvertTask(from: assets, factor: sizeFactor) { (datas) in
-                self.delegate?.easyAlbumDidSelected(datas)
+                self.albumDelegate?.easyAlbumDidSelected(datas)
                 self.dismiss(animated: true, completion: nil)
             }
         }

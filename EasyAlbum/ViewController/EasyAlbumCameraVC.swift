@@ -1,5 +1,5 @@
 //
-//  EACameraViewController.swift
+//  EasyAlbumCameraVC.swift
 //  EasyAlbum
 //
 //  Created by Ray on 2019/3/3.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EACameraViewController: UIImagePickerController {
+class EasyAlbumCameraVC: UIImagePickerController {
 
     var isEdit: Bool = false {
         didSet {
@@ -26,12 +26,14 @@ class EACameraViewController: UIImagePickerController {
         if !UIImagePickerController.isSourceTypeAvailable(.camera) {
             dismiss(animated: true, completion: nil)
         }
+        
         delegate = self
     }
     
     private func didFinishTakePhoto(_ picker: UIImagePickerController, image: UIImage?) {
         // Use UIImageWriteToSavedPhotosAlbum, because after take photo no path so take photo to save album.
         guard let image = image else { return }
+        
         UIImageWriteToSavedPhotosAlbum(image,
                                        self,
                                        #selector(handleSavePhoto(_:didFinishSavingWithError:contextInfo:)),
@@ -45,7 +47,7 @@ class EACameraViewController: UIImagePickerController {
     }
 }
 
-extension EACameraViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+extension EasyAlbumCameraVC: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         /*
          .editedImage(UIImage)        👉🏻 nil (需搭配allowsEditing = true)

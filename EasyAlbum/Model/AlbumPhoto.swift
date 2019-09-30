@@ -14,21 +14,17 @@ class AlbumPhoto: Equatable, Hashable, CustomStringConvertible {
         hasher.combine(asset.hashValue)
     }
     
-    var index: Int = 0
-    var asset: PHAsset!
-    var pickNumber: Int = 0
-    var pickColor: UIColor = EasyAlbumCore.PICK_COLOR
-    var isCheck: Bool = false
-    var isGIF: Bool = false
+    var asset: PHAsset
+    var pickNumber: Int
+    var pickColor: UIColor
+    var isCheck: Bool
+    var isGIF: Bool
     
     var description: String {
         get { return "asset 👉🏻 \(String(describing: asset))" }
     }
-    
-    init() {}
-    
-    init(_ index: Int, asset: PHAsset, pickNumber: Int, pickColor: UIColor, isCheck: Bool, isGIF: Bool) {
-        self.index = index
+        
+    init(asset: PHAsset, pickNumber: Int, pickColor: UIColor, isCheck: Bool, isGIF: Bool) {
         self.asset = asset
         self.pickNumber = pickNumber
         self.pickColor = pickColor

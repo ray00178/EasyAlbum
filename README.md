@@ -17,7 +17,7 @@
 ![Screenshots Landscape](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-landscape-screenshots.jpg)
 
 ## Requirements and Details
-* iOS 9.0+
+* iOS 9.1+ (Use for `LivePhoto`)
 * XCode 10.0+
 * Build with Swift 5.0
 
@@ -31,7 +31,7 @@ To integrate EasyAlbum into your XCode project using CocoaPods, specify it to a 
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
+platform :ios, '9.1'
 use_frameworks!
 
 target '<Your Target Name>' do
@@ -81,14 +81,16 @@ import EasyAlbum
   */
 
 // Easy way
-EasyAlbum.of(appName: "EasyAlbum").start(self, delegate: self)
+EasyAlbum.share
+    .of(appName: "EasyAlbum").start(self, delegate: self)
 
 // Use many way
-EasyAlbum.of(appName: "EasyAlbum")
-         .limit(3)
-         .sizeFactor(.fit(width: 1125.0, height: 2436.0))
-         .orientation(.portrait)
-         .start(self, delegate: self) 
+EasyAlbum.share
+    .of(appName: "EasyAlbum")
+    .limit(3)
+    .sizeFactor(.fit(width: 1125.0, height: 2436.0))
+    .orientation(.portrait)
+    .start(self, delegate: self) 
 ```
 
 ##### 3. EasyAlbum parameters 
@@ -124,6 +126,12 @@ func easyAlbumDidCanceled() {
 | fileUTI          | String?     | Optional("public.jpeg")                |               |
 
 ## Update Description
+#### Version：2.2.0
+  - Optimization PhotoManager.
+  - EasyAlbum use singleton pattern.
+  - Preview enter `transition animation`.
+  - Support iOS version at least 9.1.
+
 #### Version：2.1.0
   - Fix the bottom view can't adapts to `iPhone` device.
   - Support device rotate.
@@ -136,9 +144,7 @@ func easyAlbumDidCanceled() {
 - If you want to `contribute`, submit a pull request.
 
 ## Todo List
-- [X] Write in Swift 5
-- [X] Support device rotation
-- [ ] ViewController `transition animation`
+- [ ] Preview exit `transition animation`
 - [ ] Support `Live Photo`
 
 ## License

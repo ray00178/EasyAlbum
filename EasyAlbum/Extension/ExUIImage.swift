@@ -49,7 +49,7 @@ extension UIImage {
     }
     
     public class func bundle(image name: Name) -> UIImage? {
-        let frameworkBundle = Bundle(for: EAViewController.self)
+        let frameworkBundle = Bundle(for: EasyAlbumVC.self)
         let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("EasyAlbum.bundle")
         guard let url = bundleURL else { return nil }
         let resourceBundle = Bundle(url: url)

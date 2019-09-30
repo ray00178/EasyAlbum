@@ -21,9 +21,7 @@ class AlbumPhotoCell: UICollectionViewCell {
     @IBOutlet weak var mNumberBtn: UIButton!
         
     var representedAssetIdentifier: String?
-    
-    var blurImage: UIImage?
-    
+        
     weak var delegate: AlbumPhotoCellDelegate?
     
     override func awakeFromNib() {
@@ -48,7 +46,7 @@ class AlbumPhotoCell: UICollectionViewCell {
         super.prepareForReuse()
         
         representedAssetIdentifier = nil
-        mImgView.image = blurImage
+        mImgView.image = nil
         mGIFLab.isHidden = true
         mBorderView.isHidden = true
         mNumberBtn.layer.borderColor = UIColor(white: 1.0, alpha: 0.78).cgColor

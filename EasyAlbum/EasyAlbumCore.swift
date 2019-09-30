@@ -117,18 +117,23 @@ enum EasyAlbumText {
 
 /// Photo scale ratio
 ///
-/// - auto : scale to device's width and height. unit:px
-/// - fit  : manual setting width and height. unit:px
-/// - scale: manual setting scale ratio.
+/// - auto     : Scale to device's width and height. unit:px
+/// - fit      : Manual setting width and height. unit:px
+/// - scale    : Manual setting scale ratio.
+/// - original : Use original size.
 public enum EasyAlbumSizeFactor {
-    /// scale to device's width and height. unit:px
+    
+    /// Scale to device's width and height. unit:px
     case auto
     
-    /// manual setting width and height. unit:px
+    /// Manual setting width and height. unit:px
     case fit(width: CGFloat, height: CGFloat)
     
-    /// manual setting scale ratio.
+    /// Manual setting scale ratio.
     case scale(width: CGFloat, height: CGFloat)
+    
+    /// Use original size.
+    case original
 }
 
 /// Is from `EasyAlbumViewController` take photo，default：false
@@ -214,22 +219,22 @@ func LString(_ text: EasyAlbumText) -> String {
 }
 
 // MARK: - EasyAlbumDelegate
-public protocol EasyAlbumDelegate: NSObjectProtocol {
+public protocol EasyAlbumDelegate: class {
     func easyAlbumDidSelected(_ photos: [AlbumData])
     
     func easyAlbumDidCanceled()
 }
 
-// MARK: - EAPreviewPageViewControllerDelegate
-protocol EAPreviewPageViewControllerDelegate: NSObjectProtocol {
-    func eaPreviewPageViewController(didSelectedWith markPhotos: [AlbumPhoto], removeItems: [Int], item: Int, send: Bool)
+// MARK: - EasyAlbumPreviewPageVCDelegate
+protocol EasyAlbumPreviewPageVCDelegate: class {
+    func easyAlbumPreviewPageVC(didSelectedWith markPhotos: [AlbumPhoto], removeItems: [Int], item: Int, send: Bool)
 }
 
 // MARK: - EAPageContentViewControllerDelegate
-protocol EAPageContentViewControllerDelegate: NSObjectProtocol {
-    func singleTap(_ viewController: EAPageContentViewController)
+protocol EasyAlbumPageContentVCDelegate: class {
+    func singleTap(_ viewController: EasyAlbumPageContentVC)
     
-    func panDidChanged(_ viewController: EAPageContentViewController, in targetView: UIView, alpha: CGFloat)
+    func panDidChanged(_ viewController: EasyAlbumPageContentVC, in targetView: UIView, alpha: CGFloat)
     
-    func panDidEnded(_ viewController: EAPageContentViewController, in targetView: UIView)
+    func panDidEnded(_ viewController: EasyAlbumPageContentVC, in targetView: UIView)
 }

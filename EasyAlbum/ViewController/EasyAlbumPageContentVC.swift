@@ -1,5 +1,5 @@
 //
-//  EAPageContentViewController.swift
+//  EasyAlbumPageContentVC.swift
 //  EasyAlbum
 //
 //  Created by Ray on 2019/8/26.
@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class EAPageContentViewController: UIViewController {
+class EasyAlbumPageContentVC: UIViewController {
 
     private let mScrollView = UIScrollView()
     private let mImgView: UIImageView = UIImageView()
@@ -39,7 +39,10 @@ class EAPageContentViewController: UIViewController {
     
     var albumPhoto: AlbumPhoto?
     
-    weak var delegate: EAPageContentViewControllerDelegate?
+    /// The cell frame，default = .zero
+    var cellFrame: CGRect = .zero
+    
+    weak var delegate: EasyAlbumPageContentVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +54,11 @@ class EAPageContentViewController: UIViewController {
         doLayout()
     }
 
-    private func setup() {        
+    private func setup() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        
         mScrollView.showsHorizontalScrollIndicator = false
         mScrollView.showsVerticalScrollIndicator = false
         mScrollView.alwaysBounceHorizontal = true
@@ -83,6 +90,8 @@ class EAPageContentViewController: UIViewController {
         mImgView.isUserInteractionEnabled = true
         mImgView.addGestureRecognizer(pan)
         
+        mImgView.frame = cellFrame
+        
         // Single tap ＆ Double tap
         singleTap.require(toFail: doubleTap)
         
@@ -101,11 +110,9 @@ class EAPageContentViewController: UIViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { self.doLayout() }
             }
         } else {
-            photoManager.fetchThumbnail(form: albumPhoto.asset, size: size, options: .exact(isSync: false)) { (image) in
-                DispatchQueue.main.async {
-                    self.mImgView.image = image
-                    self.doLayout()
-                }
+            photoManager.fetchImage(form: albumPhoto.asset, size: size, options: .exact(isSync: false)) { (image) in
+                self.mImgView.image = image
+                self.doLayout()
             }
         }
     }
@@ -124,9 +131,13 @@ class EAPageContentViewController: UIViewController {
         
         // Calculation screen frame
         let fitFrame = imageSize.fit(with: screenFrame)
-        mImgView.frame = fitFrame
-        oriImageCenter = mImgView.center
-        mScrollView.setZoomScale(1.0, animated: false)
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            self.mImgView.frame = fitFrame
+            self.oriImageCenter = self.mImgView.center
+        }) { (finished) in
+            self.mScrollView.setZoomScale(1.0, animated: false)
+        }
     }
     
     @objc private func onSingleTap(_ tap: UITapGestureRecognizer) {
@@ -200,7 +211,7 @@ class EAPageContentViewController: UIViewController {
 }
 
 // MARK: - UIScrollViewDelegate
-extension EAPageContentViewController: UIScrollViewDelegate {
+extension EasyAlbumPageContentVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return mImgView
     }
@@ -211,7 +222,7 @@ extension EAPageContentViewController: UIScrollViewDelegate {
 }
 
 // MARK: - UIGestureRecognizerDelegate
-extension EAPageContentViewController: UIGestureRecognizerDelegate {
+extension EasyAlbumPageContentVC: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         
         // allow scroll can to left or right
