@@ -9,9 +9,7 @@
 import UIKit
 
 class EasyAlbumNAC: UINavigationController {
-    
-    //private var albumVC: EasyAlbumVC?
-    
+        
     var appName: String = EasyAlbumCore.APP_NAME
     var tintColor: UIColor = EasyAlbumCore.TINT_COLOR
     var barTintColor: UIColor = EasyAlbumCore.BAR_TINT_COLOR
@@ -32,8 +30,28 @@ class EasyAlbumNAC: UINavigationController {
         setup()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return lightStatusBarStyle ? .lightContent : .default
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .fade
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return orientation
+    }
+    
+    deinit {
+        #if targetEnvironment(simulator)
+        print("EasyAlbumNAC deinit 👍🏻")
+        #endif
+    }
+    
+    private func setup() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
         
         navigationBar.tintColor = tintColor
         navigationBar.barTintColor = barTintColor
@@ -52,29 +70,7 @@ class EasyAlbumNAC: UINavigationController {
         albumVC.sizeFactor = sizeFactor
         albumVC.orientation = orientation
         albumVC.albumDelegate = albumDelegate
-                
+        
         viewControllers = [albumVC]
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return lightStatusBarStyle ? .lightContent : .default
-    }
-    
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return orientation
-    }
-    
-    private func setup() {
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .light
-        }
-    }
-    
-    deinit {
-        //print("EasyAlbumNAC deinit")
     }
 }

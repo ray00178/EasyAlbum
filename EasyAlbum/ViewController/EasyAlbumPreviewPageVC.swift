@@ -89,8 +89,8 @@ class EasyAlbumPreviewPageVC: UIPageViewController {
             mBackBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8.0).isActive = true
             mBackBtn.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 22.0).isActive = true
         } else {
-            mBackBtn.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 8.0).isActive = true
-            mBackBtn.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 22.0).isActive = true
+            mBackBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 28.0).isActive = true
+            mBackBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22.0).isActive = true
         }
         
         btnWH = 30.0
@@ -109,7 +109,7 @@ class EasyAlbumPreviewPageVC: UIPageViewController {
         if #available(iOS 11.0, *) {
             mNumberBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24.0).isActive = true
         } else {
-            mNumberBtn.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -24.0).isActive = true
+            mNumberBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24.0).isActive = true
         }
         mNumberBtn.centerXAnchor.constraint(equalTo: mBackBtn.centerXAnchor).isActive = true
         
@@ -130,7 +130,7 @@ class EasyAlbumPreviewPageVC: UIPageViewController {
         if #available(iOS 11.0, *) {
             mSendBtn.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -22.0).isActive = true
         } else {
-            mSendBtn.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -22.0).isActive = true
+            mSendBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22.0).isActive = true
         }
         
         btnWH = 22.0

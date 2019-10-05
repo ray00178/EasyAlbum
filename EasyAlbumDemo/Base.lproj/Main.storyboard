@@ -17,11 +17,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1u2-FX-DY8">
-                                <rect key="frame" x="0.0" y="44" width="375" height="668"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="658"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ojj-s3-BdH">
-                                <rect key="frame" x="10" y="722" width="355" height="56"/>
+                                <rect key="frame" x="10" y="712" width="355" height="56"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Hx-XU-6Kf">
                                         <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="56"/>
@@ -47,7 +47,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ojj-s3-BdH" secondAttribute="bottom" id="574-N1-Hv2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ojj-s3-BdH" secondAttribute="bottom" constant="10" id="574-N1-Hv2"/>
                             <constraint firstItem="Ojj-s3-BdH" firstAttribute="top" secondItem="1u2-FX-DY8" secondAttribute="bottom" constant="10" id="6TI-Th-Kmt"/>
                             <constraint firstItem="1u2-FX-DY8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="RS3-6k-kbE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ojj-s3-BdH" secondAttribute="trailing" constant="10" id="cu3-6A-6lW"/>

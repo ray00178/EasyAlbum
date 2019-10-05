@@ -81,9 +81,12 @@ class EasyAlbumVC: UIViewController {
         checkAlbumPermission()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        // When device rotate, trigger invalidateLayout
+        mCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    deinit {
         if PHPhotoLibrary.authorizationStatus() == .authorized {
             photoManager.stopAllCachingImages()
         }
@@ -91,15 +94,10 @@ class EasyAlbumVC: UIViewController {
         mImgCache?.removeAllObjects()
         
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        // When device rotate, trigger invalidateLayout
-        mCollectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    deinit {
-        //print("EasyAlbumVC deinit")
+        
+        #if targetEnvironment(simulator)
+        print("EasyAlbumVC deinit 👍🏻")
+        #endif
     }
     
     private func setup() {
@@ -152,8 +150,8 @@ class EasyAlbumVC: UIViewController {
             mCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
             mCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         } else {
-            mCollectionView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-            mCollectionView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+            mCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            mCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         }
         mCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         mCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -188,8 +186,8 @@ class EasyAlbumVC: UIViewController {
             mDoneView?.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
             mDoneView?.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         } else {
-            mDoneView?.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-            mDoneView?.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+            mDoneView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            mDoneView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         }
     }
     
@@ -294,6 +292,7 @@ class EasyAlbumVC: UIViewController {
                 self.mDoneView?.transform = .identity
             }
         }
+        
         // Setting collectionView content margin
         mCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0,
                                                     bottom: isGreaterZero ? doneViewHeight : 0.0, right: 0.0)
@@ -312,9 +311,11 @@ class EasyAlbumVC: UIViewController {
     
     private func setNavigationTitle(with text: String) {
         var width = text.height(with: 22.0, font: font)
+        
         if let image = mTitleBtn.imageView?.image {
            width += image.size.width
         }
+        
         mTitleBtn.frame.size = CGSize(width: width, height: 22.0)
         mTitleBtn.setTitle(text, for: .normal)
     }
@@ -395,7 +396,7 @@ extension EasyAlbumVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             }
         } else {
             let isPortrait = UIScreen.height >= UIScreen.width
-            let size = mDynamicItemSize[isPortrait]?.scale(to: 1.2)
+            let size = mDynamicItemSize[isPortrait]?.scale(to: 1.8)
             
             photoManager.fetchThumbnail(form: asset, size: size, options: .exact(isSync: false)) { [weak self] (image) in
                 self?.mImgCache?.setObject(image, forKey: asset)
@@ -482,9 +483,9 @@ extension EasyAlbumVC: UICollectionViewDelegateFlowLayout {
         }
         
         // Get margin of left and right
-        var left = view.layoutMargins.left
-        var right = view.layoutMargins.right
-        
+        var left = CGFloat(0.0)
+        var right = CGFloat(0.0)
+
         if #available(iOS 11.0, *) {
             left = view.safeAreaInsets.left
             right = view.safeAreaInsets.right

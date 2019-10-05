@@ -37,8 +37,6 @@
 		717FFFFC222BA23E00F2943A /* AlbumPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717FFFFA222BA23E00F2943A /* AlbumPhotoCell.swift */; };
 		717FFFFD222BA23E00F2943A /* AlbumPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 717FFFFB222BA23E00F2943A /* AlbumPhotoCell.xib */; };
 		718A1A73226B63B900CECB7F /* ExCGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718A1A72226B63B900CECB7F /* ExCGSize.swift */; };
-		718A3D0223419E3A00160BB5 /* EasyAlbum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; };
-		718A3D0323419E3A00160BB5 /* EasyAlbum.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		71EA9ABF226F67DF00314978 /* AlbumSelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EA9ABE226F67DF00314978 /* AlbumSelectedButton.swift */; };
 		71F762662234BA7500D54A14 /* ExString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F762652234BA7500D54A14 /* ExString.swift */; };
 		71F762682234E05B00D54A14 /* AlbumDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F762672234E05B00D54A14 /* AlbumDoneView.swift */; };
@@ -47,6 +45,8 @@
 		71F762712234FF1D00D54A14 /* AlbumCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F7626F2234FF1D00D54A14 /* AlbumCategoryCell.xib */; };
 		71F95FF9225E3E8E009483A0 /* EasyAlbumDemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F95FF7225E3E8E009483A0 /* EasyAlbumDemoCell.swift */; };
 		71F95FFA225E3E8E009483A0 /* EasyAlbumDemoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F95FF8225E3E8E009483A0 /* EasyAlbumDemoCell.xib */; };
+		71FE0FB423424D910056161B /* EasyAlbum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; };
+		71FE0FB523424D910056161B /* EasyAlbum.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +64,7 @@
 			remoteGlobalIDString = 717FFFA0222B7F9700F2943A;
 			remoteInfo = EasyAlbum;
 		};
-		718A3D0423419E3A00160BB5 /* PBXContainerItemProxy */ = {
+		71FE0FB623424D910056161B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 717FFF98222B7F9700F2943A /* Project object */;
 			proxyType = 1;
@@ -74,13 +74,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		718A3D0623419E3A00160BB5 /* Embed Frameworks */ = {
+		71FE0FB823424D910056161B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				718A3D0323419E3A00160BB5 /* EasyAlbum.framework in Embed Frameworks */,
+				71FE0FB523424D910056161B /* EasyAlbum.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,7 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				718A3D0223419E3A00160BB5 /* EasyAlbum.framework in Frameworks */,
+				71FE0FB423424D910056161B /* EasyAlbum.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,12 +381,12 @@
 				717FFFD9222B989E00F2943A /* Sources */,
 				717FFFDA222B989E00F2943A /* Frameworks */,
 				717FFFDB222B989E00F2943A /* Resources */,
-				718A3D0623419E3A00160BB5 /* Embed Frameworks */,
+				71FE0FB823424D910056161B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				718A3D0523419E3A00160BB5 /* PBXTargetDependency */,
+				71FE0FB723424D910056161B /* PBXTargetDependency */,
 			);
 			name = EasyAlbumDemo;
 			productName = EasyAlbumDemo;
@@ -532,10 +532,10 @@
 			target = 717FFFA0222B7F9700F2943A /* EasyAlbum */;
 			targetProxy = 717FFFAC222B7F9700F2943A /* PBXContainerItemProxy */;
 		};
-		718A3D0523419E3A00160BB5 /* PBXTargetDependency */ = {
+		71FE0FB723424D910056161B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 717FFFA0222B7F9700F2943A /* EasyAlbum */;
-			targetProxy = 718A3D0423419E3A00160BB5 /* PBXContainerItemProxy */;
+			targetProxy = 71FE0FB623424D910056161B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -8,11 +8,14 @@
 
 import UIKit
 import Photos
+//import PhotosUI
 
 class EasyAlbumPageContentVC: UIViewController {
 
     private let mScrollView = UIScrollView()
     private let mImgView: UIImageView = UIImageView()
+    
+    //private var mPohtoLiveView: PHLivePhotoView?
 
     /// Device screen frame
     private var screenFrame: CGRect = .zero
@@ -132,11 +135,17 @@ class EasyAlbumPageContentVC: UIViewController {
         // Calculation screen frame
         let fitFrame = imageSize.fit(with: screenFrame)
         
-        UIView.animate(withDuration: 0.25, animations: {
-            self.mImgView.frame = fitFrame
-            self.oriImageCenter = self.mImgView.center
-        }) { (finished) in
-            self.mScrollView.setZoomScale(1.0, animated: false)
+        if cellFrame != .zero {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.mImgView.frame = fitFrame
+                self.oriImageCenter = self.mImgView.center
+            }) { (finished) in
+                self.mScrollView.setZoomScale(1.0, animated: false)
+            }
+        } else {
+            mImgView.frame = fitFrame
+            oriImageCenter = mImgView.center
+            mScrollView.setZoomScale(1.0, animated: false)
         }
     }
     

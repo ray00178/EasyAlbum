@@ -97,15 +97,17 @@ struct PhotoManager {
         var sortedCollections = collections.sorted { (now, next) in return now.count > next.count }
 
         var animatedIDs: [String] = []
-        
-        // Fetch Animated Collections
-        let animatedCollections = sortedCollections.filter({ isAnimated(with: $0.collection.localizedTitle) })
-        
-        // Fetch Animated's photo localIdentifier
-        for ac in animatedCollections {
-            let assets = ac.assets
-            for i in 0 ..< assets.count {
-                animatedIDs.append(assets[i].localIdentifier)
+        if #available(iOS 11.0, *) {
+        } else {
+            // Fetch Animated Collections
+            let animatedCollections = sortedCollections.filter({ isAnimated(with: $0.collection.localizedTitle) })
+            
+            // Fetch Animated's photo localIdentifier
+            for ac in animatedCollections {
+                let assets = ac.assets
+                for i in 0 ..< assets.count {
+                    animatedIDs.append(assets[i].localIdentifier)
+                }
             }
         }
         
@@ -125,7 +127,14 @@ struct PhotoManager {
             var photos: [AlbumPhoto] = []
             for j in 0 ..< assets.count {
                 let asset = assets[j]
-                let isGIF = animatedIDs.contains(asset.localIdentifier)
+                
+                var isGIF: Bool
+                if #available(iOS 11, *) {
+                    isGIF = asset.playbackStyle == .imageAnimated
+                } else {
+                    isGIF = animatedIDs.contains(asset.localIdentifier)
+                }
+                
                 let albumPhoto = AlbumPhoto(asset: asset, pickNumber: 0, pickColor: pickColor, isCheck: false, isGIF: isGIF)
                 
                 if folders.count > 0 {

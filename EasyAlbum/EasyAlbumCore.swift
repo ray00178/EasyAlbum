@@ -82,6 +82,7 @@ struct EasyAlbumCore {
     static let SIZE_FACTOR: EasyAlbumSizeFactor = .auto
 }
 
+// MARK: - EasyAlbumPermission
 enum EasyAlbumPermission: CustomStringConvertible {
     
     case camera
@@ -96,6 +97,7 @@ enum EasyAlbumPermission: CustomStringConvertible {
     }
 }
 
+// MARK: - EasyAlbumText
 enum EasyAlbumText {
     
     case camera
@@ -115,6 +117,7 @@ enum EasyAlbumText {
     case photoProcess
 }
 
+// MARK: - EasyAlbumSizeFactor
 /// Photo scale ratio
 ///
 /// - auto     : Scale to device's width and height. unit:px
@@ -136,31 +139,32 @@ public enum EasyAlbumSizeFactor {
     case original
 }
 
-/// Is from `EasyAlbumViewController` take photo，default：false
+/// Is from `EasyAlbumViewController` take photo，default = false
 var isFromEasyAlbumCamera: Bool = false
 
-/// Language Traditional：zh-Hant
+/// Language Traditional，value = zh-Hant
 private let LANG_ZH_HANT: String = "zh-Hant"
 
-/// Region：TW
-private let REGION_TW: String = "TW"
-
-/// Language Simplified：zh-Hans
+/// Language Simplified，value = zh-Hans
 private let LANG_ZH_HANS: String = "zh-Hans"
 
-/// Region：CN
-private let REGION_CN: String = "CN"
-
-/// Language English：en
+/// Language English，value = en
 private let LANG_EN: String = "en"
 
-/// Region：US
+/// Region，value = TW
+private let REGION_TW: String = "TW"
+
+/// Region，value = CN
+private let REGION_CN: String = "CN"
+
+/// Region，value = US
 private let REGION_US: String = "US"
 
 /// 對應區域設定語系文字
 /// ```
 /// Region   👉🏻 US：美國、TW：台灣、CN：中國大陸
 /// Language 👉🏻 en：美國、zh：台灣、zh：中國大陸
+///
 /// Identifier 👇🏻
 /// 地區是台灣
 /// 繁體：zh_TW

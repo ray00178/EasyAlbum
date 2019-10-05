@@ -9,18 +9,16 @@
 import Foundation
 
 public struct EasyAlbum {
-    
-    public static let share = EasyAlbum()
-    
+        
     private var albumNVC: EasyAlbumNAC?
     
-    private init() {
+    private init(appName: String) {
         albumNVC = EasyAlbumNAC()
+        albumNVC?.appName = appName
     }
     
-    public func of(appName: String) -> EasyAlbum {
-        albumNVC?.appName = appName
-        return self
+    public static func of(appName: String) -> EasyAlbum {
+        return EasyAlbum(appName: appName)
     }
     
     /// NavigationBar tint color
@@ -115,9 +113,10 @@ public struct EasyAlbum {
 
     /// After selected photo scale
     /// ```
-    /// auto : scale to device's width and height. unit:px
-    /// fit  : manual setting width and height. unit:px
-    /// scale: manual setting scale ratio.
+    /// auto     : scale to device's width and height. unit:px
+    /// fit      : manual setting width and height. unit:px
+    /// scale    : manual setting scale ratio.
+    /// original : Use original size.
     /// ```
     /// - Parameter factor: default = .auto
     /// - Returns: EasyAlbum

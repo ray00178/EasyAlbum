@@ -25,6 +25,10 @@ class ViewController: UIViewController {
     }
     
     private func setup() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        
         mTableView.register(UINib(nibName: CELL, bundle: nil), forCellReuseIdentifier: CELL)
         mTableView.estimatedRowHeight = 70.0
         mTableView.rowHeight = UITableView.automaticDimension
@@ -41,7 +45,7 @@ class ViewController: UIViewController {
     @objc private func click(_ btn: UIButton) {
         switch btn {
         case mAlbum1Btn:
-            EasyAlbum.share
+            EasyAlbum
                 .of(appName: "EasyAlbum")
                 .limit(100)
                 // #cc0066
@@ -51,13 +55,10 @@ class ViewController: UIViewController {
                 .sizeFactor(.auto)
                 .orientation(.all)
                 .start(self, delegate: self)
+            print("mAlbum1Btn")
         case mAlbum2Btn:
-            EasyAlbum.share
-                .of(appName: "EasyAlbum")
-                .limit(50)
-                .sizeFactor(.scale(width: 0.7, height: 0.7))
-                .orientation(.portrait)
-                .start(self, delegate: self)
+            EasyAlbum.of(appName: "EasyAlbum")
+                     .start(self, delegate: self)
         default: break
         }
     }
