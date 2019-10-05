@@ -1,22 +1,34 @@
 language:
   - swift
-osx_image: xcode11
+  
+osx_image:
+- xcode10.3
+- xcode11
+
 env:
   matrix:
-  - TEST_SDK=iphonesimulator13.0 OS=12.1 NAME='iPhone Xs'
-  - TEST_SDK=iphonesimulator13.0 OS=12.1 NAME='iPhone 8 Plus'
-  - TEST_SDK=iphonesimulator13.0 OS=12.1 NAME='iPhone 8'
-  - TEST_SDK=iphonesimulator13.0 OS=12.1 NAME='iPhone 11 Pro Max'
-  - TEST_SDK=iphonesimulator13.0 OS=13.0 NAME='iPhone 11 Pro'
-  - TEST_SDK=iphonesimulator13.0 OS=13.0 NAME='iPhone 8 Plus'
-  - TEST_SDK=iphonesimulator13.0 OS=13.0 NAME='iPhone 8'
+    exclude:
+      - osx_image: xcode10.3
+      - TEST_SDK=iphonesimulator12.4 OS=12.4 NAME='iPhone Xs Max'
+      - TEST_SDK=iphonesimulator12.4 OS=12.4 NAME='iPhone Xs'
+      - TEST_SDK=iphonesimulator12.4 OS=12.4 NAME='iPhone 8 Plus'
+      - TEST_SDK=iphonesimulator12.4 OS=12.4 NAME='iPhone 8'
+      - osx_image: xcode11
+      - TEST_SDK=iphonesimulator13.0 OS=12.1 NAME='iPhone 11 Pro Max'
+      - TEST_SDK=iphonesimulator13.0 OS=13.0 NAME='iPhone 11 Pro'
+      - TEST_SDK=iphonesimulator13.0 OS=13.0 NAME='iPhone 8 Plus'
+      - TEST_SDK=iphonesimulator13.0 OS=13.0 NAME='iPhone 8'
+      
 branches:
   only:
   - master
+
 script:
   - xcodebuild -project EasyAlbum.xcodeproj -scheme EasyAlbum -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
+
 after_success:
   #- bash <(curl -s https://codecov.io/bash)
+
 notifications:
   email:
     recipients:
