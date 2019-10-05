@@ -55,7 +55,6 @@ class ViewController: UIViewController {
                 .sizeFactor(.auto)
                 .orientation(.all)
                 .start(self, delegate: self)
-            print("mAlbum1Btn")
         case mAlbum2Btn:
             EasyAlbum.of(appName: "EasyAlbum")
                      .start(self, delegate: self)

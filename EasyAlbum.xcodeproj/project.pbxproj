@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		71044A77222D743200CC3836 /* EasyAlbumCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71044A76222D743200CC3836 /* EasyAlbumCore.swift */; };
 		71044A86222D7FAD00CC3836 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71044A85222D7FAD00CC3836 /* PhotoManager.swift */; };
+		711DAD2B2348E89E00C6687F /* EasyAlbum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; };
+		711DAD2C2348E89E00C6687F /* EasyAlbum.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		711F47CD2314227F00191593 /* EasyAlbumPreviewPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711F47CC2314227F00191593 /* EasyAlbumPreviewPageVC.swift */; };
 		711F47CF2314233F00191593 /* EasyAlbumPageContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711F47CE2314233F00191593 /* EasyAlbumPageContentVC.swift */; };
 		713F38132270BB0F0041431D /* AlbumToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713F38122270BB0F0041431D /* AlbumToast.swift */; };
@@ -45,11 +47,16 @@
 		71F762712234FF1D00D54A14 /* AlbumCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F7626F2234FF1D00D54A14 /* AlbumCategoryCell.xib */; };
 		71F95FF9225E3E8E009483A0 /* EasyAlbumDemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F95FF7225E3E8E009483A0 /* EasyAlbumDemoCell.swift */; };
 		71F95FFA225E3E8E009483A0 /* EasyAlbumDemoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F95FF8225E3E8E009483A0 /* EasyAlbumDemoCell.xib */; };
-		71FE0FB423424D910056161B /* EasyAlbum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; };
-		71FE0FB523424D910056161B /* EasyAlbum.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		711DAD2D2348E89E00C6687F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 717FFF98222B7F9700F2943A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 717FFFA0222B7F9700F2943A;
+			remoteInfo = EasyAlbum;
+		};
 		71743C6E2253BB7B00350889 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 717FFF98222B7F9700F2943A /* Project object */;
@@ -64,23 +71,16 @@
 			remoteGlobalIDString = 717FFFA0222B7F9700F2943A;
 			remoteInfo = EasyAlbum;
 		};
-		71FE0FB623424D910056161B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 717FFF98222B7F9700F2943A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 717FFFA0222B7F9700F2943A;
-			remoteInfo = EasyAlbum;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		71FE0FB823424D910056161B /* Embed Frameworks */ = {
+		711DAD2F2348E89E00C6687F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				71FE0FB523424D910056161B /* EasyAlbum.framework in Embed Frameworks */,
+				711DAD2C2348E89E00C6687F /* EasyAlbum.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,7 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71FE0FB423424D910056161B /* EasyAlbum.framework in Frameworks */,
+				711DAD2B2348E89E00C6687F /* EasyAlbum.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,12 +381,12 @@
 				717FFFD9222B989E00F2943A /* Sources */,
 				717FFFDA222B989E00F2943A /* Frameworks */,
 				717FFFDB222B989E00F2943A /* Resources */,
-				71FE0FB823424D910056161B /* Embed Frameworks */,
+				711DAD2F2348E89E00C6687F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				71FE0FB723424D910056161B /* PBXTargetDependency */,
+				711DAD2E2348E89E00C6687F /* PBXTargetDependency */,
 			);
 			name = EasyAlbumDemo;
 			productName = EasyAlbumDemo;
@@ -522,6 +522,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		711DAD2E2348E89E00C6687F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 717FFFA0222B7F9700F2943A /* EasyAlbum */;
+			targetProxy = 711DAD2D2348E89E00C6687F /* PBXContainerItemProxy */;
+		};
 		71743C6F2253BB7B00350889 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 717FFFDC222B989E00F2943A /* EasyAlbumDemo */;
@@ -531,11 +536,6 @@
 			isa = PBXTargetDependency;
 			target = 717FFFA0222B7F9700F2943A /* EasyAlbum */;
 			targetProxy = 717FFFAC222B7F9700F2943A /* PBXContainerItemProxy */;
-		};
-		71FE0FB723424D910056161B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 717FFFA0222B7F9700F2943A /* EasyAlbum */;
-			targetProxy = 71FE0FB623424D910056161B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
