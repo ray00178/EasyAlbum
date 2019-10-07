@@ -9,7 +9,7 @@
   - In preview photo, your can zoom photo.
   - According to your project color, Setting your pick color、navigationBar tint color、navigationBar bar tint color.
   - According to your preferences / needs, Show the number of fields and select the number of restrictions.
-  - Perfect support for iPhone X, Xs, Xr, Xs Max, 11 Pro and 11 Pro Max.
+  - Perfect support for iPhone X, Xs, Xr, Xs Max, 11 Pro and 11 Pro Max.
   - Support language 🇹🇼Chinese Traditional、🇨🇳Chinese Simplified, otherwise use 🇺🇸English.
 
 ## Screenshots
@@ -100,8 +100,8 @@ EasyAlbum.of(appName: "EasyAlbum")
 extension ViewController: EasyAlbumDelegate {
 
     func easyAlbumDidSelected(_ photos: [AlbumData]) {
-      // U can do something by selected.
-      photos.forEach({ print("AlbumData 👉🏻 \($0)") })
+        // You can do something by selected.
+        photos.forEach({ print("AlbumData 👉🏻 \($0)") })
     }
     
     func easyAlbumDidCanceled() {
