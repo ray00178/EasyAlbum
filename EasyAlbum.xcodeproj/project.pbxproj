@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		71044A77222D743200CC3836 /* EasyAlbumCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71044A76222D743200CC3836 /* EasyAlbumCore.swift */; };
 		71044A86222D7FAD00CC3836 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71044A85222D7FAD00CC3836 /* PhotoManager.swift */; };
+		71123DEF234B848D0023741C /* EasyAlbum-github-portrait-screenshots.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 71123DEC234B848D0023741C /* EasyAlbum-github-portrait-screenshots.jpg */; };
+		71123DF0234B848D0023741C /* EasyAlbum-github-landscape-screenshots.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 71123DED234B848D0023741C /* EasyAlbum-github-landscape-screenshots.jpg */; };
+		71123DF1234B848D0023741C /* EasyAlbum-github-description.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 71123DEE234B848D0023741C /* EasyAlbum-github-description.jpg */; };
 		711DAD2B2348E89E00C6687F /* EasyAlbum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; };
 		711DAD2C2348E89E00C6687F /* EasyAlbum.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		711F47CD2314227F00191593 /* EasyAlbumPreviewPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711F47CC2314227F00191593 /* EasyAlbumPreviewPageVC.swift */; };
@@ -90,11 +93,13 @@
 /* Begin PBXFileReference section */
 		71044A76222D743200CC3836 /* EasyAlbumCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumCore.swift; sourceTree = "<group>"; };
 		71044A85222D7FAD00CC3836 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
+		71123DEC234B848D0023741C /* EasyAlbum-github-portrait-screenshots.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "EasyAlbum-github-portrait-screenshots.jpg"; sourceTree = "<group>"; };
+		71123DED234B848D0023741C /* EasyAlbum-github-landscape-screenshots.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "EasyAlbum-github-landscape-screenshots.jpg"; sourceTree = "<group>"; };
+		71123DEE234B848D0023741C /* EasyAlbum-github-description.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "EasyAlbum-github-description.jpg"; sourceTree = "<group>"; };
 		711F47CC2314227F00191593 /* EasyAlbumPreviewPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumPreviewPageVC.swift; sourceTree = "<group>"; };
 		711F47CE2314233F00191593 /* EasyAlbumPageContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumPageContentVC.swift; sourceTree = "<group>"; };
 		713F38122270BB0F0041431D /* AlbumToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumToast.swift; sourceTree = "<group>"; };
 		7155E6B1227992EF005355DC /* EasyAlbum-github-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EasyAlbum-github-logo.png"; sourceTree = "<group>"; };
-		7155E6B3227992F0005355DC /* EasyAlbum-github-screenshots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EasyAlbum-github-screenshots.png"; sourceTree = "<group>"; };
 		7155E6BC227998B9005355DC /* EasyAlbum.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EasyAlbum.bundle; sourceTree = "<group>"; };
 		715D37C82262324100F050CC /* AlbumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollection.swift; sourceTree = "<group>"; };
 		7161614E22CBA256008A4EA1 /* EasyAlbum.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EasyAlbum.framework; path = ../../../Desktop/EasyAlbum.framework; sourceTree = "<group>"; };
@@ -128,7 +133,6 @@
 		718A1A72226B63B900CECB7F /* ExCGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExCGSize.swift; sourceTree = "<group>"; };
 		71DF053922ED892A000DCBAC /* EasyAlbum-github-permission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EasyAlbum-github-permission.png"; sourceTree = "<group>"; };
 		71EA9ABE226F67DF00314978 /* AlbumSelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSelectedButton.swift; sourceTree = "<group>"; };
-		71ECB2172290F6DD00C4F786 /* EasyAlbum-github-description.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EasyAlbum-github-description.png"; sourceTree = "<group>"; };
 		71F762652234BA7500D54A14 /* ExString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExString.swift; sourceTree = "<group>"; };
 		71F762672234E05B00D54A14 /* AlbumDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDoneView.swift; sourceTree = "<group>"; };
 		71F762692234F2E700D54A14 /* AlbumCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCategoryView.swift; sourceTree = "<group>"; };
@@ -306,10 +310,11 @@
 		71F51DB122792EA800775F16 /* Document */ = {
 			isa = PBXGroup;
 			children = (
+				71123DEE234B848D0023741C /* EasyAlbum-github-description.jpg */,
+				71123DED234B848D0023741C /* EasyAlbum-github-landscape-screenshots.jpg */,
+				71123DEC234B848D0023741C /* EasyAlbum-github-portrait-screenshots.jpg */,
 				71DF053922ED892A000DCBAC /* EasyAlbum-github-permission.png */,
-				71ECB2172290F6DD00C4F786 /* EasyAlbum-github-description.png */,
 				7155E6B1227992EF005355DC /* EasyAlbum-github-logo.png */,
-				7155E6B3227992F0005355DC /* EasyAlbum-github-screenshots.png */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -442,9 +447,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71123DF1234B848D0023741C /* EasyAlbum-github-description.jpg in Resources */,
+				71123DF0234B848D0023741C /* EasyAlbum-github-landscape-screenshots.jpg in Resources */,
 				7155E6BD227998B9005355DC /* EasyAlbum.bundle in Resources */,
 				717FFFFD222BA23E00F2943A /* AlbumPhotoCell.xib in Resources */,
 				71F762712234FF1D00D54A14 /* AlbumCategoryCell.xib in Resources */,
+				71123DEF234B848D0023741C /* EasyAlbum-github-portrait-screenshots.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
