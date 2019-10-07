@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,35 +17,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1u2-FX-DY8">
-                                <rect key="frame" x="0.0" y="64" width="375" height="656"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="658"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Hx-XU-6Kf">
-                                <rect key="frame" x="20" y="728" width="335" height="50"/>
-                                <color key="backgroundColor" red="1" green="0.66389318350000004" blue="0.4304957016" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ojj-s3-BdH">
+                                <rect key="frame" x="10" y="712" width="355" height="56"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Hx-XU-6Kf">
+                                        <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="56"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <state key="normal" title="EasyAlbum 1">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsf-t3-cLZ">
+                                        <rect key="frame" x="182.66666666666663" y="0.0" width="172.33333333333337" height="56"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <state key="normal" title="EasyAlbum 2">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Jyv-cA-Bbt"/>
+                                    <constraint firstAttribute="height" constant="56" id="eUr-sa-HNU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                <state key="normal" title="EasyAlbum">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="4Hx-XU-6Kf" firstAttribute="top" secondItem="1u2-FX-DY8" secondAttribute="bottom" constant="8" id="3ik-wR-GaC"/>
-                            <constraint firstItem="4Hx-XU-6Kf" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="R6b-i1-oIc"/>
-                            <constraint firstItem="1u2-FX-DY8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WLL-XO-Trw"/>
-                            <constraint firstItem="1u2-FX-DY8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="c7s-ZA-aiP"/>
-                            <constraint firstItem="1u2-FX-DY8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="cLm-PZ-1Pp"/>
-                            <constraint firstItem="4Hx-XU-6Kf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fMS-F6-lVi"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4Hx-XU-6Kf" secondAttribute="trailing" constant="20" id="i6U-pg-3Z6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ojj-s3-BdH" secondAttribute="bottom" constant="10" id="574-N1-Hv2"/>
+                            <constraint firstItem="Ojj-s3-BdH" firstAttribute="top" secondItem="1u2-FX-DY8" secondAttribute="bottom" constant="10" id="6TI-Th-Kmt"/>
+                            <constraint firstItem="1u2-FX-DY8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="RS3-6k-kbE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ojj-s3-BdH" secondAttribute="trailing" constant="10" id="cu3-6A-6lW"/>
+                            <constraint firstItem="1u2-FX-DY8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lDv-DF-LAW"/>
+                            <constraint firstItem="Ojj-s3-BdH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="nt6-tK-qgw"/>
+                            <constraint firstItem="1u2-FX-DY8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="osK-s2-8Aj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="mAlbumBtn" destination="4Hx-XU-6Kf" id="5Co-Mb-Pyw"/>
+                        <outlet property="mAlbum1Btn" destination="4Hx-XU-6Kf" id="p3l-hC-hQU"/>
+                        <outlet property="mAlbum2Btn" destination="xsf-t3-cLZ" id="3Io-CL-Z7r"/>
                         <outlet property="mTableView" destination="1u2-FX-DY8" id="AfM-aw-JUK"/>
                     </connections>
                 </viewController>

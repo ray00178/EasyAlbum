@@ -47,11 +47,11 @@ struct PhotoManager {
     
     private init() {
         let density = UIScreen.density
-        photoThumbnailSize = CGSize(width: 120 * density, height: 120 * density)
+        photoThumbnailSize = CGSize(width: 100 * density, height: 100 * density)
         
         // https://developer.apple.com/documentation/photos/phcachingimagemanager
         mImageManager = PHCachingImageManager()
-        mImageManager?.allowsCachingHighQualityImages = true
+        mImageManager?.allowsCachingHighQualityImages = false
 
         requestOptions = PHImageRequestOptions()
         requestOptions.isNetworkAccessAllowed = false
@@ -97,15 +97,17 @@ struct PhotoManager {
         var sortedCollections = collections.sorted { (now, next) in return now.count > next.count }
 
         var animatedIDs: [String] = []
-        
-        // Fetch Animated Collections
-        let animatedCollections = sortedCollections.filter({ return isAnimated(with: $0.collection.localizedTitle) })
-        
-        // Fetch Animated's photo localIdentifier
-        for ac in animatedCollections {
-            let assets = ac.assets
-            for i in 0 ..< assets.count {
-                animatedIDs.append(assets[i].localIdentifier)
+        if #available(iOS 11.0, *) {
+        } else {
+            // Fetch Animated Collections
+            let animatedCollections = sortedCollections.filter({ isAnimated(with: $0.collection.localizedTitle) })
+            
+            // Fetch Animated's photo localIdentifier
+            for ac in animatedCollections {
+                let assets = ac.assets
+                for i in 0 ..< assets.count {
+                    animatedIDs.append(assets[i].localIdentifier)
+                }
             }
         }
         
@@ -125,12 +127,18 @@ struct PhotoManager {
             var photos: [AlbumPhoto] = []
             for j in 0 ..< assets.count {
                 let asset = assets[j]
-                let isGIF = animatedIDs.contains(asset.localIdentifier)
-                let albumPhoto = AlbumPhoto(0, asset: asset, pickNumber: 0, pickColor: pickColor, isCheck: false, isGIF: isGIF)
+                
+                var isGIF: Bool
+                if #available(iOS 11, *) {
+                    isGIF = asset.playbackStyle == .imageAnimated
+                } else {
+                    isGIF = animatedIDs.contains(asset.localIdentifier)
+                }
+                
+                let albumPhoto = AlbumPhoto(asset: asset, pickNumber: 0, pickColor: pickColor, isCheck: false, isGIF: isGIF)
                 
                 if folders.count > 0 {
                      if let index = folders[0].photos.firstIndex(of: albumPhoto) {
-                        //printLog(with: datas[0].photos[index].asset, title: title, isGif: isGIF)
                         photos.append(folders[0].photos[index])
                      }
                  } else {
@@ -150,11 +158,13 @@ struct PhotoManager {
         requestOptions.resizeMode = options.parameters.resize
         requestOptions.deliveryMode = options.parameters.delivery
         requestOptions.isSynchronous = options.parameters.sync
+        
         var thumbnailSize = photoThumbnailSize
         
         if let t = size { thumbnailSize = t }
         
-        let _ = mImageManager?.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: requestOptions,
+        let _ = mImageManager?.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill,
+                                            options: requestOptions,
                                             resultHandler: {(result, info) -> Void in
             var thumbnail = UIImage()
             if let image = result { thumbnail = image }
@@ -162,30 +172,48 @@ struct PhotoManager {
         })
     }
     
+    /// Fetch photo
+    public func fetchImage(form asset: PHAsset, size: CGSize, options: Options,
+                           completion: @escaping (_ image: UIImage) -> Swift.Void) {
+        requestOptions.resizeMode = options.parameters.resize
+        requestOptions.deliveryMode = options.parameters.delivery
+        requestOptions.isSynchronous = options.parameters.sync
+        
+        let _ = PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: requestOptions) { (result, info) in
+            var thumbnail = UIImage()
+            if let image = result { thumbnail = image }
+            completion(thumbnail)
+        }
+    }
+    
+    
     /// Fetch image data
     public func fetchImageData(from asset: PHAsset, options: Options, completion: @escaping (_ data: Data?, _ utiKey: String?) -> Swift.Void) {
         requestOptions.resizeMode = options.parameters.resize
         requestOptions.deliveryMode = options.parameters.delivery
         requestOptions.isSynchronous = options.parameters.sync
-        mImageManager?.requestImageData(for: asset, options: requestOptions, resultHandler: { (data, utiKey,
-            orientation, info) in
+        
+        let _ = PHImageManager.default().requestImageData(for: asset, options: requestOptions) {
+            (data, utiKey, orientation, info) in
             completion(data, utiKey)
-        })
+        }
     }
     
-    public func startCacheImage(prefetchItemsAt indexPaths: [IndexPath], photos:  [AlbumPhoto]) {
+    public func startCacheImage(prefetchItemsAt assets: [PHAsset], options: Options) {
         // https://viblo.asia/p/create-a-simple-image-picker-just-like-the-camera-roll-6J3Zgk8AZmB
-        DispatchQueue.main.async {
-            let assets = indexPaths.map({ photos[$0.row].asset! })
-            self.mImageManager?.startCachingImages(for: assets, targetSize: self.photoThumbnailSize, contentMode: .aspectFill, options: self.requestOptions)
-        }
+        requestOptions.resizeMode = options.parameters.resize
+        requestOptions.deliveryMode = options.parameters.delivery
+        requestOptions.isSynchronous = options.parameters.sync
+        
+        mImageManager?.startCachingImages(for: assets, targetSize: photoThumbnailSize, contentMode: .aspectFill, options: requestOptions)
     }
     
-    public func stopCacheImage(cancelPrefetchingForItemsAt indexPaths: [IndexPath], photos:  [AlbumPhoto]) {
-        DispatchQueue.main.async {
-            let assets = indexPaths.map({ photos[$0.row].asset! })
-            self.mImageManager?.stopCachingImages(for: assets, targetSize: self.photoThumbnailSize, contentMode: .aspectFill, options: self.requestOptions)
-        }
+    public func stopCacheImage(cancelPrefetchingForItemsAt assets: [PHAsset], options: Options) {
+        requestOptions.resizeMode = options.parameters.resize
+        requestOptions.deliveryMode = options.parameters.delivery
+        requestOptions.isSynchronous = options.parameters.sync
+        
+        mImageManager?.stopCachingImages(for: assets, targetSize: photoThumbnailSize, contentMode: .aspectFill, options: requestOptions)
     }
     
     public func stopAllCachingImages() {
@@ -231,14 +259,16 @@ struct PhotoManager {
                 var fileData: Data? = nil
                 var fileSize = 0
                 var fileUTI = EasyAlbumCore.IMAGE_JPEG
-                self.fetchImageData(from: photo.asset, options: .exact(isSync: true), completion: { (data, uti)  in
+                
+                self.fetchImageData(from: photo.asset, options: .fast, completion: { (data, uti)  in
                     if let data = data, let uti = uti {
                         fileData = data
                         fileSize = Data(data).count
                         fileUTI = uti
                     }
                 })
-                self.fetchThumbnail(form: photo.asset, size: size, options: .exact(isSync: false), completion: { (image) in
+                
+                self.fetchImage(form: photo.asset, size: size, options: .exact(isSync: false), completion: { (image) in
                     datas.append(AlbumData(image, mediaType: mediaType, width: width, height: height, creationDate: createDate, modificationDate: modificationDate, isFavorite: isFavorite, isHidden: isHidden, location: location, fileName: fileName, fileData: fileData, fileSize: fileSize, fileUTI: fileUTI))
                     grp.leave()
                 })
@@ -271,14 +301,16 @@ struct PhotoManager {
                 var fileData: Data? = nil
                 var fileSize = 0
                 var fileUTI = EasyAlbumCore.UTI_IMAGE_JPEG
-                self.fetchImageData(from: asset, options: .exact(isSync: true), completion: { (data, uti)  in
+                
+                self.fetchImageData(from: asset, options: .fast, completion: { (data, uti)  in
                     if let data = data, let uti = uti {
                         fileData = data
                         fileSize = Data(data).count
                         fileUTI = uti
                     }
                 })
-                self.fetchThumbnail(form: asset, size: size, options: .exact(isSync: false), completion: { (image) in
+                
+                self.fetchImage(form: asset, size: size, options: .exact(isSync: false), completion: { (image) in
                     datas.append(AlbumData(image, mediaType: mediaType, width: width, height: height, creationDate: createDate, modificationDate: modificationDate, isFavorite: isFavorite, isHidden: isHidden, location: location, fileName: fileName, fileData: fileData, fileSize: fileSize, fileUTI: fileUTI))
                     grp.leave()
                 })
@@ -294,15 +326,7 @@ struct PhotoManager {
         let oriH = size.height
         
         switch factor {
-        case .fit(let reqW, let reqH):
-            var factor: CGFloat = 1.0
-            if oriW > reqW || oriH > reqH {
-                factor = min(reqW / oriW, reqH / oriH)
-            }
-            return CGSize(width: oriW * factor, height: oriH * factor)
-        case .scale(let scaleW, let scaleH):
-            return CGSize(width: oriW * scaleW, height: oriH * scaleH)
-        default:
+        case .auto:
             let w = UIScreen.width * UIScreen.density
             let h = UIScreen.height * UIScreen.density
             
@@ -313,7 +337,19 @@ struct PhotoManager {
             if oriW > screenW || oriH > screenH {
                 factor = min(screenW / oriW, screenH / oriH)
             }
+            
             return CGSize(width: oriW * factor, height: oriH * factor)
+        case .fit(let reqW, let reqH):
+            var factor: CGFloat = 1.0
+            if oriW > reqW || oriH > reqH {
+                factor = min(reqW / oriW, reqH / oriH)
+            }
+            
+            return CGSize(width: oriW * factor, height: oriH * factor)
+        case .scale(let scaleW, let scaleH):
+            return CGSize(width: oriW * scaleW, height: oriH * scaleH)
+        case .original:
+            return size
         }
     }
         
@@ -322,8 +358,10 @@ struct PhotoManager {
         for i in 0 ..< collections.count {
             let c = collections[i]
             let assets = PHAsset.fetchAssets(in: c , options: options)
+            
             // if album count = 0, not show
             guard assets.count > 0 else { continue }
+            
             output.append(AlbumCollection(collection: c, assets: assets, count: assets.count))
         }
     }

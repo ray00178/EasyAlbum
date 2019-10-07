@@ -11,7 +11,7 @@ import UIKit
 class AlbumToast: UIView {
     
     private var mMessageLab: UILabel!
-    private var navigationVC: UINavigationController?
+    private weak var navigationVC: UINavigationController?
     private var barTintColor: UIColor?
     
     /// message font size，default = UIFont.systemFont(ofSize: 16.0, weight: .medium)

@@ -9,8 +9,8 @@
   - In preview photo, your can zoom photo.
   - According to your project color, Setting your pick color、navigationBar tint color、navigationBar bar tint color.
   - According to your preferences / needs, Show the number of fields and select the number of restrictions.
-  - Perfect support for iPhone X, Xs, Xr and Xs Max.
-  - Support language 🇹🇼Chinese Traditional、🇨🇳Chinese Simplified、🇺🇸English.
+  - Perfect support for iPhone X, Xs, Xr, Xs Max, 11 Pro and 11 Pro Max.
+  - Support language 🇹🇼Chinese Traditional、🇨🇳Chinese Simplified, otherwise use 🇺🇸English.
 
 ## Screenshots
 ![Screenshots Portrait](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-portrait-screenshots.jpg)
@@ -36,10 +36,10 @@ use_frameworks!
 
 target '<Your Target Name>' do
   # Use swift 4.2
-  pod 'EasyAlbum', '~> 1.1.0'
+  pod 'EasyAlbum', '~> 1.2.0'
 
   # Use swift 5.0
-  pod 'EasyAlbum', '~> 2.1.0'
+  pod 'EasyAlbum', '~> 2.2.0'
 end
 ```
 
@@ -70,7 +70,7 @@ import EasyAlbum
   * @param span               : (choose)   (default: 3)
   * @param limit              : (choose)   (default: 30)
   * @param orientation        : (choose)   (default: .all)
-  * @param message            : (choose)   (default: Photo pick up the most limitCount！)
+  * @param message            : (choose)   (default: Photo pick up the most `30(limitCount)`！)
   * @param pickColor          : (choose)   (default: #ffc107)
   * @param showCamera         : (choose)   (default: true)
   * @param crop               : (choose)   (default: false) (Use for camera)
@@ -81,14 +81,15 @@ import EasyAlbum
   */
 
 // Easy way
-EasyAlbum.of(appName: "EasyAlbum").start(self, delegate: self)
+EasyAlbum.of(appName: "EasyAlbum")
+         .start(self, delegate: self)
 
 // Use many way
 EasyAlbum.of(appName: "EasyAlbum")
          .limit(3)
          .sizeFactor(.fit(width: 1125.0, height: 2436.0))
          .orientation(.portrait)
-         .start(self, delegate: self) 
+         .start(self, delegate: self)
 ```
 
 ##### 3. EasyAlbum parameters 
@@ -96,13 +97,16 @@ EasyAlbum.of(appName: "EasyAlbum")
 
 ##### 4. Extension EasyAlbumDelegate
 ```swift
-func easyAlbumDidSelected(_ photos: [AlbumData]) {
-    // U can do something by selected.
-    photos.forEach({ print("AlbumData 👉🏻 \($0)") })
-}
+extension ViewController: EasyAlbumDelegate {
+
+    func easyAlbumDidSelected(_ photos: [AlbumData]) {
+      // U can do something by selected.
+      photos.forEach({ print("AlbumData 👉🏻 \($0)") })
+    }
     
-func easyAlbumDidCanceled() {
-  // U can do something by canceled. 
+    func easyAlbumDidCanceled() {
+        // You can do something by canceled. 
+    }
 }
 ```
 
@@ -124,7 +128,13 @@ func easyAlbumDidCanceled() {
 | fileUTI          | String?     | Optional("public.jpeg")                |               |
 
 ## Update Description
-#### Version：1.1.0
+#### Version：2.2.0
+  - Optimization PhotoManager.
+  - Fix `retain cycle`.
+  - Preview enter `transition animation`.
+  - Add enum SizeFactor property `original`.
+
+#### Version：2.1.0
   - Fix the bottom view can't adapts to `iPhone` device.
   - Support device rotate.
   - In preview page, you can to leave by swipe up or swipe down.
@@ -136,9 +146,7 @@ func easyAlbumDidCanceled() {
 - If you want to `contribute`, submit a pull request.
 
 ## Todo List
-- [X] Write in Swift 5
-- [X] Support device rotation
-- [ ] ViewController `transition animation`
+- [ ] Preview exit `transition animation`
 - [ ] Support `Live Photo`
 
 ## License

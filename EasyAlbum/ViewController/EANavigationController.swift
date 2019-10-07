@@ -1,5 +1,5 @@
 //
-//  EANavigationController.swift
+//  EasyAlbumNAC.swift
 //  EasyAlbum
 //
 //  Created by Ray on 2019/3/3.
@@ -8,66 +8,26 @@
 
 import UIKit
 
-class EANavigationController: UINavigationController {
-    
-    private let album = EAViewController()
-    
-    var appName: String! {
-        didSet { album.appName = appName }
-    }
-    
-    var tintColor: UIColor = EasyAlbumCore.TINT_COLOR {
-        didSet { album.titleColor = tintColor }
-    }
-    
-    var barTintColor: UIColor = EasyAlbumCore.BAR_TINT_COLOR {
-        didSet { album.barTintColor = barTintColor }
-    }
-    
-    var limit: Int! {
-        didSet { album.limit = limit }
-    }
-    
-    var span: Int! {
-        didSet { album.span = span }
-    }
-    
-    var pickColor: UIColor! {
-        didSet { album.pickColor = pickColor }
-    }
-    
-    var crop: Bool! {
-        didSet { album.crop = crop }
-    }
-    
-    var showCamera: Bool! {
-        didSet { album.showCamera = showCamera }
-    }
-    
-    var message: String! {
-        didSet { album.message = message }
-    }
-    
-    var sizeFactor: EasyAlbumSizeFactor! {
-        didSet { album.sizeFactor = sizeFactor }
-    }
-    
+class EasyAlbumNAC: UINavigationController {
+        
+    var appName: String = EasyAlbumCore.APP_NAME
+    var tintColor: UIColor = EasyAlbumCore.TINT_COLOR
+    var barTintColor: UIColor = EasyAlbumCore.BAR_TINT_COLOR
+    var limit: Int = EasyAlbumCore.LIMIT
+    var span: Int = EasyAlbumCore.SPAN
+    var pickColor: UIColor = EasyAlbumCore.PICK_COLOR
+    var crop: Bool = EasyAlbumCore.CROP
+    var showCamera: Bool = EasyAlbumCore.SHOW_CAMERA
+    var message: String = EasyAlbumCore.MESSAGE
+    var sizeFactor: EasyAlbumSizeFactor = EasyAlbumCore.SIZE_FACTOR
     var lightStatusBarStyle: Bool = EasyAlbumCore.LIGHT_STATUS_BAR_STYLE
+    var orientation: UIInterfaceOrientationMask = EasyAlbumCore.ORIENTATION
     
-    var orientation: UIInterfaceOrientationMask = EasyAlbumCore.ORIENTATION {
-        didSet { album.orientation = orientation }
-    }
-    
-    weak var albumDelegate: EasyAlbumDelegate? {
-        didSet { album.delegate = albumDelegate }
-    }
+    weak var albumDelegate: EasyAlbumDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.tintColor = tintColor
-        navigationBar.barTintColor = barTintColor
-        navigationBar.isTranslucent = false
-        viewControllers = [album]
+        setup()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -80,5 +40,37 @@ class EANavigationController: UINavigationController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return orientation
+    }
+    
+    deinit {
+        #if targetEnvironment(simulator)
+        print("EasyAlbumNAC deinit 👍🏻")
+        #endif
+    }
+    
+    private func setup() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        
+        navigationBar.tintColor = tintColor
+        navigationBar.barTintColor = barTintColor
+        navigationBar.isTranslucent = false
+        
+        let albumVC = EasyAlbumVC()
+        albumVC.appName = appName
+        albumVC.barTintColor = barTintColor
+        albumVC.limit = limit
+        albumVC.span = span
+        albumVC.titleColor = tintColor
+        albumVC.pickColor = pickColor
+        albumVC.crop = crop
+        albumVC.showCamera = showCamera
+        albumVC.message = message
+        albumVC.sizeFactor = sizeFactor
+        albumVC.orientation = orientation
+        albumVC.albumDelegate = albumDelegate
+        
+        viewControllers = [albumVC]
     }
 }

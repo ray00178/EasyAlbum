@@ -13,7 +13,8 @@ import EasyAlbum
 class ViewController: UIViewController {
 
     @IBOutlet weak var mTableView: UITableView!
-    @IBOutlet weak var mAlbumBtn: UIButton!
+    @IBOutlet weak var mAlbum1Btn: UIButton!
+    @IBOutlet weak var mAlbum2Btn: UIButton!
     
     private let CELL = "EasyAlbumDemoCell"
     private var datas: [AlbumData] = []
@@ -24,22 +25,41 @@ class ViewController: UIViewController {
     }
     
     private func setup() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        
         mTableView.register(UINib(nibName: CELL, bundle: nil), forCellReuseIdentifier: CELL)
         mTableView.estimatedRowHeight = 70.0
         mTableView.rowHeight = UITableView.automaticDimension
         mTableView.dataSource = self
         mTableView.delegate = self
         
-        mAlbumBtn.layer.cornerRadius = 7.5
-        mAlbumBtn.addTarget(self, action: #selector(click(_:)), for: .touchUpInside)
+        mAlbum1Btn.layer.cornerRadius = 7.5
+        mAlbum1Btn.addTarget(self, action: #selector(click(_:)), for: .touchUpInside)
+        
+        mAlbum2Btn.layer.cornerRadius = 7.5
+        mAlbum2Btn.addTarget(self, action: #selector(click(_:)), for: .touchUpInside)
     }
     
     @objc private func click(_ btn: UIButton) {
-        EasyAlbum.of(appName: "EasyAlbum")
-                 .limit(3)
-                 .sizeFactor(.fit(width: 1125.0, height: 2436.0))
-                 .orientation(.all)
-                 .start(self, delegate: self)
+        switch btn {
+        case mAlbum1Btn:
+            EasyAlbum
+                .of(appName: "EasyAlbum")
+                .limit(100)
+                // #cc0066
+                .barTintColor(UIColor(red: 0.8, green: 0.0, blue: 0.4, alpha: 1.0))
+                // #00cc66
+                .pickColor(UIColor(red: 0.0, green: 0.8, blue: 0.4, alpha: 1.0))
+                .sizeFactor(.auto)
+                .orientation(.all)
+                .start(self, delegate: self)
+        case mAlbum2Btn:
+            EasyAlbum.of(appName: "EasyAlbum")
+                     .start(self, delegate: self)
+        default: break
+        }
     }
 }
 
@@ -75,6 +95,6 @@ extension ViewController: EasyAlbumDelegate {
     }
     
     func easyAlbumDidCanceled() {
-        
+        // do something
     }
 }

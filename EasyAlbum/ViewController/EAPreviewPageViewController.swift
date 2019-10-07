@@ -1,5 +1,5 @@
 //
-//  EAPreviewPageViewController.swift
+//  EasyAlbumPreviewPageVC.swift
 //  EasyAlbum
 //
 //  Created by Ray on 2019/8/26.
@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class EAPreviewPageViewController: UIPageViewController {
+class EasyAlbumPreviewPageVC: UIPageViewController {
 
     private var mBackBtn: UIButton!
     private var mNumberBtn: UIButton!
@@ -17,19 +17,22 @@ class EAPreviewPageViewController: UIPageViewController {
     private var mSendBtn: UIButton!
     private var mToast: AlbumToast?
     
-    private var photoManager: PhotoManager = PhotoManager.share
+    private let photoManager: PhotoManager = PhotoManager.share
     
     /// Control statusbar need hidden，default = false
     private var hide: Bool = false
     
-    private var currentViewController: EAPageContentViewController? {
-        return viewControllers?.first as? EAPageContentViewController
+    private var currentViewController: EasyAlbumPageContentVC? {
+        return viewControllers?.first as? EasyAlbumPageContentVC
     }
     
     var limit: Int = EasyAlbumCore.LIMIT
     var pickColor: UIColor = EasyAlbumCore.PICK_COLOR
     var message: String = EasyAlbumCore.MESSAGE
     var orientation: UIInterfaceOrientationMask = EasyAlbumCore.ORIENTATION
+    
+    /// The cell frame，default = .zero
+    var cellFrame: CGRect = .zero
     
     var selectedItem: Int = 0
     
@@ -42,7 +45,7 @@ class EAPreviewPageViewController: UIPageViewController {
     /// Record delete items
     var mRemoveItems: [Int] = []
     
-    weak var pageDelegate: EAPreviewPageViewControllerDelegate?
+    weak var pageDelegate: EasyAlbumPreviewPageVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +69,10 @@ class EAPreviewPageViewController: UIPageViewController {
     }
 
     private func setup() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        
         view.backgroundColor = .black
         
         var btnWH: CGFloat = 26.0
@@ -82,8 +89,8 @@ class EAPreviewPageViewController: UIPageViewController {
             mBackBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8.0).isActive = true
             mBackBtn.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 22.0).isActive = true
         } else {
-            mBackBtn.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 8.0).isActive = true
-            mBackBtn.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 22.0).isActive = true
+            mBackBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 28.0).isActive = true
+            mBackBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22.0).isActive = true
         }
         
         btnWH = 30.0
@@ -102,7 +109,7 @@ class EAPreviewPageViewController: UIPageViewController {
         if #available(iOS 11.0, *) {
             mNumberBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24.0).isActive = true
         } else {
-            mNumberBtn.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -24.0).isActive = true
+            mNumberBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24.0).isActive = true
         }
         mNumberBtn.centerXAnchor.constraint(equalTo: mBackBtn.centerXAnchor).isActive = true
         
@@ -123,7 +130,7 @@ class EAPreviewPageViewController: UIPageViewController {
         if #available(iOS 11.0, *) {
             mSendBtn.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -22.0).isActive = true
         } else {
-            mSendBtn.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -22.0).isActive = true
+            mSendBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22.0).isActive = true
         }
         
         btnWH = 22.0
@@ -152,7 +159,8 @@ class EAPreviewPageViewController: UIPageViewController {
     }
     
     private func addContentViewController() {
-        let vc = EAPageContentViewController()
+        let vc = EasyAlbumPageContentVC()
+        vc.cellFrame = cellFrame
         vc.albumPhoto = mAlbumPhotos[selectedItem]
         vc.delegate = self
         setViewControllers([vc], direction: .forward, animated: true, completion: nil)
@@ -195,20 +203,20 @@ class EAPreviewPageViewController: UIPageViewController {
     }
     
     @objc private func done(_ btn: UIButton) {
-        pageDelegate?.eaPreviewPageViewController(didSelectedWith: mSelectedPhotos, removeItems: mRemoveItems,
+        pageDelegate?.easyAlbumPreviewPageVC(didSelectedWith: mSelectedPhotos, removeItems: mRemoveItems,
                                                          item: selectedItem, send: true)
         dismiss(animated: false, completion: nil)
     }
     
     @objc private func back(_ btn: UIButton) {
-        pageDelegate?.eaPreviewPageViewController(didSelectedWith: mSelectedPhotos, removeItems: mRemoveItems,
+        pageDelegate?.easyAlbumPreviewPageVC(didSelectedWith: mSelectedPhotos, removeItems: mRemoveItems,
                                                          item: selectedItem, send: false)
         dismiss(animated: false, completion: nil)
     }
     
     @objc private func numberClicked(_ btn: UIButton) {
         let photo = mAlbumPhotos[selectedItem]
-        let asset = photo.asset!
+        let asset = photo.asset
         let isCheck = photo.isCheck
         
         if isCheck {
@@ -234,12 +242,12 @@ class EAPreviewPageViewController: UIPageViewController {
 }
 
 // MARK: - UIPageViewControllerDataSource & UIPageViewControllerDelegate
-extension EAPreviewPageViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+extension EasyAlbumPreviewPageVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        if let vc = viewController as? EAPageContentViewController, let photo = vc.albumPhoto,
+        if let vc = viewController as? EasyAlbumPageContentVC, let photo = vc.albumPhoto,
             let index = mAlbumPhotos.firstIndex(of: photo), index - 1 >= 0 {
-            let vc = EAPageContentViewController()
+            let vc = EasyAlbumPageContentVC()
             vc.albumPhoto = mAlbumPhotos[index - 1]
             vc.delegate = self
             return vc
@@ -250,9 +258,9 @@ extension EAPreviewPageViewController: UIPageViewControllerDataSource, UIPageVie
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        if let vc = viewController as? EAPageContentViewController, let photo = vc.albumPhoto,
+        if let vc = viewController as? EasyAlbumPageContentVC, let photo = vc.albumPhoto,
             let index = mAlbumPhotos.firstIndex(of: photo), index + 1 < mAlbumPhotos.count {
-            let vc = EAPageContentViewController()
+            let vc = EasyAlbumPageContentVC()
             vc.albumPhoto = mAlbumPhotos[index + 1]
             vc.delegate = self
             return vc
@@ -274,8 +282,8 @@ extension EAPreviewPageViewController: UIPageViewControllerDataSource, UIPageVie
 }
 
 // MARK: - EAPageContentViewControllerDelegate
-extension EAPreviewPageViewController: EAPageContentViewControllerDelegate {
-    func singleTap(_ viewController: EAPageContentViewController) {
+extension EasyAlbumPreviewPageVC: EasyAlbumPageContentVCDelegate {
+    func singleTap(_ viewController: EasyAlbumPageContentVC) {
         hide.toggle()
         setNeedsStatusBarAppearanceUpdate()
         let views: [UIView] = [mBackBtn, mSendBtn, mSmallNumberLab]
@@ -284,14 +292,14 @@ extension EAPreviewPageViewController: EAPageContentViewControllerDelegate {
         }
     }
     
-    func panDidChanged(_ viewController: EAPageContentViewController, in targetView: UIView, alpha: CGFloat) {
+    func panDidChanged(_ viewController: EasyAlbumPageContentVC, in targetView: UIView, alpha: CGFloat) {
         let views: [UIView] = [mBackBtn, mSendBtn, mSmallNumberLab]
         views.forEach({ $0.alpha = alpha })
         view.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: alpha)
     }
     
-    func panDidEnded(_ viewController: EAPageContentViewController, in targetView: UIView) {
-        pageDelegate?.eaPreviewPageViewController(didSelectedWith: mSelectedPhotos, removeItems: mRemoveItems,
+    func panDidEnded(_ viewController: EasyAlbumPageContentVC, in targetView: UIView) {
+        pageDelegate?.easyAlbumPreviewPageVC(didSelectedWith: mSelectedPhotos, removeItems: mRemoveItems,
                                                          item: selectedItem, send: false)
         dismiss(animated: false, completion: nil)
     }

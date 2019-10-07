@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		71044A77222D743200CC3836 /* EasyAlbumCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71044A76222D743200CC3836 /* EasyAlbumCore.swift */; };
 		71044A86222D7FAD00CC3836 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71044A85222D7FAD00CC3836 /* PhotoManager.swift */; };
+		71123DE7234B6EEE0023741C /* EasyAlbum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; };
+		71123DE8234B6EEE0023741C /* EasyAlbum.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		713F38132270BB0F0041431D /* AlbumToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713F38122270BB0F0041431D /* AlbumToast.swift */; };
 		7155E6BD227998B9005355DC /* EasyAlbum.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7155E6BC227998B9005355DC /* EasyAlbum.bundle */; };
 		7157C78A231A3055001B2F03 /* EAPageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157C785231A3055001B2F03 /* EAPageContentViewController.swift */; };
@@ -52,6 +54,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		71123DE9234B6EEE0023741C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 717FFF98222B7F9700F2943A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 717FFFA0222B7F9700F2943A;
+			remoteInfo = EasyAlbum;
+		};
 		71743C6E2253BB7B00350889 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 717FFF98222B7F9700F2943A /* Project object */;
@@ -67,6 +76,20 @@
 			remoteInfo = EasyAlbum;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		71123DEB234B6EEE0023741C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				71123DE8234B6EEE0023741C /* EasyAlbum.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		71044A76222D743200CC3836 /* EasyAlbumCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumCore.swift; sourceTree = "<group>"; };
@@ -139,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71123DE7234B6EEE0023741C /* EasyAlbum.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +177,13 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		71123DE6234B6EEE0023741C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		717FFF97222B7F9700F2943A = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +192,7 @@
 				717FFFDE222B989E00F2943A /* EasyAlbumDemo */,
 				71F51DB122792EA800775F16 /* Document */,
 				717FFFA2222B7F9700F2943A /* Products */,
+				71123DE6234B6EEE0023741C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -353,10 +385,12 @@
 				717FFFD9222B989E00F2943A /* Sources */,
 				717FFFDA222B989E00F2943A /* Frameworks */,
 				717FFFDB222B989E00F2943A /* Resources */,
+				71123DEB234B6EEE0023741C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				71123DEA234B6EEE0023741C /* PBXTargetDependency */,
 			);
 			name = EasyAlbumDemo;
 			productName = EasyAlbumDemo;
@@ -496,6 +530,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		71123DEA234B6EEE0023741C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 717FFFA0222B7F9700F2943A /* EasyAlbum */;
+			targetProxy = 71123DE9234B6EEE0023741C /* PBXContainerItemProxy */;
+		};
 		71743C6F2253BB7B00350889 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 717FFFDC222B989E00F2943A /* EasyAlbumDemo */;

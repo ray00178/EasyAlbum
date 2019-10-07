@@ -12,8 +12,8 @@ extension CGSize {
     
     /// Fit size with another size
     ///
-    /// - Parameter another: another size
-    /// - Returns: after calc size
+    /// - Parameter another: Another size
+    /// - Returns: After calc size
     func fit(with another: CGSize) -> CGSize {
         let anotherW = another.width
         let anotherH = another.height
@@ -34,8 +34,8 @@ extension CGSize {
     
     /// Fit frame with another frame and center in another
     ///
-    /// - Parameter another: another frame
-    /// - Returns: after calculation frame
+    /// - Parameter another: Another frame
+    /// - Returns: After calculation frame
     func fit(with another: CGRect) -> CGRect {
         let anotherW = another.width
         let anotherH = another.height
@@ -57,5 +57,11 @@ extension CGSize {
         let y = h == anotherH ? 0.0 : (anotherH - h) / 2
         
         return CGRect(x: x, y: y, width: w, height: h)
+    }
+    
+    /// Scale to ratio
+    /// - Parameter value: Scale ratio
+    func scale(to value: CGFloat) -> CGSize {
+        return CGSize(width: width * value, height: height * value)
     }
 }
