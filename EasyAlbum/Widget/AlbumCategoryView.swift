@@ -14,15 +14,15 @@ protocol AlbumCategoryViewDelegate: class {
 
 class AlbumCategoryView: UICollectionReusableView {
     
-    let width: CGFloat = 95.0
     public static let height: CGFloat = 95.0
+    private let width: CGFloat = 95.0
     
-    private var mCollectionView: UICollectionView?
+    private var collectionView: UICollectionView?
     
     weak var delegate: AlbumCategoryViewDelegate?
     
     var datas: [AlbumFolder] = [] {
-        didSet { mCollectionView?.reloadData() }
+        didSet { collectionView?.reloadData() }
     }
     
     override init(frame: CGRect) {
@@ -40,24 +40,26 @@ class AlbumCategoryView: UICollectionReusableView {
     }
     
     private func setup() {        
-        let mFlowLayout = UICollectionViewFlowLayout()
-        mFlowLayout.scrollDirection = .horizontal
-        mFlowLayout.itemSize = CGSize(width: width, height: AlbumCategoryView.height)
-        mFlowLayout.minimumLineSpacing = 0.0
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.itemSize = CGSize(width: width, height: AlbumCategoryView.height)
+        flowLayout.minimumLineSpacing = 0.0
         
-        mCollectionView = UICollectionView(frame: .zero, collectionViewLayout: mFlowLayout)
-        mCollectionView?.registerCell(AlbumCategoryCell.self)
-        mCollectionView?.backgroundColor = .white
-        mCollectionView?.showsVerticalScrollIndicator = false
-        mCollectionView?.showsHorizontalScrollIndicator = false
-        mCollectionView?.delegate = self
-        mCollectionView?.dataSource = self
-        mCollectionView?.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(mCollectionView!)
-        mCollectionView?.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        mCollectionView?.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        mCollectionView?.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        mCollectionView?.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView?.registerCell(AlbumCategoryCell.self)
+        collectionView?.backgroundColor = .white
+        collectionView?.showsVerticalScrollIndicator = false
+        collectionView?.showsHorizontalScrollIndicator = false
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(collectionView!)
+        
+        // AutoLayout
+        collectionView?.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        collectionView?.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }
 

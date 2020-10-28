@@ -10,20 +10,20 @@ import UIKit
 
 class EasyAlbumNAC: UINavigationController {
         
-    var appName: String = EasyAlbumCore.APP_NAME
-    var tintColor: UIColor = EasyAlbumCore.TINT_COLOR
-    var barTintColor: UIColor = EasyAlbumCore.BAR_TINT_COLOR
-    var limit: Int = EasyAlbumCore.LIMIT
-    var span: Int = EasyAlbumCore.SPAN
-    var pickColor: UIColor = EasyAlbumCore.PICK_COLOR
-    var crop: Bool = EasyAlbumCore.CROP
-    var showCamera: Bool = EasyAlbumCore.SHOW_CAMERA
-    var message: String = EasyAlbumCore.MESSAGE
-    var sizeFactor: EasyAlbumSizeFactor = EasyAlbumCore.SIZE_FACTOR
-    var lightStatusBarStyle: Bool = EasyAlbumCore.LIGHT_STATUS_BAR_STYLE
-    var orientation: UIInterfaceOrientationMask = EasyAlbumCore.ORIENTATION
+    var appName: String?
+    var tintColor: UIColor?
+    var barTintColor: UIColor?
+    var limit: Int?
+    var span: Int?
+    var pickColor: UIColor?
+    var crop: Bool?
+    var showCamera: Bool?
+    var message: String?
+    var sizeFactor: EasyAlbumSizeFactor?
+    var lightStatusBarStyle: Bool?
+    var orientation: UIInterfaceOrientationMask?
     
-    weak var albumDelegate: EasyAlbumDelegate? = nil
+    weak var albumDelegate: EasyAlbumDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ class EasyAlbumNAC: UINavigationController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return lightStatusBarStyle ? .lightContent : .default
+        return lightStatusBarStyle ?? EasyAlbumCore.LIGHT_STATUS_BAR_STYLE ? .lightContent : .default
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
@@ -39,7 +39,7 @@ class EasyAlbumNAC: UINavigationController {
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return orientation
+        return orientation ?? EasyAlbumCore.ORIENTATION
     }
     
     deinit {
@@ -53,22 +53,24 @@ class EasyAlbumNAC: UINavigationController {
             overrideUserInterfaceStyle = .light
         }
         
-        navigationBar.tintColor = tintColor
-        navigationBar.barTintColor = barTintColor
+        navigationBar.tintColor = tintColor ?? EasyAlbumCore.TINT_COLOR
+        navigationBar.barTintColor = barTintColor ?? EasyAlbumCore.BAR_TINT_COLOR
         navigationBar.isTranslucent = false
         
         let albumVC = EasyAlbumVC()
-        albumVC.appName = appName
-        albumVC.barTintColor = barTintColor
-        albumVC.limit = limit
-        albumVC.span = span
-        albumVC.titleColor = tintColor
-        albumVC.pickColor = pickColor
-        albumVC.crop = crop
-        albumVC.showCamera = showCamera
-        albumVC.message = message
-        albumVC.sizeFactor = sizeFactor
-        albumVC.orientation = orientation
+        
+        if let value = appName      { albumVC.appName = value }
+        if let value = barTintColor { albumVC.barTintColor = value }
+        if let value = limit        { albumVC.limit = value }
+        if let value = span         { albumVC.span = value }
+        if let value = tintColor    { albumVC.titleColor = value }
+        if let value = pickColor    { albumVC.pickColor = value }
+        if let value = crop         { albumVC.crop = value }
+        if let value = showCamera   { albumVC.showCamera = value }
+        if let value = message      { albumVC.message = value }
+        if let value = sizeFactor   { albumVC.sizeFactor = value }
+        if let value = orientation  { albumVC.orientation = value }
+
         albumVC.albumDelegate = albumDelegate
         
         viewControllers = [albumVC]

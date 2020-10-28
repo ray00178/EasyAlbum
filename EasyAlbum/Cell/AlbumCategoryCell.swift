@@ -10,9 +10,9 @@ import UIKit
 
 class AlbumCategoryCell: UICollectionViewCell {
     
-    @IBOutlet weak var mImgView: UIImageView!
-    @IBOutlet weak var mCategoryLab: UILabel!
-    @IBOutlet weak var mSelectedBtn: UIButton!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var selectedButton: UIButton!
     
     var data: AlbumFolder! {
         didSet { setData() }
@@ -21,17 +21,21 @@ class AlbumCategoryCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        mImgView.layer.cornerRadius = 5.0
-        mImgView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 5.0
+        imageView.layer.masksToBounds = true
     }
 
     private func setData() {
-        let size = CGSize(width: 60.0 * UIScreen.density, height: 60.0 * UIScreen.density)
-        PhotoManager.share.fetchThumbnail(form: data.photos[0].asset, size: size, options: .exact(isSync: true)) {
-            [weak self] (image) in
-            self?.mImgView.image = image
+        let wh = 60.0 * UIScreen.density
+        let size = CGSize(width: wh, height: wh)
+        PhotoManager.share.fetchThumbnail(form: data.assets[0],
+                                          size: size,
+                                          options: .exact(isSync: true))
+        { [weak self] (image) in
+            self?.imageView.image = image
         }
-        mCategoryLab.text = data.title
-        mSelectedBtn.alpha = data.isCheck ? 1.0 : 0.0
+        
+        categoryLabel.text = data.title
+        selectedButton.alpha = data.isCheck ? 1.0 : 0.0
     }
 }

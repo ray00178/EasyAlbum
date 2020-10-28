@@ -10,23 +10,23 @@ import UIKit
 
 class AlbumToast: UIView {
     
-    private var mMessageLab: UILabel!
+    private var messageLabel: UILabel!
     private weak var navigationVC: UINavigationController?
     private var barTintColor: UIColor?
     
     /// message font size，default = UIFont.systemFont(ofSize: 16.0, weight: .medium)
     var font: UIFont = UIFont.systemFont(ofSize: 16.0, weight: .medium) {
-        didSet { mMessageLab.font = font }
+        didSet { messageLabel.font = font }
     }
     
     /// message，default = nil
     var message: String? = nil {
-        didSet { mMessageLab.text = message }
+        didSet { messageLabel.text = message }
     }
     
     /// mesage color，default = .white
     var textColor: UIColor = .white {
-        didSet { mMessageLab.textColor = textColor }
+        didSet { messageLabel.textColor = textColor }
     }
     
     /// message background color，default = .black
@@ -53,25 +53,38 @@ class AlbumToast: UIView {
     }
     
     private func setup() {
-        mMessageLab = UILabel()
-        mMessageLab.textColor = textColor
-        mMessageLab.font = font
-        mMessageLab.numberOfLines = 2
-        mMessageLab.textAlignment = .center
-        mMessageLab.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(mMessageLab)
+        messageLabel = UILabel()
+        messageLabel.textColor = textColor
+        messageLabel.font = font
+        messageLabel.numberOfLines = 2
+        messageLabel.textAlignment = .center
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(messageLabel)
         
-        mMessageLab.heightAnchor.constraint(equalToConstant: 24.0).isActive = true
-        mMessageLab.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5.0).isActive = true
-        mMessageLab.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5.0).isActive = true
-        mMessageLab.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5.0).isActive = true
+        // AutoLayout
+        messageLabel.heightAnchor
+                    .constraint(equalToConstant: 24.0)
+                    .isActive = true
+        messageLabel.leadingAnchor
+                    .constraint(equalTo: leadingAnchor, constant: 5.0)
+                    .isActive = true
+        messageLabel.trailingAnchor
+                    .constraint(equalTo: trailingAnchor, constant: -5.0)
+                    .isActive = true
+        messageLabel.bottomAnchor
+                    .constraint(equalTo: bottomAnchor, constant: -5.0)
+                    .isActive = true
 
         backgroundColor = toastBackgroundColor
         isHidden = true
     }
     
     private func createTimer() {
-        timer = Timer(timeInterval: stayDuration, target: self, selector: #selector(hide(_:)), userInfo: nil, repeats: false)
+        timer = Timer(timeInterval: stayDuration,
+                      target: self,
+                      selector: #selector(hide(_:)),
+                      userInfo: nil,
+                      repeats: false)
         RunLoop.current.add(timer!, forMode: .common)
     }
     
@@ -86,7 +99,7 @@ class AlbumToast: UIView {
     
     public func show(with message: String = "", autoCancel: Bool = true) {
         self.autoCancel = autoCancel
-        if !message.isEmpty { mMessageLab.text = message }
+        if !message.isEmpty { messageLabel.text = message }
         
         // Restart
         if !isHidden {
@@ -104,9 +117,7 @@ class AlbumToast: UIView {
         UIView.animate(withDuration: duration, animations: {
             self.frame = CGRect(origin: .zero, size: self.frame.size)
         }) { (finished) in
-            if self.autoCancel {
-                self.createTimer()
-            }
+            if self.autoCancel { self.createTimer() }
         }
     }
     

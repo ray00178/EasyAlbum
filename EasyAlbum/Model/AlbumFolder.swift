@@ -10,17 +10,13 @@ import Photos
 
 struct AlbumFolder {
     
-    var title: String = ""
-    var photos: [AlbumPhoto]!
-    var pickColor: UIColor = EasyAlbumCore.PICK_COLOR
+    private(set) var title: String
+    
+    var assets: PHFetchResult<PHAsset>
     var isCheck: Bool = false
     
-    init() {}
-    
-    init(_ title: String?, photos: [AlbumPhoto], pickColor: UIColor, isCheck: Bool) {
-        self.title = title == nil ? "" : title!
-        self.photos = photos
-        self.pickColor = pickColor
-        self.isCheck = isCheck
+    init(title: String?, assets: PHFetchResult<PHAsset>) {
+        self.title = title ?? ""
+        self.assets = assets
     }
 }

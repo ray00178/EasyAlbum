@@ -26,10 +26,20 @@ public struct AlbumData {
     
     init() {}
     
-    init(_ image: UIImage, mediaType: Int, width: CGFloat, height: CGFloat,
-         creationDate: Date?, modificationDate: Date?,
-         isFavorite: Bool, isHidden: Bool, location: CLLocation?,
-         fileName: String?, fileData: Data?, fileSize: Int, fileUTI: String?) {
+    init(_ image: UIImage,
+         mediaType: Int,
+         width: CGFloat,
+         height: CGFloat,
+         creationDate: Date?,
+         modificationDate: Date?,
+         isFavorite: Bool,
+         isHidden: Bool,
+         location: CLLocation?,
+         fileName: String?,
+         fileData: Data?,
+         fileSize: Int,
+         fileUTI: String?)
+    {
         self.image = image
         self.mediaType = mediaType == 0 ? EasyAlbumCore.MEDIAT_UNKNOW :
                          mediaType == 1 ? EasyAlbumCore.MEDIAT_IMAGE  :

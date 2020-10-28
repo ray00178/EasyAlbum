@@ -10,6 +10,15 @@ import Photos
 
 struct PhotoManager {
     
+    /// 使用者允許讀取相簿 callback
+    typealias DidAuthorized = () -> Swift.Void
+    
+    /// 使用者允許讀取相簿但僅顯示部分照片 callback，firstRequest：是否第一次詢問
+    typealias DidLimited = (_ firstRequest: Bool) -> Swift.Void
+    
+    /// 使用者不允許讀取相簿 callback
+    typealias DidDenied = () -> Swift.Void
+    
     /// PHImageRequestOptions Setting
     ///
     /// - fast: Photos efficiently resizes the image to a size similar to, or slightly larger than, the target size.
@@ -36,25 +45,87 @@ struct PhotoManager {
     static let share = PhotoManager()
     
     /// Photo manager object
-    private(set) var mImageManager: PHCachingImageManager?
+    private(set) var imageManager: PHCachingImageManager?
     private(set) var requestOptions: PHImageRequestOptions!
-    
-    /// Save album list `PHFetchResult<PHAsset>`
-    private(set) var assetsArray: [PHFetchResult<PHAsset>] = []
     
     /// Thumbnail photo size
     private(set) var photoThumbnailSize: CGSize = .zero
+    
+    /// Save animated album of id's
+    private(set) var animatedIDs: Set<String> = Set()
     
     private init() {
         let density = UIScreen.density
         photoThumbnailSize = CGSize(width: 100 * density, height: 100 * density)
         
         // https://developer.apple.com/documentation/photos/phcachingimagemanager
-        mImageManager = PHCachingImageManager()
-        mImageManager?.allowsCachingHighQualityImages = false
+        imageManager = PHCachingImageManager()
+        imageManager?.allowsCachingHighQualityImages = false
 
         requestOptions = PHImageRequestOptions()
         requestOptions.isNetworkAccessAllowed = false
+    }
+    
+    /// 請求相簿權限
+    /// - Parameters:
+    ///   - didAuthorized: 使用者允許讀取相簿 callback
+    ///   - didLimited: 使用者允許讀取相簿但僅顯示部分照片 callback
+    ///   - didDenied: 使用者不允許讀取相簿 callback
+    public func requestPermission(didAuthorized: DidAuthorized?,
+                                  didLimited: DidLimited?,
+                                  didDenied: DidDenied?) {
+        if #available(iOS 14.0, *) {
+            switch PHPhotoLibrary.authorizationStatus() {
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
+                    DispatchQueue.main.async {
+                        switch status {
+                        case .authorized:
+                            didAuthorized?()
+                        case .limited:
+                            didLimited?(true)
+                        case .denied, .restricted:
+                            didDenied?()
+                        case .notDetermined:
+                            // do nothing...
+                            break
+                        @unknown default:
+                            break
+                        }
+                    }
+                }
+            case .authorized:
+                didAuthorized?()
+            case .limited:
+                didLimited?(false)
+            case .denied, .restricted:
+                didDenied?()
+            default:
+                break
+            }
+        } else {
+            switch PHPhotoLibrary.authorizationStatus() {
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization { (status) in
+                    DispatchQueue.main.async {
+                        switch status {
+                        case .authorized:
+                            didAuthorized?()
+                        case .denied, .restricted:
+                            didDenied?()
+                        default:
+                            break
+                        }
+                    }
+                }
+            case .authorized:
+                didAuthorized?()
+            case .denied, .restricted:
+                didDenied?()
+            default:
+                break
+            }
+        }
     }
     
     /// Fetch all photos
@@ -75,10 +146,14 @@ struct PhotoManager {
         fetchOptions.includeAssetSourceTypes = .typeUserLibrary
         
         // Smart album
-        let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: fetchOptions)
+        let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum,
+                                                                  subtype: .albumRegular,
+                                                                  options: fetchOptions)
         
         // DropBox、Instagram ... else
-        let albums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: fetchOptions)
+        let albums = PHAssetCollection.fetchAssetCollections(with: .album,
+                                                             subtype: .albumRegular,
+                                                             options: fetchOptions)
         
         // 取出所有相片
         //let allPhotos = PHAsset.fetchAssets(with: fetchOptions)
@@ -89,71 +164,51 @@ struct PhotoManager {
         options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
-        var collections: [AlbumCollection] = []
-        fetchAlbumsInfo(from: smartAlbums, output: &collections, options: options)
-        fetchAlbumsInfo(from: albums, output: &collections, options: options)
+        var temps: [(collection: PHAssetCollection, assets: PHFetchResult<PHAsset>)] = []
         
-        // Sort album by count
-        var sortedCollections = collections.sorted { (now, next) in return now.count > next.count }
-
-        var animatedIDs: [String] = []
-        if #available(iOS 11.0, *) {
-        } else {
-            // Fetch Animated Collections
-            let animatedCollections = sortedCollections.filter({ isAnimated(with: $0.collection.localizedTitle) })
+        for i in 0 ..< albums.count {
+            let c = smartAlbums[i]
+            let assets = PHAsset.fetchAssets(in: c , options: options)
             
-            // Fetch Animated's photo localIdentifier
-            for ac in animatedCollections {
-                let assets = ac.assets
-                for i in 0 ..< assets.count {
-                    animatedIDs.append(assets[i].localIdentifier)
-                }
-            }
+            // if album count = 0, not show
+            guard assets.count > 0 else { continue }
+            
+            temps.append((c, assets))
         }
         
-        sortedCollections.removeAll{ element in isDeleted(with: element.collection.localizedTitle) }
-
-        for ac in sortedCollections {
-            let c = ac.collection
+        for i in 0 ..< smartAlbums.count {
+            let c = smartAlbums[i]
+            let assets = PHAsset.fetchAssets(in: c , options: options)
             
-            // Fetch album of all photo
-            let assets = ac.assets
+            // if album is delete album, not show
+            guard isDeleted(with: c.localizedTitle) == false else { continue }
             
-            var title: String = "Unknow"
-            if let t = c.localizedTitle { title = t }
+            // if album count = 0, not show
+            guard assets.count > 0 else { continue }
             
-            assetsArray.append(assets)
-            
-            var photos: [AlbumPhoto] = []
-            for j in 0 ..< assets.count {
-                let asset = assets[j]
-                
-                var isGIF: Bool
-                if #available(iOS 11, *) {
-                    isGIF = asset.playbackStyle == .imageAnimated
-                } else {
-                    isGIF = animatedIDs.contains(asset.localIdentifier)
+            // if album is animated, then save asset localIdentifier
+            if isAnimated(with: c.localizedTitle) {
+                for j in 0 ..< assets.count {
+                    animatedIDs.insert(assets[j].localIdentifier)
                 }
-                
-                let albumPhoto = AlbumPhoto(asset: asset, pickNumber: 0, pickColor: pickColor, isCheck: false, isGIF: isGIF)
-                
-                if folders.count > 0 {
-                     if let index = folders[0].photos.firstIndex(of: albumPhoto) {
-                        photos.append(folders[0].photos[index])
-                     }
-                 } else {
-                    photos.append(albumPhoto)
-                 }
             }
-
-            if photos.count > 0 {
-                folders.append(AlbumFolder(title, photos: photos, pickColor: pickColor, isCheck: false))
-            }
+            
+            temps.append((c, assets))
+        }
+        
+        // sort by the count from greatest to least
+        temps.sort { $0.assets.count > $1.assets.count }
+        
+        temps.forEach {
+            folders.append(AlbumFolder(title: $0.collection.localizedTitle,
+                                       assets: $0.assets))
         }
     }
     
     /// Fetch thumbnail photo
-    public func fetchThumbnail(form asset: PHAsset, size: CGSize? = nil, options: Options,
+    public func fetchThumbnail(form asset: PHAsset,
+                               size: CGSize? = nil,
+                               options: Options,
                                completion: @escaping (_ image: UIImage) -> Swift.Void) {
         requestOptions.resizeMode = options.parameters.resize
         requestOptions.deliveryMode = options.parameters.delivery
@@ -163,9 +218,12 @@ struct PhotoManager {
         
         if let t = size { thumbnailSize = t }
         
-        let _ = mImageManager?.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill,
+        let _ = imageManager?.requestImage(for: asset,
+                                            targetSize: thumbnailSize,
+                                            contentMode: .aspectFill,
                                             options: requestOptions,
-                                            resultHandler: {(result, info) -> Void in
+                                            resultHandler:
+        { (result, info) -> Void in
             var thumbnail = UIImage()
             if let image = result { thumbnail = image }
             completion(thumbnail)
@@ -173,29 +231,45 @@ struct PhotoManager {
     }
     
     /// Fetch photo
-    public func fetchImage(form asset: PHAsset, size: CGSize, options: Options,
+    public func fetchImage(form asset: PHAsset,
+                           size: CGSize,
+                           options: Options,
                            completion: @escaping (_ image: UIImage) -> Swift.Void) {
         requestOptions.resizeMode = options.parameters.resize
         requestOptions.deliveryMode = options.parameters.delivery
         requestOptions.isSynchronous = options.parameters.sync
         
-        let _ = PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: requestOptions) { (result, info) in
+        let _ = PHImageManager.default().requestImage(for: asset,
+                                                      targetSize: size,
+                                                      contentMode: .aspectFit,
+                                                      options: requestOptions)
+        { (result, info) in
             var thumbnail = UIImage()
             if let image = result { thumbnail = image }
             completion(thumbnail)
         }
     }
     
-    
     /// Fetch image data
-    public func fetchImageData(from asset: PHAsset, options: Options, completion: @escaping (_ data: Data?, _ utiKey: String?) -> Swift.Void) {
+    public func fetchImageData(from asset: PHAsset,
+                               options: Options,
+                               completion: @escaping (_ data: Data?, _ utiKey: String?) -> Swift.Void) {
         requestOptions.resizeMode = options.parameters.resize
         requestOptions.deliveryMode = options.parameters.delivery
         requestOptions.isSynchronous = options.parameters.sync
         
-        let _ = PHImageManager.default().requestImageData(for: asset, options: requestOptions) {
-            (data, utiKey, orientation, info) in
-            completion(data, utiKey)
+        let imageManager = PHImageManager.default()
+        if #available(iOS 13, *) {
+            let _ = imageManager.requestImageDataAndOrientation(for: asset,
+                                                                options: requestOptions)
+            { (data, utiKey, orientation, info) in
+                completion(data, utiKey)
+            }
+        } else {
+            let _ = imageManager.requestImageData(for: asset, options: requestOptions)
+            { (data, utiKey, orientation, info) in
+                completion(data, utiKey)
+            }
         }
     }
     
@@ -205,7 +279,10 @@ struct PhotoManager {
         requestOptions.deliveryMode = options.parameters.delivery
         requestOptions.isSynchronous = options.parameters.sync
         
-        mImageManager?.startCachingImages(for: assets, targetSize: photoThumbnailSize, contentMode: .aspectFill, options: requestOptions)
+        imageManager?.startCachingImages(for: assets,
+                                          targetSize: photoThumbnailSize,
+                                          contentMode: .aspectFill,
+                                          options: requestOptions)
     }
     
     public func stopCacheImage(cancelPrefetchingForItemsAt assets: [PHAsset], options: Options) {
@@ -213,11 +290,14 @@ struct PhotoManager {
         requestOptions.deliveryMode = options.parameters.delivery
         requestOptions.isSynchronous = options.parameters.sync
         
-        mImageManager?.stopCachingImages(for: assets, targetSize: photoThumbnailSize, contentMode: .aspectFill, options: requestOptions)
+        imageManager?.stopCachingImages(for: assets,
+                                         targetSize: photoThumbnailSize,
+                                         contentMode: .aspectFill,
+                                         options: requestOptions)
     }
     
     public func stopAllCachingImages() {
-        mImageManager?.stopCachingImagesForAllAssets()
+        imageManager?.stopCachingImagesForAllAssets()
     }
     
     public func fetchImageName(from asset: PHAsset) -> String? {
@@ -228,7 +308,8 @@ struct PhotoManager {
         return PHAssetResource.assetResources(for: asset).first?.uniformTypeIdentifier
     }
     
-    public func fetchImageURL(from asset: PHAsset, completion: @escaping (_ url : URL?) -> Swift.Void) {
+    public func fetchImageURL(from asset: PHAsset,
+                              completion: @escaping (_ url : URL?) -> Swift.Void) {
         let options = PHContentEditingInputRequestOptions()
         options.isNetworkAccessAllowed = false
         asset.requestContentEditingInput(with: options) { (input, info) in
@@ -236,50 +317,9 @@ struct PhotoManager {
         }
     }
     
-    /// AlbumPhoto convert AlbumData task
-    public func cenvertTask(from photos: [AlbumPhoto], factor: EasyAlbumSizeFactor,
-                            completion: @escaping (_ datas: [AlbumData]) -> Swift.Void) {
-        var datas: [AlbumData] = []
-        let grp = DispatchGroup()
-        let queue = DispatchQueue(label: EasyAlbumCore.EASYALBUM_BUNDLE_ID)
-        
-        for photo in photos {
-            grp.enter()
-            queue.async {
-                let width = CGFloat(photo.asset.pixelWidth)
-                let height = CGFloat(photo.asset.pixelHeight)
-                let size = self.calcScaleFactor(from: CGSize(width: width, height: height), factor: factor)
-                let mediaType = photo.asset.mediaType.rawValue
-                let createDate = photo.asset.creationDate
-                let modificationDate = photo.asset.modificationDate
-                let isFavorite = photo.asset.isFavorite
-                let isHidden = photo.asset.isHidden
-                let location = photo.asset.location
-                let fileName = self.fetchImageName(from: photo.asset)
-                var fileData: Data? = nil
-                var fileSize = 0
-                var fileUTI = EasyAlbumCore.IMAGE_JPEG
-                
-                self.fetchImageData(from: photo.asset, options: .fast, completion: { (data, uti)  in
-                    if let data = data, let uti = uti {
-                        fileData = data
-                        fileSize = Data(data).count
-                        fileUTI = uti
-                    }
-                })
-                
-                self.fetchImage(form: photo.asset, size: size, options: .exact(isSync: false), completion: { (image) in
-                    datas.append(AlbumData(image, mediaType: mediaType, width: width, height: height, creationDate: createDate, modificationDate: modificationDate, isFavorite: isFavorite, isHidden: isHidden, location: location, fileName: fileName, fileData: fileData, fileSize: fileSize, fileUTI: fileUTI))
-                    grp.leave()
-                })
-            }
-        }
-        
-        grp.notify(queue: .main) { completion(datas) }
-    }
-    
-    /// AlbumPhoto convert AlbumData task
-    public func cenvertTask(from assets: [PHAsset], factor: EasyAlbumSizeFactor,
+    /// PHAsset convert AlbumData task
+    public func cenvertTask(from assets: [PHAsset],
+                            factor: EasyAlbumSizeFactor,
                             completion: @escaping (_ datas: [AlbumData]) -> Swift.Void) {
         var datas: [AlbumData] = []
         let grp = DispatchGroup()
@@ -300,19 +340,41 @@ struct PhotoManager {
                 let fileName = self.fetchImageName(from: asset)
                 var fileData: Data? = nil
                 var fileSize = 0
-                var fileUTI = EasyAlbumCore.UTI_IMAGE_JPEG
+                var fileUTI = ""
                 
-                self.fetchImageData(from: asset, options: .fast, completion: { (data, uti)  in
-                    if let data = data, let uti = uti {
+                self.fetchImageData(from: asset,
+                                    options: .fast,
+                                    completion:
+                { (data, uti)  in
+                    if let data = data {
                         fileData = data
-                        fileSize = Data(data).count
+                        fileSize = data.count
+                    }
+                    
+                    if let uti = uti {
                         fileUTI = uti
                     }
-                })
-                
-                self.fetchImage(form: asset, size: size, options: .exact(isSync: false), completion: { (image) in
-                    datas.append(AlbumData(image, mediaType: mediaType, width: width, height: height, creationDate: createDate, modificationDate: modificationDate, isFavorite: isFavorite, isHidden: isHidden, location: location, fileName: fileName, fileData: fileData, fileSize: fileSize, fileUTI: fileUTI))
-                    grp.leave()
+                    
+                    self.fetchImage(form: asset,
+                                    size: size,
+                                    options: .exact(isSync: false),
+                                    completion:
+                    { (image) in
+                        datas.append(AlbumData(image,
+                                               mediaType: mediaType,
+                                               width: width,
+                                               height: height,
+                                               creationDate: createDate,
+                                               modificationDate: modificationDate,
+                                               isFavorite: isFavorite,
+                                               isHidden: isHidden,
+                                               location: location,
+                                               fileName: fileName,
+                                               fileData: fileData,
+                                               fileSize: fileSize,
+                                               fileUTI: fileUTI))
+                        grp.leave()
+                    })
                 })
             }
         }
@@ -352,17 +414,15 @@ struct PhotoManager {
             return size
         }
     }
-        
-    private func fetchAlbumsInfo(from collections: PHFetchResult<PHAssetCollection>, output: inout [AlbumCollection],
-                                 options: PHFetchOptions) {
-        for i in 0 ..< collections.count {
-            let c = collections[i]
-            let assets = PHAsset.fetchAssets(in: c , options: options)
-            
-            // if album count = 0, not show
-            guard assets.count > 0 else { continue }
-            
-            output.append(AlbumCollection(collection: c, assets: assets, count: assets.count))
+    
+    /// 檢查該相片是否為動圖
+    /// - Parameter asset: see more PHAsset
+    /// - Returns: If true means is animated, otherwise false.
+    public func isAnimatedImage(from asset: PHAsset) -> Bool {
+        if #available(iOS 11.0, *) {
+            return asset.playbackStyle == .imageAnimated
+        } else {
+            return animatedIDs.contains(asset.localIdentifier)
         }
     }
     

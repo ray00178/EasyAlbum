@@ -17,9 +17,9 @@
 ![Screenshots Landscape](https://github.com/ray00178/EasyAlbum/blob/master/Document/EasyAlbum-github-landscape-screenshots.jpg)
 
 ## Requirements and Details
-* iOS 9.0+
-* XCode 10.0+
-* Build with Swift 5.0
+* iOS 10.0+
+* Xcode 11.0+
+* Build with Swift 5.0+
 
 ## Installation
 ### CocoaPods
@@ -31,15 +31,12 @@ To integrate EasyAlbum into your XCode project using CocoaPods, specify it to a 
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
+platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-  # Use swift 4.2
-  pod 'EasyAlbum', '~> 1.2.0'
-
   # Use swift 5.0
-  pod 'EasyAlbum', '~> 2.2.0'
+  pod 'EasyAlbum', '~> 2.3.0'
 end
 ```
 
@@ -58,6 +55,10 @@ For more information about how to use CocoaPods, I suggest this [tutorial](https
 <string>Please allow access to your album then pick up photo.</string>
 <key>NSPhotoLibraryAddUsageDescription</key>
 <string>Please allow access to your album then save photo.</string>
+
+On iOS 14 later
+<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
+<true/>
 ```
 ##### 2. Use EasyAlbum. You can building what you want.
 ```swift
@@ -124,10 +125,15 @@ extension ViewController: EasyAlbumDelegate {
 | location         | CLLocation? | Optional(<+63.53140000,-19.51120000>)  |               |
 | fileName         | String?     | Optional("DSC_5084.jpg")               |               |
 | fileData         | Data?       | Optional(8063276 bytes)                |               |
-| fileSize         | Int         | 8063276 bytes                          |               |
+| fileSize         | Int         | 8063276 bytes                          | Maybe zero    |
 | fileUTI          | String?     | Optional("public.jpeg")                |               |
 
 ## Update Description
+#### Version：2.3.0
+ - Supprot iOS verison from 9.0 to 10.0.
+ - Support iOS 14 `limited` authorization status.
+ - Improve some logic flow and code. 
+
 #### Version：2.2.0
   - Optimization PhotoManager.
   - Fix `retain cycle`.
@@ -148,6 +154,7 @@ extension ViewController: EasyAlbumDelegate {
 ## Todo List
 - [ ] Preview exit `transition animation`
 - [ ] Support `Live Photo`
+- [ ] Support `SPM` install
 
 ## License
 EasyAlbum is available under the MIT license. See the [LICENSE](LICENSE) file for more info.

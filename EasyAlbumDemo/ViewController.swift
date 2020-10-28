@@ -77,9 +77,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let photo = datas[index]
         let cell = tableView.dequeueReusableCell(withIdentifier: CELL, for: indexPath) as! EasyAlbumDemoCell
         let desc = """
-        FileName 👉🏻 \(photo.fileName ?? "")
-        FileUTI  👉🏻 \(photo.fileUTI ?? "")
-        FileSize 👉🏻 \(photo.fileSize / 1024)KB
+        FileName = \(photo.fileName ?? "")
+        FileUTI  = \(photo.fileUTI ?? "")
+        FileSize = \(photo.fileSize / 1024)KB
         """
         cell.data = (photo.image, desc)
         return cell
