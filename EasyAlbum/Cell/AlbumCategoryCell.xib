@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -45,6 +41,7 @@
                     </button>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="EOm-Pr-JjT" firstAttribute="top" secondItem="G5v-B0-rWj" secondAttribute="top" id="7s7-uh-7mC"/>
                 <constraint firstItem="2VL-Id-FOi" firstAttribute="top" secondItem="G5v-B0-rWj" secondAttribute="bottom" constant="5" id="CBB-v2-3rv"/>
@@ -56,11 +53,10 @@
                 <constraint firstItem="EOm-Pr-JjT" firstAttribute="bottom" secondItem="G5v-B0-rWj" secondAttribute="bottom" id="lls-7R-TnP"/>
                 <constraint firstAttribute="trailing" secondItem="2VL-Id-FOi" secondAttribute="trailing" constant="10" id="nZI-lr-qUa"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
-                <outlet property="mCategoryLab" destination="2VL-Id-FOi" id="Bn2-PM-c1s"/>
-                <outlet property="mImgView" destination="G5v-B0-rWj" id="rOq-Oi-Zka"/>
-                <outlet property="mSelectedBtn" destination="EOm-Pr-JjT" id="i2W-zg-Jdc"/>
+                <outlet property="categoryLabel" destination="2VL-Id-FOi" id="Bn2-PM-c1s"/>
+                <outlet property="imageView" destination="G5v-B0-rWj" id="rOq-Oi-Zka"/>
+                <outlet property="selectedButton" destination="EOm-Pr-JjT" id="i2W-zg-Jdc"/>
             </connections>
             <point key="canvasLocation" x="136.80000000000001" y="152.47376311844079"/>
         </collectionViewCell>

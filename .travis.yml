@@ -2,16 +2,17 @@ language:
   - swift
   
 osx_image:
-- xcode11
+- xcode12
 
+# reference: https://docs.travis-ci.com/user/reference/osx/#xcode-12
 env:
   matrix:
     exclude:
-      - osx_image: xcode11
-      - TEST_SDK=iphonesimulator13.0 OS=12.1 NAME='iPhone 11 Pro Max'
-      - TEST_SDK=iphonesimulator13.0 OS=13.0 NAME='iPhone 11 Pro'
-      - TEST_SDK=iphonesimulator13.0 OS=13.0 NAME='iPhone 8 Plus'
-      - TEST_SDK=iphonesimulator13.0 OS=13.0 NAME='iPhone 8'
+      - osx_image: xcode12
+      - TEST_SDK=iphoneos14.0 OS=14.0 NAME='iPhone 11 Pro Max'
+      - TEST_SDK=iphoneos10.3 OS=10.3 NAME='iPhone 8 Plus'
+      - TEST_SDK=iphonesimulator13.5 OS=13.5 NAME='iPhone 11 Pro'
+      - TEST_SDK=iphonesimulator11.4 OS=11.4 NAME='iPhone 8'
       
 branches:
   only:

@@ -42,6 +42,7 @@ class AlbumSelectedButton: UIButton {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
+        
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
         // draw translucent background

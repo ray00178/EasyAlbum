@@ -20,9 +20,9 @@ class AlbumDoneView: UIView {
     /// height，value = 34.0
     static let height: CGFloat = 34.0
     
-    private var mDoneBtn: UIButton?
-    private var mImgView: UIImageView?
-    private var mNumberLab: UILabel?
+    private var doneButton: UIButton?
+    private var imageView: UIImageView?
+    private var numberLabel: UILabel?
     
     private let textColor: UIColor = UIColor(hex: "1a1a1a")
     
@@ -33,12 +33,12 @@ class AlbumDoneView: UIView {
     
     /// Selected photo of first，default = nil
     var image: UIImage? {
-        didSet { mImgView?.image = image }
+        didSet { imageView?.image = image }
     }
     
     /// Selected count，default = 0
     var number: Int = 0 {
-        didSet { mNumberLab?.text = "( \(number) )"}
+        didSet { numberLabel?.text = "( \(number) )"}
     }
     
     weak var delegate: AlbumDoneViewDelegate?
@@ -61,35 +61,55 @@ class AlbumDoneView: UIView {
         backgroundColor = bgColor
         
         let margin: CGFloat = 20.0
-        mImgView = UIImageView(frame: .zero)
-        mImgView?.contentMode = .scaleAspectFit
-        mImgView?.layer.cornerRadius = 5.0
-        mImgView?.layer.masksToBounds = true
-        mImgView?.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(mImgView!)
-        mImgView?.widthAnchor.constraint(equalToConstant: AlbumDoneView.width).isActive = true
-        mImgView?.heightAnchor.constraint(equalToConstant: AlbumDoneView.height).isActive = true
-        mImgView?.topAnchor.constraint(equalTo: topAnchor, constant: 10.0).isActive = true
-        mImgView?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin).isActive = true
+        imageView = UIImageView(frame: .zero)
+        imageView?.contentMode = .scaleAspectFit
+        imageView?.layer.cornerRadius = 5.0
+        imageView?.layer.masksToBounds = true
+        imageView?.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(imageView!)
         
-        mNumberLab = UILabel(frame: .zero)
-        mNumberLab?.textColor = textColor
-        mNumberLab?.font = UIFont.systemFont(ofSize: 15.0, weight: .medium)
-        mNumberLab?.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(mNumberLab!)
-        mNumberLab?.centerYAnchor.constraint(equalTo: mImgView!.centerYAnchor).isActive = true
-        mNumberLab?.leadingAnchor.constraint(equalTo: mImgView!.trailingAnchor, constant: 10.0).isActive = true
+        numberLabel = UILabel(frame: .zero)
+        numberLabel?.textColor = textColor
+        numberLabel?.font = UIFont.systemFont(ofSize: 15.0, weight: .medium)
+        numberLabel?.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(numberLabel!)
         
         let padding: CGFloat = 3.0
-        mDoneBtn = UIButton(type: .system)
-        mDoneBtn?.setImage(UIImage.bundle(image: .done), for: .normal)
-        mDoneBtn?.imageEdgeInsets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        mDoneBtn?.tintColor = textColor
-        mDoneBtn?.addTarget(self, action: #selector(done(_:)), for: .touchUpInside)
-        mDoneBtn?.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(mDoneBtn!)
-        mDoneBtn?.centerYAnchor.constraint(equalTo: mImgView!.centerYAnchor).isActive = true
-        mDoneBtn?.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin).isActive = true
+        doneButton = UIButton(type: .system)
+        doneButton?.setImage(UIImage.bundle(image: .done), for: .normal)
+        doneButton?.imageEdgeInsets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        doneButton?.tintColor = textColor
+        doneButton?.addTarget(self, action: #selector(done(_:)), for: .touchUpInside)
+        doneButton?.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(doneButton!)
+    
+        // AutoLayout
+        imageView?.widthAnchor
+                  .constraint(equalToConstant: AlbumDoneView.width)
+                  .isActive = true
+        imageView?.heightAnchor
+                  .constraint(equalToConstant: AlbumDoneView.height)
+                  .isActive = true
+        imageView?.topAnchor
+                  .constraint(equalTo: topAnchor, constant: 10.0)
+                  .isActive = true
+        imageView?.leadingAnchor
+                  .constraint(equalTo: leadingAnchor, constant: margin)
+                  .isActive = true
+        
+        numberLabel?.centerYAnchor
+                    .constraint(equalTo: imageView!.centerYAnchor)
+                    .isActive = true
+        numberLabel?.leadingAnchor
+                    .constraint(equalTo: imageView!.trailingAnchor, constant: 10.0)
+                    .isActive = true
+        
+        doneButton?.centerYAnchor
+                   .constraint(equalTo: imageView!.centerYAnchor)
+                   .isActive = true
+        doneButton?.trailingAnchor
+                   .constraint(equalTo: trailingAnchor, constant: -margin)
+                   .isActive = true
     }
     
     @objc private func done(_ btn: UIButton) {

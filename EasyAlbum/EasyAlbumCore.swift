@@ -6,7 +6,7 @@
 //  Copyright © 2019 Ray. All rights reserved.
 //
 
-import Foundation
+import Photos
 
 struct EasyAlbumCore {
     
@@ -229,12 +229,7 @@ public protocol EasyAlbumDelegate: class {
     func easyAlbumDidCanceled()
 }
 
-// MARK: - EasyAlbumPreviewPageVCDelegate
-protocol EasyAlbumPreviewPageVCDelegate: class {
-    func easyAlbumPreviewPageVC(didSelectedWith markPhotos: [AlbumPhoto], removeItems: [Int], item: Int, send: Bool)
-}
-
-// MARK: - EAPageContentViewControllerDelegate
+// MARK: - EasyAlbumPageContentVCDelegate
 protocol EasyAlbumPageContentVCDelegate: class {
     func singleTap(_ viewController: EasyAlbumPageContentVC)
     
@@ -242,3 +237,6 @@ protocol EasyAlbumPageContentVCDelegate: class {
     
     func panDidEnded(_ viewController: EasyAlbumPageContentVC, in targetView: UIView)
 }
+
+// MARK: - typealias
+typealias PhotoData = (asset: PHAsset, number: Int)

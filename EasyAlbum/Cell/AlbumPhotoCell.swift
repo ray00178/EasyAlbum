@@ -15,10 +15,10 @@ protocol AlbumPhotoCellDelegate: class {
 
 class AlbumPhotoCell: UICollectionViewCell {
 
-    @IBOutlet weak var mImgView: UIImageView!
-    @IBOutlet weak var mBorderView: AlbumBorderView!
-    @IBOutlet weak var mGIFLab: UILabel!
-    @IBOutlet weak var mNumberBtn: UIButton!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var borderView: AlbumBorderView!
+    @IBOutlet weak var gifLabel: UILabel!
+    @IBOutlet weak var numberButton: UIButton!
         
     var representedAssetIdentifier: String?
         
@@ -27,50 +27,49 @@ class AlbumPhotoCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        mBorderView.isHidden = true
+        borderView.isHidden = true
         
-        mGIFLab.alpha = 0.75
-        mGIFLab.layer.cornerRadius = mGIFLab.frame.height / 2
-        mGIFLab.layer.masksToBounds = true
-        mGIFLab.isHidden = true
+        gifLabel.alpha = 0.75
+        gifLabel.layer.cornerRadius = gifLabel.frame.height / 2
+        gifLabel.layer.masksToBounds = true
+        gifLabel.isHidden = true
         
-        mNumberBtn.layer.cornerRadius = mNumberBtn.frame.height / 2
-        mNumberBtn.layer.borderWidth = 1.5
-        mNumberBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13.0)
-        mNumberBtn.setTitleColor(UIColor.white, for: .normal)
-        mNumberBtn.addTarget(self, action: #selector(didNumberClicked(_:)), for: .touchUpInside)
-        mNumberBtn.isHidden = true
+        numberButton.layer.cornerRadius = numberButton.frame.height / 2
+        numberButton.layer.borderWidth = 1.5
+        numberButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13.0)
+        numberButton.setTitleColor(UIColor.white, for: .normal)
+        numberButton.addTarget(self,
+                               action: #selector(didNumberClicked(_:)),
+                               for: .touchUpInside)
+        numberButton.isHidden = true
     }
     
     override func prepareForReuse() {
+        imageView.image = nil
         super.prepareForReuse()
-        
-        representedAssetIdentifier = nil
-        mImgView.image = nil
-        mGIFLab.isHidden = true
-        mBorderView.isHidden = true
-        mNumberBtn.layer.borderColor = UIColor(white: 1.0, alpha: 0.78).cgColor
-        mNumberBtn.backgroundColor = UIColor(hex: "000000", alpha: 0.1)
-        mNumberBtn.setTitle("", for: .normal)
     }
-
-    func setData(from photo: AlbumPhoto, image: UIImage, item: Int) {
-        let pickNumber = photo.pickNumber
-        mBorderView.isHidden = !(pickNumber > 0)
+    
+    func setData(from asset: PHAsset, image: UIImage, number: Int?, pickColor: UIColor, item: Int) {
+        let hasNumber = number ?? 0 > 0
+        borderView.isHidden = !hasNumber
         
-        if !mBorderView.isHidden {
-            mBorderView.borderColor = photo.pickColor
+        if borderView.isHidden == false {
+            borderView.borderColor = pickColor
         }
         
-        mGIFLab.isHidden = !photo.isGIF
+        gifLabel.isHidden = PhotoManager.share.isAnimatedImage(from: asset) == false
         
-        mNumberBtn.layer.borderColor = mBorderView.isHidden ? UIColor(white: 1.0, alpha: 0.78).cgColor : photo.pickColor.cgColor
-        mNumberBtn.backgroundColor = mBorderView.isHidden ? UIColor(hex: "000000", alpha: 0.1) : photo.pickColor
-        mNumberBtn.setTitle(pickNumber > 0 ? "\(pickNumber)" : "", for: .normal)
-        mNumberBtn.tag = item
-        mNumberBtn.isHidden = false
+        numberButton.layer.borderColor = borderView.isHidden ?
+                                         UIColor(white: 1.0, alpha: 0.78).cgColor :
+                                         pickColor.cgColor
+        numberButton.backgroundColor = borderView.isHidden ?
+                                       UIColor(hex: "000000", alpha: 0.1) :
+                                       pickColor
+        numberButton.setTitle(hasNumber ? "\(number ?? 0)" : "", for: .normal)
+        numberButton.tag = item
+        numberButton.isHidden = false
         
-        mImgView.image = image
+        imageView.image = image
     }
     
     @objc private func didNumberClicked(_ btn: UIButton) {
