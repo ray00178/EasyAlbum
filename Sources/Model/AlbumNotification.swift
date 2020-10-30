@@ -6,6 +6,8 @@
 //  Copyright © 2020 Ray. All rights reserved.
 //
 
+import UIKit
+
 struct AlbumNotification {
     
     /// Need reload items, Use for EasyAlbumPhotoNumberDidChangeNotification
