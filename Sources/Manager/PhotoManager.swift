@@ -6,6 +6,7 @@
 //  Copyright © 2019 Ray. All rights reserved.
 //
 
+import UIKit
 import Photos
 
 struct PhotoManager {

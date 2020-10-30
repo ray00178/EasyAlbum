@@ -9,7 +9,6 @@
   - In preview photo, your can zoom photo.
   - According to your project color, Setting your pick color、navigationBar tint color、navigationBar bar tint color.
   - According to your preferences / needs, Show the number of fields and select the number of restrictions.
-  - Perfect support for iPhone X, Xs, Xr, Xs Max, 11 Pro and 11 Pro Max.
   - Support language 🇹🇼Chinese Traditional、🇨🇳Chinese Simplified, otherwise use 🇺🇸English.
 
 ## Screenshots
@@ -44,6 +43,17 @@ You should open the `{Project}.xcworkspace` instead of the `{Project}.xcodeproj`
 
 For more information about how to use CocoaPods, I suggest this [tutorial](https://www.raywenderlich.com/626-cocoapods-tutorial-for-swift-getting-started).
 
+### Swift Package Manager
+
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but Alamofire does support its use on supported platforms.
+
+Once you have your Swift package set up, adding Alamofire as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/ray00178/EasyAlbum", .upToNextMajor(from: "2.3.0"))
+]
+```
 
 ## Usage
 ##### 1. Open ur Info.plist and add the following permissions. 
@@ -133,6 +143,7 @@ extension ViewController: EasyAlbumDelegate {
  - Supprot iOS verison from 9.0 to 10.0.
  - Support iOS 14 `limited` authorization status.
  - Improve some logic flow and code. 
+ - Support `Swift Package Manager` install 
 
 #### Version：2.2.0
   - Optimization PhotoManager.

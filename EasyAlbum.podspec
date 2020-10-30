@@ -24,9 +24,9 @@ Pod::Spec.new do |spec|
   spec.platform              = :ios, "10.0+"
   spec.ios.deployment_target = "10.0"
 
-  spec.source           = { :git => "https://github.com/ray00178/EasyAlbum.git", :tag => "#{spec.version}" }
-  spec.source_files     = "EasyAlbum/**/*.{h,swift,xib}"
-  spec.resource_bundles = { 'EasyAlbum' => ['EasyAlbum/EasyAlbum.bundle/*.png'] }
+  spec.source           = { :git => "https://github.com/ray00178/EasyAlbum.git", :tag => spec.version }
+  spec.source_files     = "Sources/**/*.{h,swift,xib}"
+  spec.resource_bundles = { 'Sources' => ['Sources/EasyAlbum.bundle/*.png'] }
   spec.frameworks       = 'UIKit', 'Photos', 'PhotosUI', 'ImageIO'
 
 end
