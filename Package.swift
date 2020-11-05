@@ -12,11 +12,17 @@ let package = Package(
     targets: [
         .target(
             name: "EasyAlbum",
-            dependencies: [],
-            path: "Sources"),
+            exclude: [
+                "Info.plist"
+            ],
+            resources: [
+                .process("EasyAlbum.bundle")
+            ]
+        ),
         .testTarget(
             name: "EasyAlbumTests",
-            dependencies: ["EasyAlbum"]),
+            dependencies: ["EasyAlbum"]
+        ),
     ],
     swiftLanguageVersions: [.v5]
 )

@@ -31,6 +31,7 @@ class EasyAlbumVC: UIViewController {
     private var collectionView: UICollectionView!
     private var doneView: AlbumDoneView?
     private var toast: AlbumToast?
+    private var doneViewHeightConst: NSLayoutConstraint?
     
     private var photoManager: PhotoManager = PhotoManager.share
     
@@ -74,6 +75,8 @@ class EasyAlbumVC: UIViewController {
         if #available(iOS 11.0, *) {
             safeAreaBottom = view.safeAreaInsets.bottom
         }
+        
+        doneViewHeightConst?.constant = doneViewHeight + safeAreaBottom
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -131,7 +134,7 @@ class EasyAlbumVC: UIViewController {
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.registerHeader(AlbumCategoryView.self, isNib: false)
-        collectionView.registerCell(AlbumPhotoCell.self)
+        collectionView.registerCell(AlbumPhotoCell.self, isNib: false)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .white
         collectionView.delegate = self
@@ -223,11 +226,11 @@ class EasyAlbumVC: UIViewController {
         doneView?.delegate = self
         doneView?.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(doneView!)
-        
+
         // AutoLayout
-        doneView?.heightAnchor
-                 .constraint(equalToConstant: doneViewHeight + safeAreaBottom)
-                 .isActive = true
+        doneViewHeightConst = doneView?.heightAnchor.constraint(equalToConstant: 0.0)
+        doneViewHeightConst?.isActive = true
+        
         doneView?.topAnchor
                  .constraint(equalTo: view.bottomAnchor)
                  .isActive = true
@@ -364,7 +367,7 @@ class EasyAlbumVC: UIViewController {
         // Setting collectionView content margin
         collectionView.contentInset = UIEdgeInsets(top: 0.0,
                                                    left: 0.0,
-                                                   bottom: isGreaterZero ? doneViewHeight : 0.0,
+                                                   bottom: isGreaterZero ? h : 0.0,
                                                    right: 0.0)
     }
     
@@ -557,10 +560,13 @@ extension EasyAlbumVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         guard let count = currentResultAsset?.count, count < indexPaths.count
         else { return }
         
-        let assets = indexPaths.compactMap({ currentResultAsset?[$0.item] })
+        var assets: [PHAsset?] = []
+        for i in 0 ..< indexPaths.count {
+            assets.append(i < count ? currentResultAsset?[i] : nil)
+        }
         
         DispatchQueue.main.async {
-            self.photoManager.startCacheImage(prefetchItemsAt: assets, options: .fast)
+            self.photoManager.startCacheImage(prefetchItemsAt: assets.compactMap { $0 }, options: .fast)
         }
     }
 }

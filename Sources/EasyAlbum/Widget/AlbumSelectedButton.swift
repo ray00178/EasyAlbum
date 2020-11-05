@@ -15,7 +15,7 @@ class AlbumSelectedButton: UIButton {
         didSet { setNeedsDisplay() }
     }
     
-    @IBInspectable var strokeWidth: CGFloat = 8.0 {
+    @IBInspectable var strokeWidth: CGFloat = 3.0 {
         didSet { setNeedsDisplay() }
     }
     

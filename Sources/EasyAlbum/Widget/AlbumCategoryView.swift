@@ -46,7 +46,7 @@ class AlbumCategoryView: UICollectionReusableView {
         flowLayout.minimumLineSpacing = 0.0
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView?.registerCell(AlbumCategoryCell.self)
+        collectionView?.registerCell(AlbumCategoryCell.self, isNib: false)
         collectionView?.backgroundColor = .white
         collectionView?.showsVerticalScrollIndicator = false
         collectionView?.showsHorizontalScrollIndicator = false

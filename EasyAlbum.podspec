@@ -9,7 +9,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "EasyAlbum"
-  spec.version      = "2.3.0"
+  spec.version      = "2.3.1"
   spec.summary      = "📷 A lightweight, pure-Swift library for pick up photo from ur album."
   spec.description  = <<-DESC
   📷 A lightweight, pure-Swift library can help u easy to pick up photo from album.
@@ -26,7 +26,7 @@ Pod::Spec.new do |spec|
 
   spec.source           = { :git => "https://github.com/ray00178/EasyAlbum.git", :tag => spec.version }
   spec.source_files     = "Sources/**/*.{h,swift,xib}"
-  spec.resource_bundles = { 'Sources' => ['Sources/EasyAlbum.bundle/*.png'] }
+  spec.resource_bundles = { 'EasyAlbum' => ['Sources/EasyAlbum/EasyAlbum.bundle/*.{png,pdf}'] }
   spec.frameworks       = 'UIKit', 'Photos', 'PhotosUI', 'ImageIO'
 
 end

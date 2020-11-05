@@ -10,7 +10,7 @@ import UIKit
 
 extension UICollectionView {
     
-    func registerCell<T: UICollectionViewCell>(_ t: T.Type, isNib: Bool = true) {
+    func registerCell<T: UICollectionViewCell>(_ t: T.Type, isNib: Bool) {
         let identifier = String(describing: t)
         if isNib {
             self.register(UINib(nibName: identifier, bundle: Bundle(for: t)),
@@ -20,7 +20,7 @@ extension UICollectionView {
         }
     }
     
-    func registerHeader<T: UICollectionReusableView>(_ t: T.Type, isNib: Bool = true) {
+    func registerHeader<T: UICollectionReusableView>(_ t: T.Type, isNib: Bool) {
         let identifier = String(describing: t)
         if isNib {
             self.register(UINib(nibName: identifier, bundle: Bundle(for: t)),
@@ -33,7 +33,7 @@ extension UICollectionView {
         }
     }
     
-    func registerFooter<T: UICollectionReusableView>(_ t: T.Type, isNib: Bool = true) {
+    func registerFooter<T: UICollectionReusableView>(_ t: T.Type, isNib: Bool) {
         let identifier = String(describing: t)
         if isNib {
             self.register(UINib(nibName: identifier, bundle: Bundle(for: t)),

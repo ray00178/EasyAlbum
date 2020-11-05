@@ -42,20 +42,31 @@ extension UIImage {
         case close = "album_close"
         
         case camera = "album_camera"
-        
-        case back = "album_back"
-        
+                
         case done = "album_done"
     }
     
     public class func bundle(image name: Name) -> UIImage? {
+        // Use from SPM
+        #if SWIFT_PACKAGE
+        if let image = UIImage(named: name.rawValue, in: .module, compatibleWith: nil) {
+            return image
+        }
+        #endif
+                
+        // Use from Cocoapods
         let frameworkBundle = Bundle(for: EasyAlbumVC.self)
         let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("EasyAlbum.bundle")
+
         guard let url = bundleURL else { return nil }
+
         let resourceBundle = Bundle(url: url)
-        guard let image = UIImage(named: name.rawValue, in: resourceBundle, compatibleWith: nil) else { return nil }
+
+        guard let image = UIImage(named: name.rawValue, in: resourceBundle, compatibleWith: nil)
+        else { return nil }
+
         return image
-     }
+    }
     
     public class func gif(data: Data) -> UIImage? {
         // Create source from data

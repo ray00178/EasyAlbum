@@ -74,7 +74,7 @@ class EasyAlbumPreviewPageVC: UIPageViewController {
         view.backgroundColor = .black
         
         backButton = UIButton(type: .system)
-        backButton.setImage(UIImage.bundle(image: .back), for: .normal)
+        backButton.setImage(UIImage.bundle(image: .close), for: .normal)
         backButton.tintColor = .white
         backButton.addTarget(self,
                              action: #selector(back(_:)),
@@ -122,7 +122,7 @@ class EasyAlbumPreviewPageVC: UIPageViewController {
         view.addSubview(smallNumberLabel)
         
         // AutoLayout Start
-        var btnWH: CGFloat = 26.0
+        var btnWH: CGFloat = 23.0
         backButton.widthAnchor
                   .constraint(equalToConstant: btnWH)
                   .isActive = true
@@ -132,17 +132,17 @@ class EasyAlbumPreviewPageVC: UIPageViewController {
         
         if #available(iOS 11.0, *) {
             backButton.topAnchor
-                      .constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8.0)
+                      .constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10.0)
                       .isActive = true
             backButton.leadingAnchor
-                      .constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 22.0)
+                      .constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0)
                       .isActive = true
         } else {
             backButton.topAnchor
-                      .constraint(equalTo: view.topAnchor, constant: 28.0)
+                      .constraint(equalTo: view.topAnchor, constant: 30.0)
                       .isActive = true
             backButton.leadingAnchor
-                      .constraint(equalTo: view.leadingAnchor, constant: 22.0)
+                      .constraint(equalTo: view.leadingAnchor, constant: 16.0)
                       .isActive = true
         }
         
