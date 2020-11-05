@@ -20,36 +20,35 @@
 		71F95FFA225E3E8E009483A0 /* EasyAlbumDemoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F95FF8225E3E8E009483A0 /* EasyAlbumDemoCell.xib */; };
 		EB3FAE9025357A0F00013A65 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EB3FAE8F25357A0F00013A65 /* README.md */; };
 		EB3FAE9425357A1B00013A65 /* EasyAlbum.podspec in Resources */ = {isa = PBXBuildFile; fileRef = EB3FAE9325357A1B00013A65 /* EasyAlbum.podspec */; };
-		EB4ED8D7254BE62A00C102C7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8B5254BE5F900C102C7 /* String+Extension.swift */; };
-		EB4ED8D8254BE62A00C102C7 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8B3254BE5F900C102C7 /* UIColor+Extension.swift */; };
-		EB4ED8D9254BE62A00C102C7 /* UIScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8B6254BE5F900C102C7 /* UIScreen+Extension.swift */; };
-		EB4ED8DA254BE62A00C102C7 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8B7254BE5F900C102C7 /* UICollectionView+Extension.swift */; };
-		EB4ED8DB254BE62A00C102C7 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8B9254BE5F900C102C7 /* NotificationName+Extension.swift */; };
-		EB4ED8DC254BE62A00C102C7 /* CGSize+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8B8254BE5F900C102C7 /* CGSize+Extension.swift */; };
-		EB4ED8DD254BE62A00C102C7 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8BA254BE5F900C102C7 /* UITableView+Extension.swift */; };
-		EB4ED8DE254BE62A00C102C7 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8B4254BE5F900C102C7 /* UIImage+Extension.swift */; };
-		EB4ED8E3254BE62F00C102C7 /* AlbumDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8BE254BE5F900C102C7 /* AlbumDoneView.swift */; };
-		EB4ED8E4254BE62F00C102C7 /* AlbumSelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8BD254BE5F900C102C7 /* AlbumSelectedButton.swift */; };
-		EB4ED8E5254BE62F00C102C7 /* AlbumBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8BF254BE5F900C102C7 /* AlbumBorderView.swift */; };
-		EB4ED8E6254BE62F00C102C7 /* AlbumCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8C0254BE5F900C102C7 /* AlbumCategoryView.swift */; };
-		EB4ED8E7254BE62F00C102C7 /* AlbumToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8BC254BE5F900C102C7 /* AlbumToast.swift */; };
-		EB4ED8EA254BE63100C102C7 /* EasyAlbumCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8C1254BE5F900C102C7 /* EasyAlbumCore.swift */; };
-		EB4ED8ED254BE63400C102C7 /* EasyAlbum.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB4ED8C2254BE5F900C102C7 /* EasyAlbum.bundle */; };
-		EB4ED8F0254BE63A00C102C7 /* AlbumCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8C7254BE5F900C102C7 /* AlbumCategoryCell.swift */; };
-		EB4ED8F1254BE63A00C102C7 /* AlbumCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB4ED8C6254BE5F900C102C7 /* AlbumCategoryCell.xib */; };
-		EB4ED8F2254BE63A00C102C7 /* AlbumPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB4ED8C4254BE5F900C102C7 /* AlbumPhotoCell.xib */; };
-		EB4ED8F3254BE63A00C102C7 /* AlbumPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8C5254BE5F900C102C7 /* AlbumPhotoCell.swift */; };
-		EB4ED8F6254BE63F00C102C7 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8C9254BE5F900C102C7 /* PhotoManager.swift */; };
-		EB4ED8F7254BE64200C102C7 /* EasyAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8CA254BE5F900C102C7 /* EasyAlbum.swift */; };
-		EB4ED8FA254BE64D00C102C7 /* EasyAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = EB4ED8CB254BE5F900C102C7 /* EasyAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EB4ED8FD254BE65400C102C7 /* AlbumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8CD254BE5F900C102C7 /* AlbumData.swift */; };
-		EB4ED8FE254BE65400C102C7 /* AlbumNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8CE254BE5F900C102C7 /* AlbumNotification.swift */; };
-		EB4ED8FF254BE65400C102C7 /* AlbumFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8CF254BE5F900C102C7 /* AlbumFolder.swift */; };
-		EB4ED902254BE65800C102C7 /* EasyAlbumNAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8D4254BE5F900C102C7 /* EasyAlbumNAC.swift */; };
-		EB4ED903254BE65800C102C7 /* EasyAlbumCameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8D3254BE5F900C102C7 /* EasyAlbumCameraVC.swift */; };
-		EB4ED904254BE65800C102C7 /* EasyAlbumPageContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8D1254BE5F900C102C7 /* EasyAlbumPageContentVC.swift */; };
-		EB4ED905254BE65800C102C7 /* EasyAlbumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8D2254BE5F900C102C7 /* EasyAlbumVC.swift */; };
-		EB4ED906254BE65800C102C7 /* EasyAlbumPreviewPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ED8D5254BE5F900C102C7 /* EasyAlbumPreviewPageVC.swift */; };
+		EB53E859255285FA00228002 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E834255285FA00228002 /* UIColor+Extension.swift */; };
+		EB53E85A255285FA00228002 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E835255285FA00228002 /* UIImage+Extension.swift */; };
+		EB53E85B255285FA00228002 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E836255285FA00228002 /* String+Extension.swift */; };
+		EB53E85C255285FA00228002 /* UIScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E837255285FA00228002 /* UIScreen+Extension.swift */; };
+		EB53E85D255285FA00228002 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E838255285FA00228002 /* UICollectionView+Extension.swift */; };
+		EB53E85E255285FA00228002 /* CGSize+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E839255285FA00228002 /* CGSize+Extension.swift */; };
+		EB53E85F255285FA00228002 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E83A255285FA00228002 /* NotificationName+Extension.swift */; };
+		EB53E860255285FA00228002 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E83B255285FA00228002 /* UITableView+Extension.swift */; };
+		EB53E861255285FA00228002 /* AlbumToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E83D255285FA00228002 /* AlbumToast.swift */; };
+		EB53E862255285FA00228002 /* AlbumSelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E83E255285FA00228002 /* AlbumSelectedButton.swift */; };
+		EB53E863255285FA00228002 /* AlbumDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E83F255285FA00228002 /* AlbumDoneView.swift */; };
+		EB53E864255285FA00228002 /* AlbumBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E840255285FA00228002 /* AlbumBorderView.swift */; };
+		EB53E865255285FA00228002 /* AlbumCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E841255285FA00228002 /* AlbumCategoryView.swift */; };
+		EB53E866255285FA00228002 /* EasyAlbumCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E842255285FA00228002 /* EasyAlbumCore.swift */; };
+		EB53E867255285FA00228002 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB53E843255285FA00228002 /* Assets.xcassets */; };
+		EB53E868255285FA00228002 /* EasyAlbum.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB53E844255285FA00228002 /* EasyAlbum.bundle */; };
+		EB53E86A255285FA00228002 /* AlbumPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E847255285FA00228002 /* AlbumPhotoCell.swift */; };
+		EB53E86C255285FA00228002 /* AlbumCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E849255285FA00228002 /* AlbumCategoryCell.swift */; };
+		EB53E86D255285FA00228002 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E84B255285FA00228002 /* PhotoManager.swift */; };
+		EB53E86E255285FA00228002 /* EasyAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E84C255285FA00228002 /* EasyAlbum.swift */; };
+		EB53E870255285FA00228002 /* AlbumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E84F255285FA00228002 /* AlbumData.swift */; };
+		EB53E871255285FA00228002 /* AlbumNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E850255285FA00228002 /* AlbumNotification.swift */; };
+		EB53E872255285FA00228002 /* AlbumFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E851255285FA00228002 /* AlbumFolder.swift */; };
+		EB53E873255285FA00228002 /* EasyAlbumPageContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E853255285FA00228002 /* EasyAlbumPageContentVC.swift */; };
+		EB53E874255285FA00228002 /* EasyAlbumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E854255285FA00228002 /* EasyAlbumVC.swift */; };
+		EB53E875255285FA00228002 /* EasyAlbumCameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E855255285FA00228002 /* EasyAlbumCameraVC.swift */; };
+		EB53E876255285FA00228002 /* EasyAlbumNAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E856255285FA00228002 /* EasyAlbumNAC.swift */; };
+		EB53E877255285FA00228002 /* EasyAlbumPreviewPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB53E857255285FA00228002 /* EasyAlbumPreviewPageVC.swift */; };
+		EB53E88A2552872E00228002 /* EasyAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = EB53E84D255285FA00228002 /* EasyAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EB70E57425232F4F002EFCAD /* EasyAlbum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; };
 		EB70E57525232F4F002EFCAD /* EasyAlbum.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 717FFFA1222B7F9700F2943A /* EasyAlbum.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -114,37 +113,36 @@
 		EB4ED8AC254BE5F900C102C7 /* LinuxMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		EB4ED8AE254BE5F900C102C7 /* EasyAlbumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumTests.swift; sourceTree = "<group>"; };
 		EB4ED8AF254BE5F900C102C7 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
-		EB4ED8B3254BE5F900C102C7 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		EB4ED8B4254BE5F900C102C7 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		EB4ED8B5254BE5F900C102C7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		EB4ED8B6254BE5F900C102C7 /* UIScreen+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extension.swift"; sourceTree = "<group>"; };
-		EB4ED8B7254BE5F900C102C7 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
-		EB4ED8B8254BE5F900C102C7 /* CGSize+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extension.swift"; sourceTree = "<group>"; };
-		EB4ED8B9254BE5F900C102C7 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
-		EB4ED8BA254BE5F900C102C7 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
-		EB4ED8BC254BE5F900C102C7 /* AlbumToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumToast.swift; sourceTree = "<group>"; };
-		EB4ED8BD254BE5F900C102C7 /* AlbumSelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSelectedButton.swift; sourceTree = "<group>"; };
-		EB4ED8BE254BE5F900C102C7 /* AlbumDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDoneView.swift; sourceTree = "<group>"; };
-		EB4ED8BF254BE5F900C102C7 /* AlbumBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumBorderView.swift; sourceTree = "<group>"; };
-		EB4ED8C0254BE5F900C102C7 /* AlbumCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCategoryView.swift; sourceTree = "<group>"; };
-		EB4ED8C1254BE5F900C102C7 /* EasyAlbumCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumCore.swift; sourceTree = "<group>"; };
-		EB4ED8C2254BE5F900C102C7 /* EasyAlbum.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EasyAlbum.bundle; sourceTree = "<group>"; };
-		EB4ED8C4254BE5F900C102C7 /* AlbumPhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumPhotoCell.xib; sourceTree = "<group>"; };
-		EB4ED8C5254BE5F900C102C7 /* AlbumPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPhotoCell.swift; sourceTree = "<group>"; };
-		EB4ED8C6254BE5F900C102C7 /* AlbumCategoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumCategoryCell.xib; sourceTree = "<group>"; };
-		EB4ED8C7254BE5F900C102C7 /* AlbumCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCategoryCell.swift; sourceTree = "<group>"; };
-		EB4ED8C9254BE5F900C102C7 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
-		EB4ED8CA254BE5F900C102C7 /* EasyAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbum.swift; sourceTree = "<group>"; };
-		EB4ED8CB254BE5F900C102C7 /* EasyAlbum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyAlbum.h; sourceTree = "<group>"; };
-		EB4ED8CD254BE5F900C102C7 /* AlbumData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumData.swift; sourceTree = "<group>"; };
-		EB4ED8CE254BE5F900C102C7 /* AlbumNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumNotification.swift; sourceTree = "<group>"; };
-		EB4ED8CF254BE5F900C102C7 /* AlbumFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumFolder.swift; sourceTree = "<group>"; };
-		EB4ED8D1254BE5F900C102C7 /* EasyAlbumPageContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumPageContentVC.swift; sourceTree = "<group>"; };
-		EB4ED8D2254BE5F900C102C7 /* EasyAlbumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumVC.swift; sourceTree = "<group>"; };
-		EB4ED8D3254BE5F900C102C7 /* EasyAlbumCameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumCameraVC.swift; sourceTree = "<group>"; };
-		EB4ED8D4254BE5F900C102C7 /* EasyAlbumNAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumNAC.swift; sourceTree = "<group>"; };
-		EB4ED8D5254BE5F900C102C7 /* EasyAlbumPreviewPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAlbumPreviewPageVC.swift; sourceTree = "<group>"; };
-		EB4ED8D6254BE5F900C102C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB53E834255285FA00228002 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		EB53E835255285FA00228002 /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		EB53E836255285FA00228002 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		EB53E837255285FA00228002 /* UIScreen+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extension.swift"; sourceTree = "<group>"; };
+		EB53E838255285FA00228002 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		EB53E839255285FA00228002 /* CGSize+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extension.swift"; sourceTree = "<group>"; };
+		EB53E83A255285FA00228002 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
+		EB53E83B255285FA00228002 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		EB53E83D255285FA00228002 /* AlbumToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumToast.swift; sourceTree = "<group>"; };
+		EB53E83E255285FA00228002 /* AlbumSelectedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectedButton.swift; sourceTree = "<group>"; };
+		EB53E83F255285FA00228002 /* AlbumDoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumDoneView.swift; sourceTree = "<group>"; };
+		EB53E840255285FA00228002 /* AlbumBorderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumBorderView.swift; sourceTree = "<group>"; };
+		EB53E841255285FA00228002 /* AlbumCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCategoryView.swift; sourceTree = "<group>"; };
+		EB53E842255285FA00228002 /* EasyAlbumCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyAlbumCore.swift; sourceTree = "<group>"; };
+		EB53E843255285FA00228002 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EB53E844255285FA00228002 /* EasyAlbum.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EasyAlbum.bundle; sourceTree = "<group>"; };
+		EB53E847255285FA00228002 /* AlbumPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumPhotoCell.swift; sourceTree = "<group>"; };
+		EB53E849255285FA00228002 /* AlbumCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCategoryCell.swift; sourceTree = "<group>"; };
+		EB53E84B255285FA00228002 /* PhotoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
+		EB53E84C255285FA00228002 /* EasyAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyAlbum.swift; sourceTree = "<group>"; };
+		EB53E84D255285FA00228002 /* EasyAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyAlbum.h; sourceTree = "<group>"; };
+		EB53E84F255285FA00228002 /* AlbumData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumData.swift; sourceTree = "<group>"; };
+		EB53E850255285FA00228002 /* AlbumNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumNotification.swift; sourceTree = "<group>"; };
+		EB53E851255285FA00228002 /* AlbumFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumFolder.swift; sourceTree = "<group>"; };
+		EB53E853255285FA00228002 /* EasyAlbumPageContentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyAlbumPageContentVC.swift; sourceTree = "<group>"; };
+		EB53E854255285FA00228002 /* EasyAlbumVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyAlbumVC.swift; sourceTree = "<group>"; };
+		EB53E855255285FA00228002 /* EasyAlbumCameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyAlbumCameraVC.swift; sourceTree = "<group>"; };
+		EB53E856255285FA00228002 /* EasyAlbumNAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyAlbumNAC.swift; sourceTree = "<group>"; };
+		EB53E857255285FA00228002 /* EasyAlbumPreviewPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyAlbumPreviewPageVC.swift; sourceTree = "<group>"; };
+		EB53E858255285FA00228002 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,8 +241,8 @@
 		EB4ED8AB254BE5F900C102C7 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				EB4ED8AC254BE5F900C102C7 /* LinuxMain.swift */,
 				EB4ED8AD254BE5F900C102C7 /* EasyAlbumTests */,
+				EB4ED8AC254BE5F900C102C7 /* LinuxMain.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -261,85 +259,92 @@
 		EB4ED8B0254BE5F900C102C7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				EB4ED8B2254BE5F900C102C7 /* Extension */,
-				EB4ED8C8254BE5F900C102C7 /* Manager */,
-				EB4ED8BB254BE5F900C102C7 /* Widget */,
-				EB4ED8CC254BE5F900C102C7 /* Model */,
-				EB4ED8C3254BE5F900C102C7 /* Cell */,
-				EB4ED8D0254BE5F900C102C7 /* ViewController */,
-				EB4ED8CA254BE5F900C102C7 /* EasyAlbum.swift */,
-				EB4ED8C1254BE5F900C102C7 /* EasyAlbumCore.swift */,
-				EB4ED8D6254BE5F900C102C7 /* Info.plist */,
-				EB4ED8CB254BE5F900C102C7 /* EasyAlbum.h */,
-				EB4ED8C2254BE5F900C102C7 /* EasyAlbum.bundle */,
+				EB53E832255285FA00228002 /* EasyAlbum */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		EB4ED8B2254BE5F900C102C7 /* Extension */ = {
+		EB53E832255285FA00228002 /* EasyAlbum */ = {
 			isa = PBXGroup;
 			children = (
-				EB4ED8B3254BE5F900C102C7 /* UIColor+Extension.swift */,
-				EB4ED8B4254BE5F900C102C7 /* UIImage+Extension.swift */,
-				EB4ED8B5254BE5F900C102C7 /* String+Extension.swift */,
-				EB4ED8B6254BE5F900C102C7 /* UIScreen+Extension.swift */,
-				EB4ED8B7254BE5F900C102C7 /* UICollectionView+Extension.swift */,
-				EB4ED8B8254BE5F900C102C7 /* CGSize+Extension.swift */,
-				EB4ED8B9254BE5F900C102C7 /* NotificationName+Extension.swift */,
-				EB4ED8BA254BE5F900C102C7 /* UITableView+Extension.swift */,
+				EB53E833255285FA00228002 /* Extension */,
+				EB53E83C255285FA00228002 /* Widget */,
+				EB53E845255285FA00228002 /* Cell */,
+				EB53E84A255285FA00228002 /* Manager */,
+				EB53E84E255285FA00228002 /* Model */,
+				EB53E852255285FA00228002 /* ViewController */,
+				EB53E84C255285FA00228002 /* EasyAlbum.swift */,
+				EB53E842255285FA00228002 /* EasyAlbumCore.swift */,
+				EB53E84D255285FA00228002 /* EasyAlbum.h */,
+				EB53E858255285FA00228002 /* Info.plist */,
+				EB53E843255285FA00228002 /* Assets.xcassets */,
+				EB53E844255285FA00228002 /* EasyAlbum.bundle */,
+			);
+			path = EasyAlbum;
+			sourceTree = "<group>";
+		};
+		EB53E833255285FA00228002 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				EB53E834255285FA00228002 /* UIColor+Extension.swift */,
+				EB53E835255285FA00228002 /* UIImage+Extension.swift */,
+				EB53E836255285FA00228002 /* String+Extension.swift */,
+				EB53E837255285FA00228002 /* UIScreen+Extension.swift */,
+				EB53E838255285FA00228002 /* UICollectionView+Extension.swift */,
+				EB53E839255285FA00228002 /* CGSize+Extension.swift */,
+				EB53E83A255285FA00228002 /* NotificationName+Extension.swift */,
+				EB53E83B255285FA00228002 /* UITableView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		EB4ED8BB254BE5F900C102C7 /* Widget */ = {
+		EB53E83C255285FA00228002 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
-				EB4ED8BC254BE5F900C102C7 /* AlbumToast.swift */,
-				EB4ED8BD254BE5F900C102C7 /* AlbumSelectedButton.swift */,
-				EB4ED8BE254BE5F900C102C7 /* AlbumDoneView.swift */,
-				EB4ED8BF254BE5F900C102C7 /* AlbumBorderView.swift */,
-				EB4ED8C0254BE5F900C102C7 /* AlbumCategoryView.swift */,
+				EB53E83D255285FA00228002 /* AlbumToast.swift */,
+				EB53E83E255285FA00228002 /* AlbumSelectedButton.swift */,
+				EB53E83F255285FA00228002 /* AlbumDoneView.swift */,
+				EB53E840255285FA00228002 /* AlbumBorderView.swift */,
+				EB53E841255285FA00228002 /* AlbumCategoryView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
 		};
-		EB4ED8C3254BE5F900C102C7 /* Cell */ = {
+		EB53E845255285FA00228002 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				EB4ED8C4254BE5F900C102C7 /* AlbumPhotoCell.xib */,
-				EB4ED8C5254BE5F900C102C7 /* AlbumPhotoCell.swift */,
-				EB4ED8C6254BE5F900C102C7 /* AlbumCategoryCell.xib */,
-				EB4ED8C7254BE5F900C102C7 /* AlbumCategoryCell.swift */,
+				EB53E847255285FA00228002 /* AlbumPhotoCell.swift */,
+				EB53E849255285FA00228002 /* AlbumCategoryCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		EB4ED8C8254BE5F900C102C7 /* Manager */ = {
+		EB53E84A255285FA00228002 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				EB4ED8C9254BE5F900C102C7 /* PhotoManager.swift */,
+				EB53E84B255285FA00228002 /* PhotoManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		EB4ED8CC254BE5F900C102C7 /* Model */ = {
+		EB53E84E255285FA00228002 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EB4ED8CD254BE5F900C102C7 /* AlbumData.swift */,
-				EB4ED8CE254BE5F900C102C7 /* AlbumNotification.swift */,
-				EB4ED8CF254BE5F900C102C7 /* AlbumFolder.swift */,
+				EB53E84F255285FA00228002 /* AlbumData.swift */,
+				EB53E850255285FA00228002 /* AlbumNotification.swift */,
+				EB53E851255285FA00228002 /* AlbumFolder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		EB4ED8D0254BE5F900C102C7 /* ViewController */ = {
+		EB53E852255285FA00228002 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				EB4ED8D1254BE5F900C102C7 /* EasyAlbumPageContentVC.swift */,
-				EB4ED8D2254BE5F900C102C7 /* EasyAlbumVC.swift */,
-				EB4ED8D3254BE5F900C102C7 /* EasyAlbumCameraVC.swift */,
-				EB4ED8D4254BE5F900C102C7 /* EasyAlbumNAC.swift */,
-				EB4ED8D5254BE5F900C102C7 /* EasyAlbumPreviewPageVC.swift */,
+				EB53E853255285FA00228002 /* EasyAlbumPageContentVC.swift */,
+				EB53E854255285FA00228002 /* EasyAlbumVC.swift */,
+				EB53E855255285FA00228002 /* EasyAlbumCameraVC.swift */,
+				EB53E856255285FA00228002 /* EasyAlbumNAC.swift */,
+				EB53E857255285FA00228002 /* EasyAlbumPreviewPageVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -351,7 +356,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB4ED8FA254BE64D00C102C7 /* EasyAlbum.h in Headers */,
+				EB53E88A2552872E00228002 /* EasyAlbum.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,10 +471,9 @@
 				EB3FAE9425357A1B00013A65 /* EasyAlbum.podspec in Resources */,
 				71123DF1234B848D0023741C /* EasyAlbum-github-description.jpg in Resources */,
 				71123DF0234B848D0023741C /* EasyAlbum-github-landscape-screenshots.jpg in Resources */,
-				EB4ED8ED254BE63400C102C7 /* EasyAlbum.bundle in Resources */,
-				EB4ED8F1254BE63A00C102C7 /* AlbumCategoryCell.xib in Resources */,
+				EB53E868255285FA00228002 /* EasyAlbum.bundle in Resources */,
 				EB3FAE9025357A0F00013A65 /* README.md in Resources */,
-				EB4ED8F2254BE63A00C102C7 /* AlbumPhotoCell.xib in Resources */,
+				EB53E867255285FA00228002 /* Assets.xcassets in Resources */,
 				71123DEF234B848D0023741C /* EasyAlbum-github-portrait-screenshots.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,32 +503,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB4ED8FF254BE65400C102C7 /* AlbumFolder.swift in Sources */,
-				EB4ED8DB254BE62A00C102C7 /* NotificationName+Extension.swift in Sources */,
-				EB4ED8DA254BE62A00C102C7 /* UICollectionView+Extension.swift in Sources */,
-				EB4ED903254BE65800C102C7 /* EasyAlbumCameraVC.swift in Sources */,
-				EB4ED8F6254BE63F00C102C7 /* PhotoManager.swift in Sources */,
-				EB4ED8E4254BE62F00C102C7 /* AlbumSelectedButton.swift in Sources */,
-				EB4ED8DD254BE62A00C102C7 /* UITableView+Extension.swift in Sources */,
-				EB4ED8E6254BE62F00C102C7 /* AlbumCategoryView.swift in Sources */,
-				EB4ED8DE254BE62A00C102C7 /* UIImage+Extension.swift in Sources */,
-				EB4ED8E3254BE62F00C102C7 /* AlbumDoneView.swift in Sources */,
-				EB4ED8DC254BE62A00C102C7 /* CGSize+Extension.swift in Sources */,
-				EB4ED904254BE65800C102C7 /* EasyAlbumPageContentVC.swift in Sources */,
-				EB4ED8E7254BE62F00C102C7 /* AlbumToast.swift in Sources */,
-				EB4ED8FE254BE65400C102C7 /* AlbumNotification.swift in Sources */,
-				EB4ED902254BE65800C102C7 /* EasyAlbumNAC.swift in Sources */,
-				EB4ED8F0254BE63A00C102C7 /* AlbumCategoryCell.swift in Sources */,
-				EB4ED906254BE65800C102C7 /* EasyAlbumPreviewPageVC.swift in Sources */,
-				EB4ED8F3254BE63A00C102C7 /* AlbumPhotoCell.swift in Sources */,
-				EB4ED8D7254BE62A00C102C7 /* String+Extension.swift in Sources */,
-				EB4ED8F7254BE64200C102C7 /* EasyAlbum.swift in Sources */,
-				EB4ED8FD254BE65400C102C7 /* AlbumData.swift in Sources */,
-				EB4ED8EA254BE63100C102C7 /* EasyAlbumCore.swift in Sources */,
-				EB4ED905254BE65800C102C7 /* EasyAlbumVC.swift in Sources */,
-				EB4ED8E5254BE62F00C102C7 /* AlbumBorderView.swift in Sources */,
-				EB4ED8D8254BE62A00C102C7 /* UIColor+Extension.swift in Sources */,
-				EB4ED8D9254BE62A00C102C7 /* UIScreen+Extension.swift in Sources */,
+				EB53E863255285FA00228002 /* AlbumDoneView.swift in Sources */,
+				EB53E859255285FA00228002 /* UIColor+Extension.swift in Sources */,
+				EB53E85D255285FA00228002 /* UICollectionView+Extension.swift in Sources */,
+				EB53E876255285FA00228002 /* EasyAlbumNAC.swift in Sources */,
+				EB53E864255285FA00228002 /* AlbumBorderView.swift in Sources */,
+				EB53E873255285FA00228002 /* EasyAlbumPageContentVC.swift in Sources */,
+				EB53E870255285FA00228002 /* AlbumData.swift in Sources */,
+				EB53E861255285FA00228002 /* AlbumToast.swift in Sources */,
+				EB53E86E255285FA00228002 /* EasyAlbum.swift in Sources */,
+				EB53E85C255285FA00228002 /* UIScreen+Extension.swift in Sources */,
+				EB53E866255285FA00228002 /* EasyAlbumCore.swift in Sources */,
+				EB53E874255285FA00228002 /* EasyAlbumVC.swift in Sources */,
+				EB53E865255285FA00228002 /* AlbumCategoryView.swift in Sources */,
+				EB53E862255285FA00228002 /* AlbumSelectedButton.swift in Sources */,
+				EB53E875255285FA00228002 /* EasyAlbumCameraVC.swift in Sources */,
+				EB53E85F255285FA00228002 /* NotificationName+Extension.swift in Sources */,
+				EB53E85A255285FA00228002 /* UIImage+Extension.swift in Sources */,
+				EB53E86D255285FA00228002 /* PhotoManager.swift in Sources */,
+				EB53E871255285FA00228002 /* AlbumNotification.swift in Sources */,
+				EB53E860255285FA00228002 /* UITableView+Extension.swift in Sources */,
+				EB53E872255285FA00228002 /* AlbumFolder.swift in Sources */,
+				EB53E877255285FA00228002 /* EasyAlbumPreviewPageVC.swift in Sources */,
+				EB53E85B255285FA00228002 /* String+Extension.swift in Sources */,
+				EB53E86A255285FA00228002 /* AlbumPhotoCell.swift in Sources */,
+				EB53E86C255285FA00228002 /* AlbumCategoryCell.swift in Sources */,
+				EB53E85E255285FA00228002 /* CGSize+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,7 +726,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_FILE = Sources/EasyAlbum/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -751,7 +755,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_FILE = Sources/EasyAlbum/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

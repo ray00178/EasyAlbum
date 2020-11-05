@@ -35,7 +35,7 @@ use_frameworks!
 
 target '<Your Target Name>' do
   # Use swift 5.0
-  pod 'EasyAlbum', '~> 2.3.0'
+  pod 'EasyAlbum', '~> 2.3.1'
 end
 ```
 
@@ -139,7 +139,7 @@ extension ViewController: EasyAlbumDelegate {
 | fileUTI          | String?     | Optional("public.jpeg")                |               |
 
 ## Update Description
-#### Version：2.3.0
+#### Version：2.3.1
  - Supprot iOS verison from 9.0 to 10.0.
  - Support iOS 14 `limited` authorization status.
  - Improve some logic flow and code. 

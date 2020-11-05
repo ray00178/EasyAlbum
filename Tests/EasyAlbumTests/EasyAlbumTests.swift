@@ -2,14 +2,14 @@ import XCTest
 @testable import EasyAlbum
 
 final class EasyAlbumTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(EasyAlbum().text, "Hello, World!")
-    }
-
+    
     static var allTests = [
-        ("testExample", testExample),
+        ("test_image_use_bundle", test_image_use_bundle),
     ]
+    
+    func test_image_use_bundle() {
+        XCTAssertNotNil(UIImage.bundle(image: .close))
+        XCTAssertNotNil(UIImage.bundle(image: .camera))
+        XCTAssertNotNil(UIImage.bundle(image: .done))
+    }
 }
