@@ -51,7 +51,7 @@ Once you have your Swift package set up, adding Alamofire as a dependency is as 
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ray00178/EasyAlbum", .upToNextMajor(from: "2.3.0"))
+    .package(url: "https://github.com/ray00178/EasyAlbum", .upToNextMajor(from: "2.3.1"))
 ]
 ```
 
